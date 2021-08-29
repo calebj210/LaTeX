@@ -1,0 +1,114 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithm, algpseudocode}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+\DeclareMathOperator{\sign}{sign}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5600: Numerical Analysis I}
+\rhead{Flipped Day: Bisection}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+Suppose we have a function $f(x)$ that is smooth for all $x \in \reals$.
+\begin{itemize}
+    \item One way that we can determine if a root is in an interval is to apply the the IVT. To do so, evaluate $f(x)$ at the end points of the interval and if the sign of $f$ differs at each end point, then by the IVT, there must be a root inside of the interval. 
+    
+    Now, there is a drawback to this approach. The most apparent draw back is that a function could have endpoints that are the same sign and still dip down to the x-axis to form a root in the interval.
+    
+    \item In algebraic terms, suppose we want to check if there is a root to $f$ in the interval $[a, b]$. If
+    \[
+        \sign(f(a)) \neq \sign(f(b))
+    \]
+    then there is a root to $f$ in the interval $[a, b]$. We can actually simplify the above algebraic check to 
+    \[
+        f(a) \cdot f(b) < 0.
+    \]
+\end{itemize}
+
+\begin{algorithm}
+    \caption{Bisection Algorithm}
+    \begin{algorithmic}[1]
+    \Procedure{bisect}{$a, b, \varepsilon, maxIts$}
+        \State $i \gets 1$
+        \While{$i \leq maxIts$}
+            \State $c \gets (b + a) / 2$ \Comment{Midpoint of interval}
+            \If{$f(c) = 0$ or $(b - a) / 2 < \varepsilon$}
+                \State \textbf{return} $c$ \Comment{Root found so return it}
+            \EndIf
+            
+            \State $i \gets i + 1$
+            \If{$\sign(f(c)) = \sign(f(a))$}
+                \State $a \gets c$ \Comment{Take right interval}
+            \Else
+                \State $b \gets c$ \Comment{Take left interval}
+            \EndIf
+        \EndWhile
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{itemize}
+    \item If the bisection algorithm finds a root, we can compute the maximum number of steps by first realizing that the absolute error in our root guess gets halved at each iteration:
+    \[
+        \abs{x_0 - x} \leq \frac{1}{2^n}(b - a)
+    \]
+    where $x_0$ is the true root, $x$ is our current root guess, and $n$ is the number of iterations used thus far. Then, the maximum number of iterations $n$ to resolve the root to an accuracy of $\varepsilon$ satisfies
+    \[
+        \frac{1}{2^n}(b - a) \leq \varepsilon
+    \]
+    which implies
+    \[
+        n \geq \log_2\left(\frac{b - a}{\varepsilon}\right).
+    \]
+    Thus, the maximum number of iterations for convergence to the root within a tolerance of $\varepsilon$ is
+    \[
+        n = \left\lceil \log_2\left(\frac{b - a}{\varepsilon}\right) \right\rceil.
+    \]
+    
+    \item After running the code on a few test problems, the behavior that I am seeing is expected and the found roots are withing my desired tolerance of $10^{-5}$. The only root that was not found was the very last root which makes sense because the interval did not contain a root of $\sin(x)$. Even more interesting is the fact that each terminated in the maximum possible steps using the calculation above!
+\end{itemize}
+\end{document}

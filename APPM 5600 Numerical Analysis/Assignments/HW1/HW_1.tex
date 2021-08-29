@@ -1,0 +1,168 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5600: Numerical Analysis I}
+\rhead{Homework \#1}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = \arabic*.)]
+    \item How would you perform the following calculations to avoid cancellation?
+        \begin{enumerate}[label = \roman*.]
+            \item Evaluate $\sqrt{x + 1} - 1$ for $x \simeq 0$.
+            
+            First, let's rewrite our expression as
+            \[
+                (\sqrt{x + 1} - 1) \cdot \frac{\sqrt{x + 1} + 1}{\sqrt{x + 1} + 1} = \frac{x}{\sqrt{x + 1} + 1}.
+            \]
+            Using this new expression to compute $\sqrt{x + 1} - 1$ is favorable because it avoids cancellation error for $x \simeq 0$ by removing the similar term subtraction in the numerator and replaces it with safe addition in the denominator.
+            
+            \item Evaluate $\sin(x) - \sin(y)$ for $x \simeq y$.
+            
+            Using a trig identity, we can rewrite our expression as
+            \[
+                \sin(x) - \sin(y) = 2 \sin\left(\frac{x - y}{2}\right) \cos\left( \frac{x + y}{2} \right).
+            \]
+            
+            \item Evaluate $\frac{1 - \cos(x)}{\sin(x)}$ for $x \simeq 0$.
+            
+            We can rewrite the expression above using a conjugate and a trig identity as follow:
+            \begin{align*}
+                \frac{1 - \cos(x)}{\sin(x)} \cdot \frac{1 + \cos(x)}{1 + \cos(x)} &= \frac{1 - \cos^2(x)}{\sin(x) (1 + \cos(x))} \\
+                &= \frac{\sin^2(x)}{\sin(x) (1 + \cos(x))} \\
+                &= \frac{\sin(x)}{1 + \cos(x)}.
+            \end{align*}
+            The rewritten expression no longer contains the cancellation in the numerator introduced by the $1 - \cos(x)$ for $x \simeq 0$ and instead has a simple and accurate $\sin(x)$ in the numerator. In the denominator, our new expression has an accurate addition that will not shoot to 0 when $x \simeq 0$.
+            
+        \end{enumerate}
+    
+    \newpage
+    \item Consider the polynomial
+        \[
+            p(x) = (x - 2)^9  = x^9 - 18x^8 + 144x^7 - 672x^6 + 2016x^5 - 4032x^4 + 5376x^3 - 4608x^2 + 2304x - 512.
+        \]
+        \begin{enumerate}[label = \roman*.]
+            \item Plot $p(x)$ for $x = 1.920, 1.921, 1.922, \ldots, 2.080$ (i.e. $x = [1.920 : 0.001 : 2.080]$) evaluating $p$ via its coefficients.
+            
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width = 0.5\textwidth]{Assignments/HW1/2.i.png}
+                \label{fig:2.i}
+            \end{figure}
+            
+            \item Produce the same plot again, now evaluating $p$ via the expression $(x - 2)^9$.
+            
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width = 0.5\textwidth]{Assignments/HW1/2.ii.png}
+                \label{fig:2.ii}
+            \end{figure}
+            
+            \item What is the difference? What is causing the discrepancy? Which plot is correct?
+            
+            The plot in part i is considerably more noisy than the plot in part ii. The difference in the results are due to the extra cancellation error. The plot in part ii is the more correct plot because it doesn't suffer from the increased error imposed by the expanded polynomial. 
+        \end{enumerate}
+        
+        \newpage
+        \item \textbf{Cancellation of terms.} Consider computing $y = x_1 - x_2$ with $\Tilde{x}_1 = x_1 + \Delta x_1$ and $\Tilde{x}_2 = x_2 + \Delta x_2$ being approximations to the exact values. If the operation $x_1 - x_2$ is carried out exactly we have $\Tilde{y} = y + \underbrace{(\Delta x_1 - \Delta x_2)}_{\Delta y}$.
+        
+            \begin{enumerate}[label = \roman*.]
+                \item Find upper bounds on the absolute error $\abs{\Delta y}$ and the relative error $\abs{\Delta y} / \abs{y}$, when is the relative error large?
+                
+                \textbf{Absolute error upper bound:}
+                \begin{align*}
+                    \abs{\Delta y} &= \abs{\Delta x_1 - \Delta x_2} \\
+                    &< \abs{\Delta x_1} + \abs{\Delta x_2}.
+                \end{align*}
+                
+                \textbf{Relative error upper bound:} Using our absolute error upper bound, we have
+                \begin{align*}
+                    \frac{\abs{\Delta y}}{y} &< \frac{\abs{\Delta x_1} + \abs{\Delta x_2}}{\abs{y}} \\
+                    &= \frac{\abs{\Delta x_1} + \abs{\Delta x_2}}{\abs{x_1 - x_2}}
+                \end{align*}
+                
+                \item First manipulate $\cos(x + \delta) - \cos(x)$ into an expression without subtraction. Then, plot the difference between your expression and $\cos(x + \delta) - \cos(x)$ for $\delta = 10^{-16}, 10^{-15}, \ldots, 10^{0}$.
+                
+                We can remove subtraction from the expression above by rewriting it as
+                \begin{align*}
+                    \cos(x + \delta) - \cos(x) &= -2\sin\left(\frac{x + \delta + x}{2}\right)\sin\left(\frac{x + \delta - x}{2}\right) \\
+                    &= -2\sin\left(\frac{2x + \delta}{2}\right) \sin\left(\frac{\delta}{2}\right)
+                \end{align*}
+                
+                With our rewritten expression, we can generate the difference plots below:
+                
+                \item Taylor expansion yields $f(x + \delta) - f(x) = \delta f'(x) + \frac{\delta^2}{2!}f''(\xi), \xi \in [x, x+\delta].$ Use this expression to approximate $\cos(x + \delta) - \cos(x)$  for the same values of $\delta$ as in (ii). For what values of $\delta$ is each method better?
+            \end{enumerate}
+            
+            \item Show that $(1 + x)^n = 1 + nx + O(x)$ as $x \to 0$ where $n \in \ints$.
+            
+            \item Show that $x \sin (\sqrt{x}) = O(x^{3/2})$ as $x \to 0^+$.
+            
+            Using the Maclaurin series of $\sin(x)$, we have
+            \[
+                x \sin(x) = x \left(x + \frac{x^3}{3!} + \cdots\right).
+            \]
+            If we restrict our domain to $[0, \infty)$, then we can use the expansion above to rewrite $x \sin (\sqrt{x})$ as
+            \begin{align*}
+                x \sin(\sqrt{x}) &= x \left(\sqrt{x} - \frac{(\sqrt{x})^3}{3!} + \cdots \right) \\
+                &= x \left(x^{1/2} - \frac{(x^{1/2})^3}{3!} + \cdots \right) \\
+                &= x^{3/2} - \frac{x^{5/2}}{3!} + \cdots \\
+                &= O(x^{3/2}) 
+            \end{align*}
+            as $x \to 0^+$.
+            
+            \item The function $f(x) = (x - 5)^9$ has a root at $x = 5$ and is monotonically increasing (decreasing) for $x > 5$ $(x < 5)$ and should thus be a suitable candidate for your function above. Set $a = 4.8$ and $b = 5.3$ and $tol = 1e-4$ and use bisection with:
+                \begin{enumerate}[label = \roman*.]
+                    \item $f(x) = (x - 5)^9$.
+                    
+                    \item The expanded version of $(x - 5)^9$.
+                    
+                    \item Explain what is happening.
+                \end{enumerate}
+\end{enumerate}
+\end{document}

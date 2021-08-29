@@ -1,0 +1,106 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5600: Numerical Analysis I}
+\rhead{Welcome Assignment}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = \arabic*]
+    \item The mean value theorem (MVT) can be stated as:
+    
+    Let $f : [a,b] \mapsto \reals$ be a continuous function on $[a,b]$, and differentiable on $(a,b)$ where $a < b$. Then there exists a $c \in (a,b)$ such that
+    \[
+        f'(c) = \frac{f(b) - f(a)}{b - a}.
+    \]
+    
+    \item The intermediate value theorem (IVT) can be stated as:
+    
+    Let $f:[a,b] \mapsto \reals$ be a continuous function on $[a,b]$. If $y$ is number such that 
+    \[
+        \min(f(a), f(b)) < y < \max(f(a), f(b)),
+    \]
+    then there exists a point $c \in (a,b)$ such that $f(c) = y$.
+    
+    \item Rolle's theorem can be stated as:
+    
+    Let $f : [a,b] \mapsto \reals$ be a continuous function on $[a,b]$, and differentiable on $(a,b)$ where $a < b$. Then, if $f(a) = f(b)$, there exists at least one point $c \in (a,b)$ such that 
+    \[
+        f'(c) = 0.
+    \]
+    
+    \item Show that $(x - 2)^2 - \ln(x) = 0$ has atleast one solution in the interval $[e,4]$.
+    
+    We know $f(x) = (x - 2)^2 - \ln(x)$ is continuous on $[e, 4]$ because it is a sum of continuous functions on $[e, 4]$. Furthermore, 
+    \begin{align*}
+        f(e) &= e^2 - 4e + 3 < 0 \\
+        f(4) &= 4 - 2 \ln(2) > 0.
+    \end{align*}
+    Thus, $f(e) < 0 < f(4)$. So, by the IVT, there exists a point $c \in (e,4)$ such that $f(c) = 0$. So, $(x - 2)^2 - \ln(x) = 0$ has at least one solution in $(e,4)$.
+    
+    \item Find $\max_{x \in [0,1]} \abs{\frac{2 - e^x + 2x}{3}}$.
+    
+    We know 
+    \[
+        \frac{2 - e^x + 2x}{3} > 0
+    \]
+    for all $x \in [0,1]$. So
+    \[
+        \abs{\frac{2 - e^x + 2x}{3}} = \frac{2 - e^x + 2x}{3}
+    \]
+    in $[0,1]$. Now the derivative of our function yields
+    \[
+        \frac{2 - e^x}{3}
+    \]
+    which has a root at $x = \ln(2)$. Our function is concave down and so our function has a maximum at $x = \ln(2)$ which is in $[0,1]$.
+    
+    \item Show that the graph of $f(x) = x^3 + 2x + k$ crosses the $x$-axis exactly once independent of the value of the constant $k$.
+    
+    This and the rest of the problems were done on paper and were not worth \LaTeX ing up for this 0pt assignment. It was a nice review though!
+\end{enumerate}
+\end{document}
