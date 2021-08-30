@@ -53,10 +53,127 @@
 \begin{document}
 \section*{Chapter 1}
 \subsection*{Problem 3}
+    Find an equation relating the parameters $c, m, n$ so that the function $u(x, t) = \sin(m t)\sin(n x)$ satisfies the wave equation $u_{tt} = c^2 u_{xx}$ for $ c > 0 $.
+    
+    First off, our derivatives are as follows,
+    \begin{align*}
+        u_{tt} &= -m^2 \sin(m t) \sin(n x) \\
+        u_{xx} &= -n^2 \sin(m t) \sin(n x).
+    \end{align*}
+    Then, plugging our derivatives into the wave equation yields
+    \[
+        -m^2 \sin(m t) \sin(n x) = -c^2 n^2 \sin(m t) \sin(n x)
+    \]
+    which implies
+    \[
+        m^2 = c^2 n^2
+    \]
+    for $ c > 0 $.
 
 \subsection*{Problem 8}
+    Consider the linear transport equation (1.8) with initial and boundary conditions (1.10).
+    \[
+        \begin{cases}
+            u_t + c u_x = 0 \\
+            u(x, 0) = \phi(x), & x \geq 0 \\
+            u(0, t) = \psi(t), & t \geq 0.
+        \end{cases}
+    \] 
+    
+    \begin{enumerate}[label = \textbf{(\alph*)}]
+        \item Suppose the data $ \phi, \psi $ are differentiable functions. Show that the function $ u : Q_{q} \to \reals $ given by 
+        \begin{equation}
+            u(x, t) = \begin{cases}
+                \phi(x - ct), & \text{if } x \geq ct, \\
+                \psi(t - x/c), & \text{if } x \leq ct
+            \end{cases}
+            \label{soln:cases}
+        \end{equation}
+        satisfies the PDE away from the line $ x = ct $ with $c > 0$, the boundary condition, and initial conditions. 
+        
+        When we are away from the line, boundary condition, and initial condition, we have
+        \begin{align*}
+            u_t &= \begin{cases}
+                -c \phi'(x - ct), & x > ct > 0 \\
+                \psi'(t - x/c), & 0 < x < ct
+            \end{cases} \\
+            u_x &= \begin{cases}
+                \phi'(x - ct), & x > ct > 0 \\
+                -\frac{1}{c} \psi'(t - x/c), & 0 < x < ct
+            \end{cases}.
+        \end{align*}
+        Using these the derivatives above
+        \begin{align*}
+            u_t + c u_x &= \begin{cases}
+                -c \phi'(x - ct) + c \phi'(x - ct), & x > ct > 0 \\
+                \psi'(t - x/c) - c \frac{1}{c} \psi'(t - x/c), & 0 < x < ct
+            \end{cases} \\
+            &= \begin{cases}
+                0, & x > ct > 0 \\
+                0, & 0 < x < ct
+            \end{cases} \\
+            &= 0
+        \end{align*}
+        for $ x,t $ not on the line, boundaries, or initial conditions. So, (\ref{soln:cases})  defined above satisfies our PDE in the desired region.
+        
+        \item In solution (\ref{soln:cases}), the line $ x = ct $, which emerges from the origin $ x = t = 0 $, separates the quadrant $ Q_1 $ into two regions.
+        \begin{enumerate}[label = \textbf{(\roman*)}]
+            \item Find conditions on the data $ \phi, \psi $ so that the solution is continuous across the line $ x = ct $.
+            
+            When $ x = ct $, we have $ \phi(x - ct) = \phi(ct - ct) = \phi(0) $ and $ \psi(t - x/c) = \psi(x/c - x/c) = \psi(0)$. Thus, for continuity when $ x = ct $, we need
+            \[
+                \phi(0) = \psi(0).
+            \]
+            
+            \item Find conditions on the data $ \phi, \psi $ so that the solution is differentiable across the line $ x = ct $.
+            
+            For differentiablity of $ u $ across the line $ x = ct $, we need differentiablity in both partial derivatives, $ u_t $ and $ u_x $ across the line. First, let's compute the derivatives on the line:
+            \begin{align*}
+                \left.\partial_x \phi(x - ct)\right\lvert_{x = ct} &= \phi'(0) \\
+                \left.\partial_x \psi(t - x/c)\right\lvert_{x = ct} &= -\frac{1}{c}\psi'(0) \\
+                \left.\partial_t \phi(x - ct)\right\lvert_{x = ct} &= -c\phi'(0) \\
+                \left.\partial_t \psi(x - ct)\right\lvert_{x = ct} &= \psi'(0).
+            \end{align*}
+            Equating our derivatives yields
+            \begin{align*}
+                \phi'(0) &= -\frac{1}{c}\psi'(0) \\
+                -c\phi'(0) &= \psi'(0)
+            \end{align*}
+            which reduces to
+            \[
+                \phi'(0) = -\frac{1}{c}\psi'(0).
+            \]
+            So, for $ u $ to be differentiable across the line $ x = ct $, we need $ \phi'(0) = -\frac{1}{c}\psi'(0) $.
+        \end{enumerate}
+    \end{enumerate}
 
 \subsection*{Problem 9}
+    Let $ f : \reals \to \reals $ be differentiable. Verify that if $ u(x, t) $ is differentiable and satisfies (1.12), that is, $ u = f(x - ut) $, then $ u(x, t) $ is a solution of the initial value problem
+    \[
+    	u_t + u u_x = 0, \; -\infty < x < \infty, \; t > 0, \;u(x, 0) = f(x), \; -\infty < x < \infty.
+    \]
+    
+    Suppose $ u(x,t) $ is differentiable and $ u = f(x - ut) $. Then, the initial condition easily verified as
+    \[
+    	u(x,0) = f(x - u(x,0) \cdot 0) = f(x).
+    \]
+    Next, we can start verifying the PDE by computing the partial derivatives as follows
+    \begin{align*}
+        u_t &= f'(x - u t) (-u_t t - u) \\
+        u_x &= f'(x - ut) (1 - u_x t).
+    \end{align*}
+    Now, putting these derivative into our PDE yields
+    \begin{align*}
+        u_t + u u_x &= f'(x - u t) (-u_t t - u) + u f'(x - ut) (1 - u_x t) \\
+        &= f'(x - ut) (-u_t t - u + u - u u_x t) \\
+        &= f'(x - ut) (-u_t t - u u_x t) \\
+        &= -t f'(x - ut) (u_t + u u_x).
+    \end{align*}
+Clearly, at $ t = 0 $ our PDE equals zero and so $ u $ satisfies the PDE at $ t = 0 $, But, when $ t > 0 $, we have
+\[
+    u_t + u u_x = -t f'(x - ut) (u_t + u u_x)
+\]
+which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The first equality implies that $ f'(x - ut) = -1/t $ which doesn't hold because $ f'(x - ut) $ is differentiable everywhere but $ - 1/t $ is not differentiable at $ t = 0 $. So, we must have the second equality, $ u_t + u u_x = 0 $ which shows that $ u $ solve the IVP!
 
 \section*{Chapter 2}
 \subsection*{Problem 5}
