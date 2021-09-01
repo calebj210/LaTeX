@@ -1,0 +1,57 @@
+\documentclass[12pt]{exam}
+\usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath, amscd, amssymb, amsthm, xspace, graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry} % We can control the margins here
+\usepackage[all]{xy}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{mathtools}  
+\DeclarePairedDelimiter\Floor\lfloor\rfloor
+\DeclarePairedDelimiter\Ceil\lceil\rceil
+
+\newcommand{\class}{APPM 1350}
+\newcommand{\term}{Fall 2021}
+\newcommand{\examnum}{Quiz 1}
+\newcommand{\examdate}{08/31/2021}
+\newcommand{\timelimit}{10 Minutes}
+
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\examnum\ - Page \thepage\ of \numpages}{\examdate}
+\runningheadrule
+
+
+\begin{document}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+	\textbf{\class} & \textbf{Name:} & \makebox[2in]{\hrulefill}\\
+	\textbf{\term} &&\\
+	\textbf{\examnum} &&\\
+	\textbf{\examdate} &&\\
+	\textbf{Time Limit: \timelimit} & Recitation Section: & \makebox[2in]{\hrulefill}
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+
+\begin{questions}
+
+\question Consider the function $$f(x) = \frac{(1-\cos^2(x))\csc(x)}{7x}$$
+\begin{enumerate}[label = \alph*.]
+    \item (2 points) Simplify $f(x)$ as much as possible. 
+    \vspace{30mm}
+    \item (2 points) Compute $f(\pi)$, $f(\frac{\pi}{2})$. 
+    \vspace{30mm}
+    \item (2 points) Is $f(x)$ even, odd, or neither?
+\end{enumerate}
+\vspace{30mm}
+\question[4] Find the domain of the function $\displaystyle g(x) = \frac{1}{\sqrt{x^2(x + 3)}}$, and express your answer in interval notation.\\
+	\vspace{10em}
+
+\end{questions}
+
+\end{document}

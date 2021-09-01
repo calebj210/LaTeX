@@ -129,10 +129,10 @@
             
             For differentiablity of $ u $ across the line $ x = ct $, we need differentiablity in both partial derivatives, $ u_t $ and $ u_x $ across the line. First, let's compute the derivatives on the line:
             \begin{align*}
-                \left.\partial_x \phi(x - ct)\right\lvert_{x = ct} &= \phi'(0) \\
+                \left.\partial_x \phi(x - ct)\right\lvert_{x = ct}  &= \phi'(0) \\
                 \left.\partial_x \psi(t - x/c)\right\lvert_{x = ct} &= -\frac{1}{c}\psi'(0) \\
-                \left.\partial_t \phi(x - ct)\right\lvert_{x = ct} &= -c\phi'(0) \\
-                \left.\partial_t \psi(x - ct)\right\lvert_{x = ct} &= \psi'(0).
+                \left.\partial_t  \phi(x - ct)\right\lvert_{x = ct}  &= -c\phi'(0) \\
+                \left.\partial_t  \psi(x - ct)\right\lvert_{x = ct}  &= \psi'(0).
             \end{align*}
             Equating our derivatives yields
             \begin{align*}
@@ -159,7 +159,7 @@
     \]
     Next, we can start verifying the PDE by computing the partial derivatives as follows
     \begin{align*}
-        u_t &= f'(x - u t) (-u_t t - u) \\
+        u_t  &= f'(x - u t) (-u_t t - u) \\
         u_x &= f'(x - ut) (1 - u_x t).
     \end{align*}
     Now, putting these derivative into our PDE yields
@@ -177,8 +177,60 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
 
 \section*{Chapter 2}
 \subsection*{Problem 5}
+	Find the dispersion relation $ \sigma = \sigma(\xi) $ for the following dispersive equations:
+	\begin{enumerate}[label = \textbf{(\alph*)}]
+		\item The beam equation $ u_{tt} = -u_{xxxx} $.
+		
+		Assume $ u(x,t) = e^{i\xi x + \sigma(\xi)t} $. Then,
+		\begin{align*}
+			u_{tt}       &= \sigma^2(\xi)u(x,t) \\
+			u_{xxxx} &= \xi^4 u(x,t)
+		\end{align*}
+		which implies
+		\begin{align*}
+			& \sigma^2(\xi)u(x,t) = -\xi^4 u(x,t) \\
+			\implies & \sigma^2(\xi) = -\xi^4 \\
+			\implies & \sigma(\xi) = \pm i \xi^2.
+		\end{align*}
+		From the dispersion relation $ \sigma(\xi) = \pm i \xi^2 $, we can see that $ u(x,t) $) is not dissipative because $ \sigma(\xi) $ is purely imaginary and thus each Fourier term in the solution will not decay with a change in time. However, $ u(x,t) $ is dispersive because 
+		\[
+			u(x,t) = e^{i \xi x \pm i \xi^2 t} = e^{i \xi (x \pm \xi t)}
+		\]
+		which shows that the wave speed $ \pm \xi $ is dependent on the wave number $ \xi $. In the case of the wave equation, the wave speed is invariant with respect to the wave number and so the wave equation is not dispersive.
+		
+		\item The linear Benjamin-Bona-Mahoney (BBM) equation $ u_t + c u_x + \beta u_{xxt} = 0 $.
+		
+		Similar to before, assume $ u(x,t) = e^{i\xi x + \sigma(\xi)t} $. Then
+		\begin{align*}
+			u_t        &= \sigma(\xi) u(x,t) \\
+			u_x       &= i \xi u(x,t) \\
+			u_{xxt} &= -\xi^2 \sigma(\xi) u(x,t)
+		\end{align*}
+		which implies
+		\begin{align*}
+			& \sigma(\xi)u(x,t) + i \xi c u(x,t) - \xi^2\beta \sigma(\xi) u(x,t) = 0 \\
+			\implies & \sigma(\xi) + i \xi c - \xi^2\beta \sigma(\xi) = 0 \\
+			\implies & \sigma(\xi)(1 - \xi^2 \beta) = -i c \xi \\
+			\implies & \sigma(\xi) = \frac{i c \xi}{\xi^2 \beta - 1}.
+		\end{align*}
+		Just like part \textbf{(a)} our dispersion relation $ \sigma(\xi) = \frac{i c \xi}{\xi^2 \beta - 1} $ is purely imaginary and so our solution is a traveling wave without dissipation. Furthermore,
+		\[
+			u(x,t) = e^{i \xi x + \frac{i c \xi}{\xi^2 \beta - 1} t} = e^{i \xi \left (x -\left (- \frac{c}{\xi^2 \beta - 1}\right ) t\right )}
+		\]
+		shows that the wave speed is given by $ -\frac{c}{\xi^2 \beta - 1} $ which changes depending on the wave number. Thus, because the speed is dependent on the wave number, our solution is dispersive in time. A large difference the wave speed of the KdV $ c - \beta \xi^2 $ and the wave speed of the BBM is that the wave speed of the KdV is unbounded with respect to the wave number while the speed of the BBM is bounded.
+	\end{enumerate}
 
 \subsection*{Problem 6}
+	Suppose in the traffic flow model discussed in Section 2.4 that the speed $ v $ of cars is taken to be a positive monotonic differentiable function of density: $ v = v(u) $
+	\begin{enumerate}[label = \textbf{(\alph*)}]
+		\item Should $ v $ be increasing or decreasing?
+		
+		\item How would you characterize the maximum velocity $ v_\text{max} $ and the maximum density $ u_\text{max} $?
+		
+		\item Let $ Q(u) = u v(u) $. Prove that $ Q $ has a maximum at some density $ u^* \in (0,u_\text{max})$.
+		
+		\item Can there be two local maxima of the flux?
+	\end{enumerate}
 
 \section*{Additional Problems}
 \subsection*{Problem A1}
