@@ -225,9 +225,23 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
 	\begin{enumerate}[label = \textbf{(\alph*)}]
 		\item Should $ v $ be increasing or decreasing?
 		
+		In a traffic flow model, we should have $ v $ decreasing as density $ u $ increases. As cars get backed up ($ u $ increases), the speed at which cars can navigate through traffic would go down ($ v $ decreases).
+		
 		\item How would you characterize the maximum velocity $ v_\text{max} $ and the maximum density $ u_\text{max} $?
 		
+		Maximum speed should occur when the density of the cars is minimized (i.e. $ v_{\text{max}} = v(0) $). On the other hand, we should have maximum density of cars when the speed is minimized (i.e. $ v(u_\text{max}) = 0 $).
+		
 		\item Let $ Q(u) = u v(u) $. Prove that $ Q $ has a maximum at some density $ u^* \in (0,u_\text{max})$.
+		
+		First, we know $ v $ is continuous on $ [0, u_\text{max}] $ and so $ Q(u) = u v(u) $ is continuous on $ [0, u_\text{max}] $. So, by the Extreme Value Theorem, there exists a point $ u^* \in [0,u_\text{max}] $ such that $ Q(u^*) $ is a maximum on $ [0, u_\text{max}] $. Then, note that 
+		\[
+			Q(0) = 0 v(0) = 0
+		\]
+		and
+		\[
+			Q(u_\text{max})  = u_\text{max} v(u_\text{max}) = u_\text{max} 0 = 0.
+		\]
+		 But, $ v(u) > 0$ for $ u \in (0, u_\text{max}) $ and so is $ u $, therefore $ Q(u) > 0 $ for $ u \in (0, u_\text{max}) $. Thus, because $ Q(u) > 0 $ for $u \in (0, u_\text{max})$, $ Q(0) = 0 $, and $ Q(u_\text{max}) = 0 $, we can restrict the domain of $ u^* $ to $ u^* \in (0, u_\text{max}) $. Therefore, $ Q $ contains a maximum at $u^* \in (0, u_\text{max})$.
 		
 		\item Can there be two local maxima of the flux?
 	\end{enumerate}
