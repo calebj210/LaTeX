@@ -91,30 +91,50 @@
         \end{equation}
         satisfies the PDE away from the line $ x = ct $ with $c > 0$, the boundary condition, and initial conditions. 
         
-        When we are away from the line, boundary condition, and initial condition, we have
+        When we are away from the line, we have
         \begin{align*}
             u_t &= \begin{cases}
-                -c \phi'(x - ct), & x > ct > 0 \\
-                \psi'(t - x/c), & 0 < x < ct
+                -c \phi'(x - ct), & x > ct \\
+                \psi'(t - x/c), & x < ct
             \end{cases} \\
             u_x &= \begin{cases}
-                \phi'(x - ct), & x > ct > 0 \\
-                -\frac{1}{c} \psi'(t - x/c), & 0 < x < ct
+                \phi'(x - ct), & x > ct \\
+                -\frac{1}{c} \psi'(t - x/c), & x < ct
             \end{cases}.
         \end{align*}
         Using the derivatives above
         \begin{align*}
             u_t + c u_x &= \begin{cases}
-                -c \phi'(x - ct) + c \phi'(x - ct), & x > ct > 0 \\
-                \psi'(t - x/c) - c \frac{1}{c} \psi'(t - x/c), & 0 < x < ct
+                -c \phi'(x - ct) + c \phi'(x - ct), & x > ct\\
+                \psi'(t - x/c) - c \frac{1}{c} \psi'(t - x/c), & x < ct
             \end{cases} \\
             &= \begin{cases}
-                0, & x > ct > 0 \\
-                0, & 0 < x < ct
+                0, & x > ct\\
+                0, & x < ct
             \end{cases} \\
             &= 0
         \end{align*}
-        for $ x,t $ not on the line, boundaries, or initial conditions. So, (\ref{soln:cases})  defined above satisfies our PDE in the desired region.
+        for $ x,t $ not on the line. So, (\ref{soln:cases})  defined above satisfies our PDE off of the line $ x = ct $. 
+        
+        Checking the initial condition yields
+        \[
+            u(x, 0) = 
+            \begin{cases}
+                \phi(x), & \text{if } x \geq 0, \\
+                \psi(x/c), & \text{if } x \leq 0
+            \end{cases} \implies
+            u(x,0) = \phi(x) \text{ for } x \geq 0.
+        \]
+        Now, checking our boundary condition yields
+        \[
+            u(0, t) = 
+            \begin{cases}
+                \phi(- ct), & \text{if } 0 \geq ct, \\
+                \psi(t), & \text{if } 0 \leq ct
+            \end{cases} \implies
+            u(0, t) = \psi(t) \text{ for } t \geq 0.
+        \]
+        So our solution solve the initial/boundary value problem.
         
         \item In solution (\ref{soln:cases}), the line $ x = ct $, which emerges from the origin $ x = t = 0 $, separates the quadrant $ Q_1 $ into two regions.
         \begin{enumerate}[label = \textbf{(\roman*)}]
@@ -153,7 +173,7 @@
     	u_t + u u_x = 0, \; -\infty < x < \infty, \; t > 0, \;u(x, 0) = f(x), \; -\infty < x < \infty.
     \]
     
-    Suppose $ u(x,t) $ is differentiable and $ u = f(x - ut) $. Then, the initial condition easily verified as
+    Suppose $ u(x,t) $ is differentiable and $ u = f(x - ut) $. Then, the initial condition is easily verified as
     \[
     	u(x,0) = f(x - u(x,0) \cdot 0) = f(x).
     \]
@@ -173,7 +193,7 @@ Clearly, at $ t = 0 $ our PDE equals zero and so $ u $ satisfies the PDE at $ t 
 \[
     u_t + u u_x = -t f'(x - ut) (u_t + u u_x)
 \]
-which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The first equality implies that $ f'(x - ut) = -1/t $ which doesn't hold because $ f'(x - ut) $ is differentiable everywhere but $ - 1/t $ is not differentiable at $ t = 0 $. So, we must have the second equality, $ u_t + u u_x = 0 $ which shows that $ u $ solve the IVP!
+which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The first equality implies that $ f'(x - ut) = -1/t $ which doesn't hold because $ f'(x - ut) $ is differentiable everywhere but $ - 1/t $ is not differentiable at $ t = 0 $. So, we must have the second equality, $ u_t + u u_x = 0 $ which shows that $ u $ solves the IVP!
 
 \section*{Chapter 2}
 \subsection*{Problem 5}
@@ -192,7 +212,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
 			\implies & \sigma^2(\xi) = -\xi^4 \\
 			\implies & \sigma(\xi) = \pm i \xi^2.
 		\end{align*}
-		From the dispersion relation $ \sigma(\xi) = \pm i \xi^2 $, we can see that $ u(x,t) $) is not dissipative because $ \sigma(\xi) $ is purely imaginary and thus each Fourier term in the solution will not decay with a change in time. However, $ u(x,t) $ is dispersive because 
+		From the dispersion relation $ \sigma(\xi) = \pm i \xi^2 $, we can see that $ u(x,t) $ is not dissipative because $ \sigma(\xi) $ is purely imaginary and thus each Fourier term in the solution will not decay with a change in time. However, $ u(x,t) $ is dispersive because 
 		\[
 			u(x,t) = e^{i \xi x \pm i \xi^2 t} = e^{i \xi (x \pm \xi t)}
 		\]
@@ -217,7 +237,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
 		\[
 			u(x,t) = e^{i \xi x + \frac{i c \xi}{\xi^2 \beta - 1} t} = e^{i \xi \left (x -\left (- \frac{c}{\xi^2 \beta - 1}\right ) t\right )}
 		\]
-		shows that the wave speed is given by $ -\frac{c}{\xi^2 \beta - 1} $ which changes depending on the wave number. Thus, because the speed is dependent on the wave number, our solution is dispersive in time. A large difference the wave speed of the KdV $ c - \beta \xi^2 $ and the wave speed of the BBM is that the wave speed of the KdV is unbounded with respect to the wave number while the speed of the BBM is bounded.
+		shows that the wave speed is given by $ -\frac{c}{\xi^2 \beta - 1} $ which changes depending on the wave number. Thus, because the speed is dependent on the wave number, our solution is dispersive in time. A large difference between the wave speed of the KdV $ c - \beta \xi^2 $ and the wave speed of the BBM is that the wave speed of the KdV is unbounded with respect to the wave number while the speed of the BBM is bounded.
 	\end{enumerate}
 
 \subsection*{Problem 6}
@@ -242,8 +262,6 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
 			Q(u_\text{max})  = u_\text{max} v(u_\text{max}) = u_\text{max} 0 = 0.
 		\]
 		 But, $ v(u) > 0$ for $ u \in (0, u_\text{max}) $ and so is $ u $, therefore $ Q(u) > 0 $ for $ u \in (0, u_\text{max}) $. Thus, because $ Q(u) > 0 $ for $u \in (0, u_\text{max})$, $ Q(0) = 0 $, and $ Q(u_\text{max}) = 0 $, we can restrict the domain of $ u^* $ to $ u^* \in (0, u_\text{max}) $. Therefore, $ Q $ contains a maximum at $u^* \in (0, u_\text{max})$.
-         
-         \newpage
 		
 		\item Can there be two local maxima of the flux?
         
@@ -271,7 +289,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
     \begin{enumerate}[label = \textbf{(\alph*)}]
         \item Solve the initial/boundary value problem when $ g(x) = 0 $ and $ f(t) $ may be any $ C^1 $ function such that $ \lim_{t \to 0^+} f(t) = 0 $.
         
-        To begin solving this initial/boundary value problem, we can realize that the PDE can be solved using the Method of Characteristic where we have two smooth surfaces to work of Cauchy data. We will call our initial condition $ \Gamma_1 $ and our boundary condition $ \Gamma_2 $. Let's parameterize our conditions as
+        To begin solving this initial/boundary value problem, notice that the PDE can be solved using the Method of Characteristic where we have two smooth surfaces of Cauchy data. We will call our initial condition $ \Gamma_1 $ and our boundary condition $ \Gamma_2 $. Let's parameterize our conditions as
         \[
             \begin{array}{rl}
                 \Gamma_1: & \vec{r}(s) = \langle x_0(s), t_0(s), z_0(s) \rangle = \langle s, 0, g(s)  \rangle \\
@@ -290,7 +308,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
                 \frac{\partial z}{\partial \tau} = 0, & z(0) = z_0(s) = g(s) & \implies & z(\tau, s) = g(s)
             \end{array}
         \]
-        Next, we will invert our solution so we an have $ \tau(x,t) $ and $ s(x,t) $  by solving the simple linear system above as
+        Next, we will invert our solution so we have $ \tau(x,t) $ and $ s(x,t) $  by solving the simple linear system above as
         \begin{align*}
             \tau(x,t) &= t \\
             s(x,t) &= x - t.
@@ -300,7 +318,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
             u(x,t) = z(\tau(x,t), s(x,t)) = g(x - t). \label{soln:gamma1}
         \end{equation}
     
-        Now, we can solve for the solution off of $ \Gamma_2 $ by combining the parameterization of $ \Gamma_2 $ and the system of ODEs to get the system
+        Now, we can solve for the solution off of $ \Gamma_2 $ by combining the parameterization of $ \Gamma_2 $ and the system of ODEs to get
         \[
             \begin{array}{rccl}
                 \frac{\partial x}{\partial \tau} = 1, & x(0) = x_0(s) = bs & \implies & x(\tau, s) = \tau + bs \\
@@ -318,7 +336,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
             u(x,t) = z(\tau(x,t), s(x,t)) = f(\frac{x - t}{b - 1}). \label{soln:gamma2}
         \end{equation}
     
-        So now we have two solutions that can combine to make the complete solution. To combine solutions (\ref{soln:gamma1}) and (\ref{soln:gamma2}), we need to find in what regions they are valid. If we look at each solution, we can see that the characteristics each satisfy
+        So now we have two partial solutions that can combine to make the complete solution. To combine solutions (\ref{soln:gamma1}) and (\ref{soln:gamma2}), we need to find in what regions they are valid. If we look at each solution, we can see that the characteristics each satisfy
         \[
             x - t = c
         \]
@@ -326,7 +344,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
         \[
             x - t = 0 \implies x = t
         \]
-        is our boundary line between the two solutions where (\ref{soln:gamma1}) fills the solution space when $ x > t $ and (\ref{soln:gamma2}) fills the solution space when $ x < t $. Looking back at the original differential equation, we can see that we have $ x > bt $ for $ \abs{b} < 1 $ which further restricts the (\ref{soln:gamma2}) to $ bt < x < t $. So, our full solution is
+        which is our boundary line between the two solutions where (\ref{soln:gamma1}) fills the solution space when $ x > t $ and (\ref{soln:gamma2}) fills the solution space when $ x < t $. Looking back at the original differential equation, we can see that we have $ x > bt $ for $ \abs{b} < 1 $ which further restricts the (\ref{soln:gamma2}) to $ bt < x < t $. So, our full solution is
         \begin{equation}
             u(x,t) = 
                 \begin{cases}
@@ -335,7 +353,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
                 \end{cases}. \label{soln:full}
         \end{equation}
     
-        So, our solution for this exact part is given when $ g(x) = 0 $ or in other words
+        Using the full solution, we can obtain a solution when $ g(x) = 0 $ as
         \[
             u(x,t) = 
             \begin{cases}
@@ -346,7 +364,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
         
         \item Now suppose the source emits the time-periodic signal $ f(t) = \sin(\omega t) $ with frequency $ \omega > 0 $. For what values of the velocity $ b $ is the frequency ``heard'' by a receiver situated at $ x = 10 $ higher than $ \omega $? When is the received frequency lower? Explain the Doppler effect.
         
-        To understand how the velocity affects the perceived frequency, when a source is moving towards the receiver, the frequency generated by the source is getting ``squished'' towards the receiver. The effect is that the frequency will increase from the perspective of the receiver. If the source was moving away from the receiver, then the perceived frequency would be lower than the actual source frequency. This phenomena is known as the Doppler Effect.m
+        To understand how the velocity affects the perceived frequency, when a source is moving towards the receiver, the frequency generated by the source is getting ``squished'' towards the receiver. The effect is that the frequency will increase from the perspective of the receiver. If the source was moving away from the receiver, then the perceived frequency would be lower than the actual source frequency. This phenomena is known as the Doppler Effect.
         
         In the context of this PDE, if a receiver was placed at $ x = 10 $, the perceived frequency would be higher than $ \omega $ when $ b > 0 $. On the other hand, when $ b < 0 $, the perceived frequency will be lower than $ \omega $.
         
@@ -374,7 +392,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
         
         \item What happens if $ b \geq 1 $?
         
-        To understand what happens when $ b \geq 1 $, we need to note that the transport equation above transports waves at a constant speed of 1 unit in the $ +x $ direction per one unit of time $ t $. Thus, when $ b \geq 1$, the velocity of the source is moving faster than the speed of wave transportation (i.e. faster than the speed of sound). As a result, the frequency generated by the source will start to intersect with the characteristics originating from the boundary condition. In other words, there will be a shock from the clashing characteristics. We would need to do a bit more work on the PDE to obtain a more well defined solution for when $ b \geq 1 $.
+        To understand what happens when $ b \geq 1 $, we need to note that the transport equation above transports waves at a constant speed of 1 unit in the $ +x $ direction per one unit of time $ t $. Thus, when $ b \geq 1$, the velocity of the source is moving as fast or faster than the speed of wave transportation (i.e. faster than the speed of sound). As a result, the frequency generated by the source will start to intersect with the characteristics originating from the initial  condition. In other words, there will be a shock from the clashing characteristics. We would need to do a bit more work on the PDE to obtain a more well defined solution for when $ b \geq 1 $.
     \end{enumerate}
 
 \subsection*{Problem A2}
@@ -382,7 +400,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
      \begin{enumerate}[label = \textbf{(\alph*)}]
             \item Determine the type of the equation $ u_t = u_{xx} + 2 u_x + u $.
             
-            To determine the type of the matrix, we can write out the coefficient matrix $ A $ of the highest degree derivative terms as 
+            To determine the type of the PDE, we can write out the coefficient matrix $ A $ of the highest degree derivative terms as 
             \[
                 A =
                 \pmat{
@@ -390,7 +408,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
                     0 & 0
                 }.
             \]
-            Next, we can compute the eigenvalues to get two eigenvalues $ \lambda \in \{1, 0\} $. We have one non-zero eigenvalue and one zero eigenvalue which tells us that $ u_t = u_{xx} + 2 u_x + u $ is a parabolic PDE.
+            Next, we can compute the eigenvalues as $ \lambda \in \{1, 0\} $. We have one non-zero eigenvalue and one zero eigenvalue which tells us that $ u_t = u_{xx} + 2 u_x + u $ is a parabolic PDE.
             
             \item Determine the type of the equation $ u_{tt} + 2 \alpha u_{xt} + u_{xx} = 0 $ for each value of the parameter $ \alpha $.
             
@@ -402,7 +420,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
                     \alpha & 1
                 }.
             \]
-            Now, we can compute the eigenvalues of $ A $ to get the two eigenvalues $ \lambda \in \{1 + \alpha, 1 - \alpha\} $. From these two eigenvalues, we can get two positive eigenvalues if $ \abs{\alpha} < 1 $ which makes the PDE elliptic. Furthermore, we can get two opposite sign eigenvalues if $ \abs{\alpha} > 1 $ which would make the PDE hyperbolic. Lastly, we can get one zero eigenvalue and one non-zero eigenvalue if $ \abs{\alpha} = 1 $ which would make the PDE parabolic. In summary, $ u_{tt} + 2 \alpha u_{xt} + u_{xx} = 0 $ will have the following types
+            Now, we can compute the eigenvalues of $ A $ to get the two eigenvalues $ \lambda \in \{1 + \alpha, 1 - \alpha\} $. Thus, we can get two positive eigenvalues if $ \abs{\alpha} < 1 $ which makes the PDE elliptic. Furthermore, we can get two opposite sign eigenvalues if $ \abs{\alpha} > 1 $ which would make the PDE hyperbolic. Lastly, we can get one zero eigenvalue and one non-zero eigenvalue if $ \abs{\alpha} = 1 $ which would make the PDE parabolic. In summary, $ u_{tt} + 2 \alpha u_{xt} + u_{xx} = 0 $ will have the following types
             \[
                 \text{(Second Order PDE Type)} =
                 \begin{cases}
@@ -428,7 +446,7 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
             \end{align*}
             provided $ c \neq 0 $. If $ c = 0 $, then we can have any $ \alpha \in \reals $.
             
-            Now, let's find criteria on $ \alpha $ and $ c $ to make $ u(x,t) = t f(x - ct) $ a solution. Just like the first, let's compute our needed derivatives as
+            Now, let's find criteria on $ \alpha $ and $ c $ to make $ u(x,t) = t f(x - ct) $ a solution. Just like the first part, let's compute our needed derivatives as
             \begin{align*}
                 u_{tt} &= c^2 t f''(x - ct) - 2c f'(x - ct) \\
                 u_{xt} &= f'(x - ct) - c t f''(x - ct) \\
@@ -483,7 +501,9 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
             \[
                 \lambda_1 < 0
             \]
-            for all $ x,y \in \reals $. So, now that we know $ \lambda_1 $ is purely negative, it is up to $ \lambda_2 $ to set the type of second order PDE to solve. So, let's find an expression for the roots or boundaries of $ \lambda_2 $. Consider $ \lambda_2 = 0 $ which becomes
+            for all $ x,y \in \reals $. So, now that we know $ \lambda_1 $ is purely negative, it is up to $ \lambda_2 $ to set the type of second order PDE. 
+            
+            Let's find an expression for the roots or boundaries of $ \lambda_2 $. Consider $ \lambda_2 = 0 $ which becomes
             \begin{align*}
                 & \frac{1}{2} \left(-x^2 + x y - y^2 + \sqrt{\left(x^2+x y+y^2\right)^2+16} \right) = 0 \\
                 \implies & -x^2 + x y - y^2 = \sqrt{\left(x^2+x y+y^2\right)^2+16} \\
