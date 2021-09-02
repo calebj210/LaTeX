@@ -271,13 +271,110 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
     \begin{enumerate}[label = \textbf{(\alph*)}]
         \item Solve the initial/boundary value problem when $ g(x) = 0 $ and $ f(t) $ may be any $ C^1 $ function such that $ \lim_{t \to 0^+} f(t) = 0 $.
         
+        To begin solving this initial/boundary value problem, we can realize that the PDE can be solved using the Method of Characteristic where we have two smooth surfaces to work of Cauchy data. We will call our initial condition $ \Gamma_1 $ and our boundary condition $ \Gamma_2 $. Let's parameterize our conditions as
+        \[
+            \begin{array}{rl}
+                \Gamma_1: & \vec{r}(s) = \langle x_0(s), t_0(s), z_0(s) \rangle = \langle s, 0, g(s)  \rangle \\
+                \Gamma_2: & \vec{r}(s) = \langle x_0(s), t_0(s), z_0(s) \rangle = \langle bs, s, f(s)  \rangle \\
+            \end{array}
+        \]
+        where $ s > 0 $. Next, we can extract the system of ODEs that depend on our temporary variable $ \tau $ as
+        \[
+            \frac{\partial x}{\partial \tau} = 1, \qquad \frac{\partial t}{\partial \tau} = 1, \qquad \frac{\partial z}{\partial \tau} = 0.
+        \]
+        Now that we have our ODEs and the Cauchy data parameterized, we can solve for our characteristic solutions off of each surface. We will start by solving off of $ \Gamma_1 $ by assuming $ s $ is fixed which leads to
+        \[
+            \begin{array}{rccl}
+                \frac{\partial x}{\partial \tau} = 1, & x(0) = x_0(s) = s & \implies & x(\tau, s) = \tau + s \\
+                \frac{\partial t}{\partial \tau} = 1, & t(0) = t_0(s) = 0 & \implies & t(\tau, s) = \tau \\
+                \frac{\partial z}{\partial \tau} = 0, & z(0) = z_0(s) = g(s) & \implies & z(\tau, s) = g(s)
+            \end{array}
+        \]
+        Next, we will invert our solution so we an have $ \tau(x,t) $ and $ s(x,t) $  by solving the simple linear system above as
+        \begin{align*}
+            \tau(x,t) &= t \\
+            s(x,t) &= x - t.
+        \end{align*}
+        using these characteristics, we can write our solution originating from $ \Gamma_1 $ as
+        \begin{equation}
+            u(x,t) = z(\tau(x,t), s(x,t)) = g(x - t). \label{soln:gamma1}
+        \end{equation}
+    
+        Now, we can solve for the solution off of $ \Gamma_2 $ by combining the parameterization of $ \Gamma_2 $ and the system of ODEs to get the system
+        \[
+            \begin{array}{rccl}
+                \frac{\partial x}{\partial \tau} = 1, & x(0) = x_0(s) = bs & \implies & x(\tau, s) = \tau + bs \\
+                \frac{\partial t}{\partial \tau} = 1, & t(0) = t_0(s) = s & \implies & t(\tau, s) = \tau + s\\
+                \frac{\partial z}{\partial \tau} = 0, & z(0) = z_0(s) = f(s) & \implies & z(\tau, s) = f(s).
+            \end{array}
+        \]
+        Just like last time, we can invert this linear system to find our characteristics as
+        \begin{align*}
+            \tau(x,t) &= t - \frac{x - t}{b - 1} \\
+            s(x,t) &= \frac{x - t}{b - 1}.
+        \end{align*}
+        Finally, we can write our solution originating from $ \Gamma_2 $ as
+        \begin{equation}
+            u(x,t) = z(\tau(x,t), s(x,t)) = f(\frac{x - t}{b - 1}). \label{soln:gamma2}
+        \end{equation}
+    
+        So now we have two solutions that can combine to make the complete solution. To combine solutions (\ref{soln:gamma1}) and (\ref{soln:gamma2}), we need to find in what regions they are valid. If we look at each solution, we can see that the characteristics each satisfy
+        \[
+            x - t = c
+        \]
+        where $ c \in \reals $ is a constant. Each surface touches at the origin which marks the spot that the two solutions meet. So, the characteristic originating from the origin is
+        \[
+            x - t = 0 \implies x = t
+        \]
+        is our boundary line between the two solutions where (\ref{soln:gamma1}) fills the solution space when $ x > t $ and (\ref{soln:gamma2}) fills the solution space when $ x < t $. Looking back at the original differential equation, we can see that we have $ x > bt $ for $ \abs{b} < 1 $ which further restricts the (\ref{soln:gamma2}) to $ bt < x < t $. So, our full solution is
+        \begin{equation}
+            u(x,t) = 
+                \begin{cases}
+                    g(x - t), & x > t \\
+                    f(\frac{x - t}{b - 1}), & bt < x < t
+                \end{cases}. \label{soln:full}
+        \end{equation}
+    
+        So, our solution for this exact part is given when $ g(x) = 0 $ or in other words
+        \[
+            u(x,t) = 
+            \begin{cases}
+                0 & x > t \\
+                f(\frac{x - t}{b - 1}), & bt < x < t
+            \end{cases}.
+        \]
+        
         \item Now suppose the source emits the time-periodic signal $ f(t) = \sin(\omega t) $ with frequency $ \omega > 0 $. For what values of the velocity $ b $ is the frequency ``heard'' by a receiver situated at $ x = 10 $ higher than $ \omega $? When is the received frequency lower? Explain the Doppler effect.
+        
+        To understand how the velocity affects the perceived frequency, when a source is moving towards the receiver, the frequency generated by the source is getting ``squished'' towards the receiver. The effect is that the frequency will increase from the perspective of the receiver. If the source was moving away from the receiver, then the perceived frequency would be lower than the actual source frequency. This phenomena is known as the Doppler Effect.m
+        
+        In the context of this PDE, if a receiver was placed at $ x = 10 $, the perceived frequency would be higher than $ \omega $ when $ b > 0 $. On the other hand, when $ b < 0 $, the perceived frequency will be lower than $ \omega $.
         
         \item Solve the initial/boundary value problem when $ f(t) = 0 $.
         
+        Using solution (\ref{soln:full}) with $ f(t) = 0 $ yields the solution
+        \[
+            u(x,t) = 
+            \begin{cases}
+                g(x - t), & x > t \\
+                0, & bt < x < t
+            \end{cases}.
+        \]
+        
         \item Solve the full initial/boundary value problem.
         
+        Again, using (\ref{soln:full}) with general functions $ f,g \in C^1(0, \infty) $ yields the full solution
+        \[
+            u(x,t) = 
+                \begin{cases}
+                    g(x - t), & x > t \\
+                    f(\frac{x - t}{b - 1}), & bt < x < t
+                \end{cases}.
+        \]
+        
         \item What happens if $ b \geq 1 $?
+        
+        To understand what happens when $ b \geq 1 $, we need to note that the transport equation above transports waves at a constant speed of 1 unit in the $ +x $ direction per one unit of time $ t $. Thus, when $ b \geq 1$, the velocity of the source is moving faster than the speed of wave transportation (i.e. faster than the speed of sound). As a result, the frequency generated by the source will start to intersect with the characteristics originating from the boundary condition. In other words, there will be a shock from the clashing characteristics. We would need to do a bit more work on the PDE to obtain a more well defined solution for when $ b \geq 1 $.
     \end{enumerate}
 
 \subsection*{Problem A2}
