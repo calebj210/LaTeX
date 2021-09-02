@@ -242,13 +242,164 @@ which implies that either $ 1 = -t f'(x - ut)  $ or $ u_t + u u_x = 0 $. The fir
 			Q(u_\text{max})  = u_\text{max} v(u_\text{max}) = u_\text{max} 0 = 0.
 		\]
 		 But, $ v(u) > 0$ for $ u \in (0, u_\text{max}) $ and so is $ u $, therefore $ Q(u) > 0 $ for $ u \in (0, u_\text{max}) $. Thus, because $ Q(u) > 0 $ for $u \in (0, u_\text{max})$, $ Q(0) = 0 $, and $ Q(u_\text{max}) = 0 $, we can restrict the domain of $ u^* $ to $ u^* \in (0, u_\text{max}) $. Therefore, $ Q $ contains a maximum at $u^* \in (0, u_\text{max})$.
+         
+         \newpage
 		
 		\item Can there be two local maxima of the flux?
+        
+        There can be two local maxima of the flux. Consider $ v(u) = -(u - 2)^3 + 1 $ which is a positive monotonic function. Using this $ v(u) $, yields a $ Q(u) = u*v(u) =  -u(u - 2)^3 + 1 $. Plotting our $ Q(u) $ from $ u = 0 $ to $ u = u_\text{max} $ produces
+        
+        \begin{figure*}[h!]
+            \centering
+            \includegraphics[width = 0.5\textwidth]{images/two_humps.png}
+        \end{figure*}
+    
+        From the figure, we can clearly see two local maxima of the flux which work to be at $ u = \frac{3 - \sqrt{3}}{2} $ and $ u = \frac{3 + \sqrt{3}}{2} $ respectively.
 	\end{enumerate}
 
 \section*{Additional Problems}
 \subsection*{Problem A1}
+    Consider the initial/boundary value problem for the transport equation
+    \[
+        \left\{\begin{array}{lll}
+            u_t + u_x = 0, & t > 0, & x > bt \\
+            u(bt, t) = f(t), & t > 0 \\
+            u(x,0) = g(x), & x > 0
+        \end{array}\right.
+    \]
+    where $ \abs{b} < 1$ is the velocity of a source emitting the time-varying signal $ f(t) $, and $ f, g \in C^1(0, \infty) $.
+    \begin{enumerate}[label = \textbf{(\alph*)}]
+        \item Solve the initial/boundary value problem when $ g(x) = 0 $ and $ f(t) $ may be any $ C^1 $ function such that $ \lim_{t \to 0^+} f(t) = 0 $.
+        
+        \item Now suppose the source emits the time-periodic signal $ f(t) = \sin(\omega t) $ with frequency $ \omega > 0 $. For what values of the velocity $ b $ is the frequency ``heard'' by a receiver situated at $ x = 10 $ higher than $ \omega $? When is the received frequency lower? Explain the Doppler effect.
+        
+        \item Solve the initial/boundary value problem when $ f(t) = 0 $.
+        
+        \item Solve the full initial/boundary value problem.
+        
+        \item What happens if $ b \geq 1 $?
+    \end{enumerate}
 
 \subsection*{Problem A2}
-
+    Classification of linear, second order PDEs:
+     \begin{enumerate}[label = \textbf{(\alph*)}]
+            \item Determine the type of the equation $ u_t = u_{xx} + 2 u_x + u $.
+            
+            To determine the type of the matrix, we can write out the coefficient matrix $ A $ of the highest degree derivative terms as 
+            \[
+                A =
+                \pmat{
+                    1 & 0 \\
+                    0 & 0
+                }.
+            \]
+            Next, we can compute the eigenvalues to get two eigenvalues $ \lambda \in \{1, 0\} $. We have one non-zero eigenvalue and one zero eigenvalue which tells us that $ u_t = u_{xx} + 2 u_x + u $ is a parabolic PDE.
+            
+            \item Determine the type of the equation $ u_{tt} + 2 \alpha u_{xt} + u_{xx} = 0 $ for each value of the parameter $ \alpha $.
+            
+            Similar to part \textbf{(a)}, we will start by forming the coefficient matrix of the highest degree derivatives as
+            \[
+                A =
+                \pmat{
+                    1 & \alpha \\
+                    \alpha & 1
+                }.
+            \]
+            Now, we can compute the eigenvalues of $ A $ to get the two eigenvalues $ \lambda \in \{1 + \alpha, 1 - \alpha\} $. From these two eigenvalues, we can get two positive eigenvalues if $ \abs{\alpha} < 1 $ which makes the PDE elliptic. Furthermore, we can get two opposite sign eigenvalues if $ \abs{\alpha} > 1 $ which would make the PDE hyperbolic. Lastly, we can get one zero eigenvalue and one non-zero eigenvalue if $ \abs{\alpha} = 1 $ which would make the PDE parabolic. In summary, $ u_{tt} + 2 \alpha u_{xt} + u_{xx} = 0 $ will have the following types
+            \[
+                \text{(Second Order PDE Type)} =
+                \begin{cases}
+                    \text{Elliptic}, & \abs{\alpha} < 1 \\
+                    \text{Parabolic}, & \abs{\alpha} = 1 \\
+                    \text{Hyperbolic}, & \abs{\alpha} > 1
+                \end{cases}.
+           \] 
+            
+            \item For the equation in part \textbf{(b)}, what values of $ \alpha $ ensure solutions of the form $ u(x,t) = f(x - ct) $ with $ c \in \reals $, provided $ f(x) $ is twice differentiable. For what values of $ \alpha $ is $ u(x,t) = t f(x - ct) $ a solution? What values does $ c $ take in this case?
+            
+            To find criteria on $ \alpha $ to make $ u(x,t) = f(x - ct) $ a solution to our PDE, let's first compute the needed derivatives for the PDE as
+            \begin{align*}
+                u_{tt} &= c^2 f''(x - ct) \\
+                u_{xt} &= -c f''(x - ct) \\
+                u_{xx} &= f''(x - ct). 
+            \end{align*}
+            Now, plugging these derivatives into the PDE yields
+            \begin{align*}
+                & c^2 f''(x - ct) - 2 \alpha c f''(x - ct) + f''(x - ct) = 0 \\
+                \implies & c^2 - 2 \alpha c + 1 = 0 \\
+                \implies & \alpha = \frac{c^2 + 1}{2c}
+            \end{align*}
+            provided $ c \neq 0 $. If $ c = 0 $, then we can have any $ \alpha \in \reals $.
+            
+            Now, let's find criteria on $ \alpha $ and $ c $ to make $ u(x,t) = t f(x - ct) $ a solution. Just like the first, let's compute our needed derivatives as
+            \begin{align*}
+                u_{tt} &= c^2 t f''(x - ct) - 2c f'(x - ct) \\
+                u_{xt} &= f'(x - ct) - c t f''(x - ct) \\
+                u_{xx} &= t f''(x - ct). 
+            \end{align*}
+            To find our criteria, we can plug these derivatives into the PDE and factor out anything in common to get
+            \[
+                (c^2 - 2 \alpha c + 1) t f''(x - ct) + 2(\alpha - c) f'(x - ct) = 0.
+            \]
+            Then, because $ t f''(x - ct) $ and $ f'(x - ct) $ are not necessarily constant as $ x $ and $ t $ change, we must have the system of equations
+            \begin{align*}
+                c^2 - 2 \alpha c + 1 &= 0 \\
+                2(\alpha - c) &= 0
+            \end{align*}
+            which yields
+            \[
+                \alpha = c
+            \]
+            and finally two solutions of ($ \alpha = 1 $ and $ c = 1 $) or ($ \alpha = -1 $ and $ c = -1 $).
+            
+            \item Classify the equation $ xyu_{xx} + 4u_{xy} - (x^2 + y^2)u_{yy} - u = 0 $ throughout the $ (x,y) $-plane.
+            
+            Just as in part \textbf{(a)} and \textbf{(b)}, we will construct the coefficient matrix to our PDE as
+            \[
+                A =
+                \pmat{
+                    xy & 2 \\
+                    2 & -(x^2 + y^2)
+                }
+            \]
+            which has two eigenvalues
+            \begin{align*}
+                \lambda_1 &= \frac{1}{2} \left(-x^2 + x y - y^2 -  \sqrt{x^4+2 x^3 y+3 x^2 y^2+2 x y^3+y^4+16}\right), \\
+                \lambda_2 &= \frac{1}{2} \left(-x^2 + x y - y^2 + \sqrt{x^4+2 x^3 y+3 x^2 y^2+2 x y^3+y^4+16}\right)
+            \end{align*}
+            which simplify to
+            \begin{align*}
+                \lambda_1 &= \frac{1}{2} \left(-x^2 + x y - y^2 - \sqrt{\left(x^2+x y+y^2\right)^2+16} \right), \\
+                \lambda_2 &= \frac{1}{2} \left(-x^2 + x y - y^2 + \sqrt{\left(x^2+x y+y^2\right)^2+16} \right).
+            \end{align*}
+            Now, to understand the different types of PDEs we have depending our place in the $ (x,y) $-plane, we will check the sign of $ \lambda_1 $. Consider
+            \begin{align*}
+                -x^2 + xy - y^2 &< x^2 + xy + y^2 \\
+                &\leq \sqrt{(x^2 + xy + y^2)^2} \\
+                &< \sqrt{16 + (x^2 + xy + y^2)^2}.
+            \end{align*}
+            Next, we can rearrange our inequality to get
+            \[
+                -x^2 + xy - y^2 - \sqrt{16 + (x^2 + xy + y^2)^2} < 0
+            \]
+            or in other words
+            \[
+                \lambda_1 < 0
+            \]
+            for all $ x,y \in \reals $. So, now that we know $ \lambda_1 $ is purely negative, it is up to $ \lambda_2 $ to set the type of second order PDE to solve. So, let's find an expression for the roots or boundaries of $ \lambda_2 $. Consider $ \lambda_2 = 0 $ which becomes
+            \begin{align*}
+                & \frac{1}{2} \left(-x^2 + x y - y^2 + \sqrt{\left(x^2+x y+y^2\right)^2+16} \right) = 0 \\
+                \implies & -x^2 + x y - y^2 = \sqrt{\left(x^2+x y+y^2\right)^2+16} \\
+                \implies & \left(-x^2 + x y - y^2 \right)^2 = \left(x^2+x y+y^2\right)^2 +16 \\
+                \implies & \left(-x^2 + x y - y^2 \right)^2 - \left(x^2+x y+y^2\right)^2 = 16 \\
+                \implies & \left(-x^2 + x y - y^2 + x^2+x y+y^2\right)\left(-x^2 + x y - y^2 - x^2 - x y - y^2\right) = 16\\
+                \implies & \left(2x y\right)\left(-2x^2 - 2y^2\right) = 16 \\
+                \implies & x y\left(x^2 + y^2\right) = -4.
+            \end{align*}
+            Thus, our boundary PDEs (parabolic PDEs) will take place anytime $ x y\left(x^2 + y^2\right) = -4 $. Furthermore, when $ \lambda_2 > 0 $, we will have hyperbolic PDEs which takes place in the region that contains the origin. The two regions not containing the origin satisfy $ \lambda_2 < 0 $ contain the elliptic PDEs. The figure below illustrates the different regions and boundary regions
+            \begin{figure}[h!]
+                \centering
+                \includegraphics[width = 0.5\textwidth]{images/PDE_Types.png}
+            \end{figure}
+     \end{enumerate}
 \end{document}
