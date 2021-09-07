@@ -56,7 +56,6 @@
 \newcommand{\norm}[1]{\lVert #1 \rVert}
 \newcommand{\inner}[1]{\left\langle #1 \right\rangle}
 \newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
-\renewcommand{\and}{\text{ and }}
 
 \newsavebox{\qed}
 \newenvironment{proof}[2][$\square$]
@@ -98,8 +97,8 @@
             \[
                 \sin(x) - \sin(y) = 2 \sin\left(\frac{x - y}{2}\right) \cos\left( \frac{x + y}{2} \right).
             \]
-            
-            Although it looks like we haven't done much to remove the subtraction, we have mitigated the cancellation and rounding error associated with the subtraction. When we use $ \sin(x) - \sin(y) $ we are subtracting two numbers that are already approximated in the computer (i.e. the computer introduced some extra error in computing sin of our floating point numbers). Subtracting the two 
+            This expression still has subtraction between $ x $ and $ y $ but now our error produced by the subtraction is much more stable. The relative error of $ \sin(x) $ and $ \sin(y) $ is higher than $ fl(x) $ and $ fl(y) $ and so the subtraction between $ \sin(x) $ and $ \sin(y) $ amplifies the relative error of $ \sin $. When we use our rewritten expression, $ x - y $ has a smaller relative error than the difference between the sines and so our overall calculation reduces cancellation error.
+             
             
             \item Evaluate $\frac{1 - \cos(x)}{\sin(x)}$ for $x \simeq 0$.
             
@@ -148,15 +147,18 @@
                 
                 \textbf{Absolute error upper bound:}
                 \begin{align*}
-                    \abs{\Delta y} &= \abs{\Delta x_1 - \Delta x_2} \\
-                    &< \abs{\Delta x_1} + \abs{\Delta x_2}.
+                    \abs{\Delta y} &= \abs{y - \Tilde{y}} \\
+                    &= \abs{x_1 - x_2 - (x_1 + \Delta x_1 - (x_2 + \Delta x_2))} \\
+                    &= \abs{\Delta x_1 - \Delta x_2} \\
+                    &\leq \abs{\Delta x_1} + \abs{\Delta x_2}.
                 \end{align*}
                 
                 \textbf{Relative error upper bound:} Using our absolute error upper bound, we have
                 \begin{align*}
-                    \frac{\abs{\Delta y}}{y} &< \frac{\abs{\Delta x_1} + \abs{\Delta x_2}}{\abs{y}} \\
+                    \frac{\abs{\Delta y}}{y} &\leq \frac{\abs{\Delta x_1} + \abs{\Delta x_2}}{\abs{y}} \\
                     &= \frac{\abs{\Delta x_1} + \abs{\Delta x_2}}{\abs{x_1 - x_2}}
                 \end{align*}
+            	From this error bound, we can see that we would have large relative errors when the denominator $ \abs{x_1 - x_2} $ is small or when $ x_1 \simeq x_2 $.
                 
                 \item First manipulate $\cos(x + \delta) - \cos(x)$ into an expression without subtraction. Then, plot the difference between your expression and $\cos(x + \delta) - \cos(x)$ for $\delta = 10^{-16}, 10^{-15}, \ldots, 10^{0}$.
                 
@@ -175,13 +177,18 @@
                 
                 \item Taylor expansion yields $f(x + \delta) - f(x) = \delta f'(x) + \frac{\delta^2}{2!}f''(\xi), \xi \in [x, x+\delta].$ Use this expression to approximate $\cos(x + \delta) - \cos(x)$  for the same values of $\delta$ as in (ii). For what values of $\delta$ is each method better?
                 
+                \newpage
+                
+                \begin{figure*}[h!]
+                	\centering
+                	\includegraphics[width=0.45\textwidth]{images/3.i.png}
+                	\includegraphics[width=0.45\textwidth]{images/3.ii.png}
+                \end{figure*}
+                
                 For really small values of $ \delta $, the Taylor expansion is the most accurate but my expression is also very accurate. The accuracy of the Taylor expansion when $ \delta $ is small makes sense because Taylor expansions are most accurate near their expansion center. As $ \delta $ gets closer to 1, the original expression and my expression both perform accurately with little difference in there calculations. The Taylor expansion does not perform well for $ \delta $ close to 1 because we don't have enough terms to extend the accuracy that far from the center. With that being said, my expression has the most reliable computations of the three expressions.
                 
-              \begin{figure*}[h!]
-                  \centering
-                  \includegraphics[width=0.45\textwidth]{images/3.i.png}
-                  \includegraphics[width=0.45\textwidth]{images/3.ii.png}
-              \end{figure*}  
+                From the plots above, we can see that as we increase $ \delta $, the Taylor approximation decreases in accuracy as a whole uniformly. 
+                
             \end{enumerate}
             
             \item Show that $(1 + x)^n = 1 + nx + o(x)$ as $x \to 0$ where $n \in \ints$.
@@ -205,10 +212,14 @@
             
             \item Show that $ x \sin (\sqrt{x}) = O(x^{3/2}) $ as $x \to 0^+$.
             
-            Suppose we have any $ \varepsilon > 0 $ and $ x \in [0, \varepsilon) $. Then
-            \[
-                \abs{\frac{x \sin(x) \sqrt{x}}{x^{3/2}}} = \abs{\frac{x^{3/2} \sin(x)}{x^{3/2}}} = \abs{\sin(x)} \leq 1 = M.
-            \]
+            Suppose we $ x > 0 $. Then
+            \begin{align*}
+                \lim_{x \to 0^+}\abs{\frac{x \sin( \sqrt{x})}{x^{3/2}}} &= \abs{\lim_{x \to 0^+} \frac{\frac{1}{2}\sqrt{x}\cos(\sqrt{x}) + \sin(\sqrt{x})}{\frac{3}{2} x^{1/2}}} \\
+                &= \lim_{x \to 0^+} \frac{1}{3} \cos(\sqrt{x}) + \lim_{x \to 0^+}\frac{3 \sin(\sqrt{x})}{2x^{1/2}} \\
+                &= 1 + \lim_{x \to 0^+} \frac{\frac{3}{2}x^{-1/2} \cos(\sqrt{x})}{x^{-1/2}} \\
+                &= 1 + 0 \\
+                &\leq 1.
+            \end{align*}
             Therefore, $ x \sin (\sqrt{x}) = O(x^{3/2}) $ as $ x \to 0^+ $.
             
             \item The function $f(x) = (x - 5)^9$ has a root at $x = 5$ and is monotonically increasing (decreasing) for $x > 5$ $(x < 5)$ and should thus be a suitable candidate for your function above. Set $a = 4.8$ and $b = 5.3$ and $tol = 1e-4$ and use bisection with:
@@ -224,11 +235,12 @@
                     \item Explain what is happening.
                     
                     From question 2, we can see that a fully expanded polynomial may not always be the best idea when using floating point numbers. The loss of accuracy when using the bisection method in part (ii) can be attributed to the expanded polynomial. The expanded polynomial adds and subtracts relatively large and relatively small numbers which causes cancellation and rounding error to run rampant causing loss in significant digits. Thus the best accuracy we can hope for in the expanded polynomial is much less than the compact polynomial.
+                    
+                    
+                    \rule{\textwidth}{0.4pt}
+                    \lstinputlisting[language = matlab]{bisection.m}
+                    \rule{\textwidth}{0.4pt}
                 \end{enumerate} 
 \end{enumerate}
 
-\newpage
-\rule{\textwidth}{0.4pt}
-\lstinputlisting[language = matlab]{bisection.m}
-\rule{\textwidth}{0.4pt}
 \end{document}
