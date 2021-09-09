@@ -60,7 +60,56 @@
 			
 			\item $ x_{n+1} = \frac{2}{3} x_n + \frac{1}{x_n^2}, x_* = 3^{1/3}$
 			
+			Suppose 
+			\[
+				g(x) = \frac{2}{3}x + \frac{1}{x^2}.
+			\]
+			Furthermore, suppose $ x_0 \in [1,2] $. Then $ x_* \in [1,2] $,  $ \min_{x \in [1,2]} g(x) = 3^{1/3} $, and $ \max_{x \in [1,2]}g(x) = \frac{5}{3} $. Therefore $ g([1,2]) \subset [1,2]$ So because $ g(x) $ is continuously differentiable on $ [1,2] $, Theorem 2.6 of Atkinson tells us that with $ x_0 \in [1,2] $ and $ x_{n+1} = g(x_n)$, that $ x_* $ is a unique solution to $ x = g(x) $ in $ [1,2] $ and that
+			\[
+				\lim_{n \to \infty} x_n = x_*.
+			\]
+			In other words, for any $ x_0 $ in the neighborhood $ [1,2] $ of $ x_* $, the fixed point iteration will converge.
+			
+			Now let's figure out the order of convergence. Taylor expanding $ g(x_n) $ about $ x_n = x_* $ yields
+			\[
+				x_{n+1} = g(x_n) = g(x_*) + \left(\frac{2}{3} - \frac{2}{x_*^3}\right)(x_n - x_*) + \frac{3}{\xi^4}(x_n - x_*)^2 = x_* + \frac{3}{\xi^4}(x_n - x_*)^2
+			\]
+			 for $ \xi $ between $ x_n $ and $ x_* $. Using the equality above, we can obtain
+			\[
+				\frac{\abs{x_{n+1} - x_*}}{\abs{x_n - x_*}^2} = \frac{3}{\xi^4}.
+			\]
+			Now because $ x_n \to x_* $ as $ n \to \infty $ and $ \xi $ is between $ x_n $ and $ x_* $, we must have $ \xi \to x_* $ as $ n \to \infty $. Thus
+			\[
+				\lim_{n \to \infty} \frac{\abs{x_{n+1} - x_*}}{\abs{x_n - x_*}^2} = \frac{3}{x_*^4}
+			\]
+			which shows that $ x_{n+1} = g(x_n) $ converges quadratically to $ x_* $ in the neighborhood $ [1,2] $.
+			
+			
 			\item $ x_{n+1} = \frac{12}{1+x_n}, x_* = 3 $
+			
+			Just as in the previous part, let's first show that the iteration converges to $ x_* $ for $ x_0 $ sufficiently close to $ x_* $. First, let
+			\[
+				g(x) = \frac{12}{1+x_n}, x_* = 3.
+			\]
+			Then $ x_{n+1} = g(x_n) $, $ x_* \in [2,4] $, $ \min_{x \in [2,4]}g(x) = \frac{12}{5} $, and $ \max_{x \in [2,4]} g(x) = 4$. Therefore, $ g([2,4]) \subset [2,4] $ and so by Theorem 2.6 on Atkinson, $ x_* $ is a unique solution to $ x = g(x) $ in $ [2,4] $ and any $ x_0 \in [2,4] $ with $ x_{n+1} = g(x_n)$ will have
+			\[
+				\lim_{n \to \infty}x_n = x_*.
+			\]
+			In other words, for any $ x_0 \in [2,4] $ (i.e. sufficiently close to $ x_* $), $ x_{n+1} = g(x_n) $ will converge to $ x_* $.
+			
+			Now let's determine the order and rate of convergence. Taylor expanding $ g(x_n) $ about $ x_n = x_* $ yields
+			\[
+				x_{n+1} = g(x_n) = g(x_*) - \frac{12}{(1+\xi)^2}(x_n - x_*)
+			\]
+			for some $ \xi $ between $ x_n $ and $ x_* $. Then, rearranging yields
+			\[
+				\frac{\abs{x_{n +1} - x_*}}{\abs{x_n - x_*}} = \abs{\frac{12}{(1 + \xi)^2}}.
+			\]
+			Finally, because $ \lim_{n\to\infty} x_n = x_*$, $  $$\lim_{n\to\infty} \xi = x_*$ and so
+			\[
+				\lim_{n \to \infty} \frac{\abs{x_{n +1} - x_*}}{\abs{x_n - x_*}} = \abs{\frac{12}{(1 + x_*)^2}} = \frac{3}{4}.
+			\]
+			This limit shows us that $ x_{n+1} = g(x_n) $ will converge linearly to $ x_* $ with a rate of $ \frac{3}{4} $ provided $ x_0 \in [2,4] $ (i.e. $ x_0 $ is sufficiently close to $ x_* $).
 		\end{enumerate}
 	
 		\item In laying water mains, utilities must be concerned with the possibility of freezing. Although soil and weather conditions are complicated, reasonable approximations can be made on the basis of the assumption that soil is uniform in all directions.  In that case the temperature in degrees Celsius $ T(x,t) $ at a distance $ x $ (in meters) below the surface, $ t $ seconds after the beginning of a cold snap, approximately satisfies
@@ -72,13 +121,84 @@
 			\erf(t) = \frac{2}{\sqrt{2}} \int_0^t e^{-s^2}\dd s
 		\]
 		Assume that $ T_i = 20 [\deg C]$, $ T_s = -15 [\deg C] $, $ \alpha = 0.138 \cdot 10^{-6} [$meters$ ^2 $ per second$ ] .$
-		\item
+		\item Consider applying Newton's method to a real cubic polynomial.
+		\begin{enumerate}[label = \roman*.]
+			\item In the case that the polynomial has three distinct real roots, $ x = \alpha, x = \beta, $ and $ x = \gamma $, show that the starting guess $ x_0 = \frac{1}{2} (\alpha + \beta) $ will yield the root $ \gamma $ in one step.
+			
+			Any cubic polynomial with roots $ x \in \{\alpha, \beta, \gamma \} $ can be written as
+			\[
+				p(x) = a (x - \alpha)(x - \beta)(x - \gamma)
+			\]
+			where $ a \in \reals $ is a constant. Using this general cubic yields a newton iteration of
+			\[
+				x_{n+1} = x_n - \frac{p(x_n)}{p'(x_n)}.
+			\]
+			Then, using $ x_0 = \frac{1}{2}(\alpha + \beta) $ yieds an iteration of
+			\begin{align*}
+				x_1 = x_0 - \frac{p(x_0)}{p'(x_0)} &= \frac{1}{2}(\alpha + \beta)  - \frac{-\frac{1}{8} a (\alpha - \beta)^2 (\alpha + \beta - 2\gamma)}{-\frac{1}{4} a (\alpha - \beta)^2} \\
+				&= \frac{1}{2}(\alpha + \beta)  - \frac{1}{2}(\alpha + \beta) + \frac{1}{2} (2\gamma) \\
+				&= \gamma.
+			\end{align*}
+			Thus, $ x_1 = \gamma $ which shows Newton converges to $ x = \gamma $ in one iteration when $ x_0 = \frac{1}{2}(\alpha + \beta) $.
+			
+			\item Give a heuristic argument showing that if two roots coincide, there is precisely one starting guess $ x_0 $ other than $ x_0 = \beta $ for which Newton's method will fail, and that this one separates the basins of attraction for the distinct roots.
+			
+			Consider the cubic
+			\[
+				p(x) = a (x - \alpha)(x - \beta)^2
+			\]
+			with the constant $ a \in \reals$.  Any plot of $ p(x) $ will look similar to Figure \ref{fig:basin}. From the plot we can see that Newton fails whenever the derivative $ p'(x) = 0 $. One of these breaking points in the double root at $ \beta $; the other breaking point is at the $ x_b $ between $ \alpha $ and $ \beta $ for which $ p'(x_b) = 0 $. Now, Newton could potentially break at other points if after a certain iteration, we end up at $ x_b $ or $ \beta $. But, because we have double root in this cubic, none of the tangent lines to $ p(x) $ cross the $ x $-axis at $ x_b $ or $ \beta $. This lack of other points is due to the function bouncing off the $ x $-axis at $ \beta $, because any tangent line constructed on $ p(x) $ will cross the $ x $-axis towards $ \alpha $ if $ x < x_b $ and will cross the $ x $-axis towards $ \beta $ if $ x > x_b $. Thus, any starting $ x_0 $ will move away $ x_b $. Even though iterations can move towards $ \beta $, they will never get to $ \beta $ and thus, won't break after a certain iteration.
+			
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width = 0.6\textwidth]{"images/Basin_of_attraction.png"}
+				\caption{General plot of cubic polynomial with one double root}
+				\label{fig:basin}
+			\end{figure}
+			
+			From the discussion above and Figure \ref{fig:basin}, we can see that $ x_b $ forms the line between the basin of attraction for $ \alpha $ and $ \beta $ because the tangents cross the $ x $-axis closer to $ \alpha $ or $ \beta $ depending on if the initial $ x_0 $ is to the left or right of $ x_b $.
+			
+			\newpage
+			\item Extend the argument in part ii. to the case when all three roots again are distinct.  Explain why there are now infinitely many starting guesses $ x_0 $ for which the iteration will fail.
+			
+			Consider the cubic polynomial:
+			\[
+				p(x) = a (x - \alpha)(x - \beta)(x - \gamma)
+			\]
+			where $ a \in \reals $ is a constant. All plots of $ p(x) $ will look similar to Figure \ref{fig:bad}. From Figure \ref{fig:bad}, we can see that we still have two obvious breaking points $ x_{b1} $ and $ x_{b2} $ between $ \alpha $ and $ \beta, $ and $ \beta $ and $ \gamma $. However, now both breaking points are not at roots. In fact, one breaking point will correspond to $ p(x) > 0 $, and one will correspond to $ p(x) < 0 $. Looking at where the tangent lines of $ p(x) $ cross the $ x $-axis show that there is a tangent line that crosses at $ x_{b1} $ and $ x_{b2} $. These tangents could send an initial point $ x_0 $ to one of the breaking points which would cause Newton to fail at the second iteration. Even worse, these new breaking points that map to the original breaking points have points that Newton will map to from somewhere else. We can keep repeating this process indefinitely to find an infinite sequence of points in a Newton iteration that will eventually work its way back to the first breaking points which will cause the method to fail. The light gray lines in Figure \ref{fig:bad} show a potential path that Newton can take to eventually break after some amount of iterations. 
+			
+			This sequence of breaking points only exists because the local max and min are on the opposite sides of the $ x $-axis and so the tangents will scan across the breaking points as $ x_n $ goes to the middle root from a local min or max.
+			
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width = 0.6\textwidth]{"images/Bad_points.png"}
+				\caption{General plot of cubic polynomial with three distinct roots}
+				\label{fig:bad}
+			\end{figure}
+		\end{enumerate}
+	
+		\newpage
 		\item The sequence $ x_k $ produced by Newton's method is quadratically convergent to $ x_* $ with $ f(x_*) = 0 $, $ f'(x) \neq 0 $ and $ f''(x) $ continuous at $ x_* $.
 		
-		Let $ f(x) = (x-x_*)^p q(x) $ with $ p $ a positive integer with $ q $ twice continously differentiable and $ q(x_*) \neq 0 $. Note: $ f'(x_*) = 0. $ In the following sub-problems, let $ x_k, f_k = f(x_k), e_k = \abs{x_* - x_k}, $ etc.
+		Let $ f(x) = (x-x_*)^p q(x) $ with $ p $ a positive integer with $ q $ twice continuously differentiable and $ q(x_*) \neq 0 $. Note: $ f'(x_*) = 0. $ In the following sub-problems, let $ x_k, f_k = f(x_k), e_k = \abs{x_* - x_k}, $ etc.
 		
 		\begin{enumerate}[label = \roman*.]
 			\item Prove that Newton's method converges linearly for $ f(x). $
+			
+			Using $ f(x) = (x - x_*)^p q(x) $, we have the Newton iterate
+			\[
+				x_{n+1} = g(x_n) = x_n - \frac{f(x_n)}{f'(x_n)} = x_n - \frac{(x_n - x_*)q(x_n)}{p q(x_n) + (x_n - x_*)q'(x_n)}.
+			\]
+			Then,
+			\begin{align*}
+				\frac{\abs{x_{n+1} - x_*}}{\abs{x_n - x_*}} = \frac{\abs{g(x_n) - x_*}}{\abs{x_n - x_*}} &= \frac{\abs{x_n - x_* - \frac{(x_n - x_*)q(x_n)}{p q(x_n) + (x_n - x_*)q'(x_n)}}}{\abs{x_n - x_*}} \\
+				&= \abs{1 - \frac{q(x_n)}{p q(x_n) + (x_n - x_*)q'(x_n)}}.
+			\end{align*}
+			Now, we can take the limit of both sides to get
+			\[
+				\lim_{x->x^*} \frac{\abs{x_{n+1} - x_*}}{\abs{x_n - x_*}} = \abs{1 - \frac{q(x_*)}{p q(x_*)}} = \abs{1 - \frac{1}{p}}
+			\]
+			which shows that Newton converges linearly.
 			
 			\item Consider the modified Newton iteration defined by 
 			\[
