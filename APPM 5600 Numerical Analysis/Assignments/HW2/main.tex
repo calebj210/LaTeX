@@ -106,7 +106,7 @@
             \[
                 \frac{\abs{x_{n + 1} - x_*}}{\abs{x_n - x_*}} = \abs{ 6 - \frac{12}{\xi^2}} \geq \frac{2}{3}
             \]
-            Which shows that the error might decrease near $ x_* $. Putting these two points together shows that we are unsure if the iterate will converge or not.
+            Which shows that the error might decrease near $ x_* $. Putting these two points together shows that we are unsure if the iterate will converge or not provided $ x_0 $ is sufficiently close to $ x_* $.
 			
 			\item $ x_{n+1} = \frac{2}{3} x_n + \frac{1}{x_n^2}, x_* = 3^{1/3}$
 			
@@ -114,7 +114,7 @@
 			\[
 				g(x) = \frac{2}{3}x + \frac{1}{x^2}.
 			\]
-			Furthermore, suppose $ x_0 \in [1,2] $. Then $ x_* \in [1,2] $,  $ \min_{x \in [1,2]} g(x) = 3^{1/3} $, and $ \max_{x \in [1,2]}g(x) = \frac{5}{3} $. Therefore $ g([1,2]) \subset [1,2]$ So because $ g(x) $ is continuously differentiable on $ [1,2] $, Theorem 2.6 of Atkinson tells us that with $ x_0 \in [1,2] $ and $ x_{n+1} = g(x_n)$, that $ x_* $ is a unique solution to $ x = g(x) $ in $ [1,2] $ and that
+			Furthermore, suppose $ x_0 \in [1,2] $. Then $ x_* \in [1,2] $,  $ \min_{x \in [1,2]} g(x) = 3^{1/3} $, and $ \max_{x \in [1,2]}g(x) = \frac{5}{3} $. Therefore $ g([1,2]) \subset [1,2]$. So because $ g(x) $ is continuously differentiable on $ [1,2] $, Theorem 2.6 of Atkinson tells us that with $ x_0 \in [1,2] $ and $ x_{n+1} = g(x_n)$, that $ x_* $ is a unique solution to $ x = g(x) $ in $ [1,2] $ and that
 			\[
 				\lim_{n \to \infty} x_n = x_*.
 			\]
@@ -139,7 +139,7 @@
 			
 			Just as in the previous part, let's first show that the iteration converges to $ x_* $ for $ x_0 $ sufficiently close to $ x_* $. First, let
 			\[
-				g(x) = \frac{12}{1+x_n}, x_* = 3.
+				g(x) = \frac{12}{1+x} \text{ and } x_* = 3.
 			\]
 			Then $ x_{n+1} = g(x_n) $, $ x_* \in [2,4] $, $ \min_{x \in [2,4]}g(x) = \frac{12}{5} $, and $ \max_{x \in [2,4]} g(x) = 4$. Therefore, $ g([2,4]) \subset [2,4] $ and so by Theorem 2.6 on Atkinson, $ x_* $ is a unique solution to $ x = g(x) $ in $ [2,4] $ and any $ x_0 \in [2,4] $ with $ x_{n+1} = g(x_n)$ will have
 			\[
@@ -174,7 +174,7 @@
         \begin{enumerate}[label = \roman*.]
             \item We want to determine how deep a water main should be buried so that it will only freeze after 60 days exposure at this constant surface temperature. Formulate the problem as a root finding problem $ f(x) = 0. $ What is $ f $ and what is $ f' $? Plot the function $ f $ on $ [0, \bar{x}] $, where $ \bar{x} $ is chosen so that $ f(\bar{x}) > 0 $. 
             
-            First, let's identify what we are are trying to solve. We want to $ x $ such that $ T(x, 60 [\text{days}]) = 0 $. To find, this, we to solve for $ T $ which yields
+            First, let's identify what we are are trying to solve. We want to find $ x $ such that $ T(x, 60 [\text{days}]) = 0 $. To find, this, we to solve for $ T $ which yields
             \[
                 T(x,t) = \erf\left(\frac{x}{2\sqrt{\alpha t}}\right) (T_i - T_s) + T_s.
             \]
@@ -201,7 +201,7 @@
             
             Using $ x_0 = 0.01 $, Newton's method converges to a root of $ x = 0.6769618544819366 $ in $ 5 $ iterations. If instead we use $ x_0 = \bar{x} = 6 $, Newton fails after the first iteration due to a division by zero error. This faulty division is caused by our temperature function being flat away from the root and so when we used $ \bar{x} $, our derivative shot to zero which caused the next iteration to fly to another very flat section causing the code to throw an error. 
             
-            Overall, I would still prefer Newton's method here because it converges much more rapidly than the bisection method when it converges. Plus, in this case, when Newton wasn't going to work, it stopped only after a single iteration. Thus, it would still be faster to try another initial root guess for Newton than it would be to run the bisection method once.
+            Overall, I would still prefer Newton's method here because it converges much more rapidly than the bisection method (when it converges). Plus, in this case, when Newton wasn't going to work, it stopped only after a single iteration. Thus, it would still be faster to try another initial root guess for Newton than it would be to run the bisection method once.
             \begin{center}
                 \textit{(Code used is at the end of the document)}
             \end{center}
@@ -234,7 +234,7 @@
 			\[
 				p(x) = a (x - \alpha)(x - \beta)^2
 			\]
-			with the constant $ a \in \reals$.  Any plot of $ p(x) $ will look similar to Figure \ref{fig:basin}. From the plot we can see that Newton fails whenever the derivative $ p'(x) = 0 $. One of these breaking points in the double root at $ \beta $; the other breaking point is at the $ x_b $ between $ \alpha $ and $ \beta $ for which $ p'(x_b) = 0 $. Now, Newton could potentially break at other points if after a certain iteration, we end up at $ x_b $ or $ \beta $. But, because we have double root in this cubic, none of the tangent lines to $ p(x) $ cross the $ x $-axis at $ x_b $ or $ \beta $. This lack of other points is due to the function bouncing off the $ x $-axis at $ \beta $, because any tangent line constructed on $ p(x) $ will cross the $ x $-axis towards $ \alpha $ if $ x < x_b $ and will cross the $ x $-axis towards $ \beta $ if $ x > x_b $. Thus, any starting $ x_0 $ will move away $ x_b $. Even though iterations can move towards $ \beta $, they will never get to $ \beta $ and thus, won't break after a certain iteration.
+			with the constant $ a \in \reals$.  Any plot of $ p(x) $ will look similar to Figure \ref{fig:basin}. From the plot we can see that Newton fails whenever the derivative $ p'(x) = 0 $. One of these breaking points is the double root at $ \beta $; the other breaking point is at the $ x_b $ between $ \alpha $ and $ \beta $ for which $ p'(x_b) = 0 $. Now, Newton could potentially break at other points if after a certain iteration, we end up at $ x_b $ or $ \beta $. But, because we have a double root in this cubic, none of the tangent lines to $ p(x) $ cross the $ x $-axis at $ x_b $ or $ \beta $. This lack of other points is due to the function bouncing off the $ x $-axis at $ \beta $, because any tangent line constructed on $ p(x) $ will cross the $ x $-axis towards $ \alpha $ if $ x < x_b $ and will cross the $ x $-axis towards $ \beta $ if $ x > x_b $. Thus, any starting $ x_0 $ will move away $ x_b $. Even though iterations can move towards $ \beta $, they will never get to $ \beta $ and thus, won't break after a certain iteration.
 			
 			\begin{figure}[h!]
 				\centering
@@ -281,7 +281,7 @@
 				\frac{\abs{x_{n+1} - x_*}}{\abs{x_n - x_*}} = \frac{\abs{g(x_n) - x_*}}{\abs{x_n - x_*}} &= \frac{\abs{x_n - x_* - \frac{(x_n - x_*)q(x_n)}{p q(x_n) + (x_n - x_*)q'(x_n)}}}{\abs{x_n - x_*}} \\
 				&= \abs{1 - \frac{q(x_n)}{p q(x_n) + (x_n - x_*)q'(x_n)}}.
 			\end{align*}
-			Now, we can take the limit of both sides to get
+			Now, assuming $ \lim_{n -> \infty}x_n = x_* $, we can take the limit of both sides to get
 			\[
 				\lim_{x->x^*} \frac{\abs{x_{n+1} - x_*}}{\abs{x_n - x_*}} = \abs{1 - \frac{q(x_*)}{p q(x_*)}} = \abs{1 - \frac{1}{p}}
 			\]
@@ -506,7 +506,7 @@
         
         From the error plots and tables, clearly the Modified Newton's method converges much faster (in only 5 iterations vs 161 iterations from Newton's method). But, to really understand what's happening, we can first turn to the tables. The Newton's method table shows an error that is decreasing at a nearly linear rate with the method gaining another power of ten of accuracy every ten or so iterations. Similarly, the plot of Newton's method shows a straight line when we logarithmically scale the $ y $-axis. Both of these combined tell us that Newton's method is converging to the multiple root linearly. 
         
-        On the other hand, the table of the Modified Newton's method shows the number of digits that we have correct doubles after each iteration (just like quadratic convergence in the theory describes). Furthermore, the error plot of the Modified Newton's method shows a decreasing, concave down curve as the number of iterations increases with a logarithmically scaled $ y $-axis. This type of downward curve is characteristic of higher order methods which only support the theory more than the Modified Newton's method has quadratic convergence.
+        On the other hand, the table of the Modified Newton's method shows the number of digits that we have correct doubles after each iteration (just like quadratic convergence in the theory describes). Furthermore, the error plot of the Modified Newton's method shows a decreasing, concave down curve as the number of iterations increases with a logarithmically scaled $ y $-axis. This type of downward curve is characteristic of higher order methods which only support the theory more that the Modified Newton's method has quadratic convergence.
 	\end{enumerate}
 \end{enumerate}
 
