@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.8.31)  9 SEP 2021 17:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.8.29)  10 SEP 2021 00:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -669,33 +669,57 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip65
 )
-\qed=\box62
+(/usr/share/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count313
+\lst@gtempboxa=\box62
+\lst@token=\toks41
+\lst@length=\count314
+\lst@currlwidth=\dimen285
+\lst@column=\count315
+\lst@pos=\count316
+\lst@lostspace=\dimen286
+\lst@width=\dimen287
+\lst@newlines=\count317
+\lst@lineno=\count318
+\lst@maxwidth=\dimen288
+
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count319
+\lst@skipnumbers=\count320
+\lst@framebox=\box63
+)
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+\qed=\box64
 
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count313
-\l__pdf_internal_box=\box63
+\l__color_backend_stack_int=\count321
+\l__pdf_internal_box=\box65
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -733,17 +757,17 @@ LaTeX Font Info:    ... okay on input line 54.
 
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count314
-\scratchdimen=\dimen285
-\scratchbox=\box64
-\nofMPsegments=\count315
-\nofMParguments=\count316
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count317
-\MPscratchDim=\dimen286
-\MPnumerator=\count318
-\makeMPintoPDFobject=\count319
-\everyMPtoPDFconversion=\toks42
+\scratchcounter=\count322
+\scratchdimen=\dimen289
+\scratchbox=\box66
+\nofMPsegments=\count323
+\nofMParguments=\count324
+\everyMPshowfont=\toks42
+\MPscratchCnt=\count325
+\MPscratchDim=\dimen290
+\MPnumerator=\count326
+\makeMPintoPDFobject=\count327
+\everyMPtoPDFconversion=\toks43
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -756,7 +780,7 @@ e
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.17}).
 
-Package hyperref Info: Link coloring ON on input line 54.
+Package hyperref Info: Link coloring ON on input line 82.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -766,28 +790,29 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count320
+\c@section@level=\count328
 )
-LaTeX Info: Redefining \ref on input line 54.
-LaTeX Info: Redefining \pageref on input line 54.
-LaTeX Info: Redefining \nameref on input line 54.
+LaTeX Info: Redefining \ref on input line 82.
+LaTeX Info: Redefining \pageref on input line 82.
+LaTeX Info: Redefining \nameref on input line 82.
 
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 56.
+\c@lstlisting=\count329
+LaTeX Font Info:    Trying to load font information for U+msa on input line 84.
 
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 56.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 84.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (3.32056pt too wide) in paragraph at lines 66--68
+Overfull \hbox (3.32056pt too wide) in paragraph at lines 116--118
 \OT1/cmr/m/n/12 Furthermore, sup-pose $\OML/cmm/m/it/12 x[] \OMS/cmsy/m/n/12 2 
 \OT1/cmr/m/n/12 [1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 2]$. Then $\OML/cmm/m/it/1
 2 x[] \OMS/cmsy/m/n/12 2 \OT1/cmr/m/n/12 [1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 2
@@ -799,45 +824,89 @@ mr/m/n/12 ) =
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ] [2]
-<images/Basin_of_attraction.png, id=34, 691.08188pt x 512.66531pt>
+<images/WaterTemp.png, id=32, 421.575pt x 315.84666pt>
+File: images/WaterTemp.png Graphic file (type png)
+<use images/WaterTemp.png>
+Package pdftex.def Info: images/WaterTemp.png  used on input line 191.
+(pdftex.def)             Requested size: 262.61894pt x 196.75787pt.
+
+Overfull \hbox (3.96709pt too wide) in paragraph at lines 200--201
+[]\OT1/cmr/m/n/12 Compute an ap-prox-i-mate depth us-ing New-ton's Method with 
+start-ing value $\OML/cmm/m/it/12 x[] \OT1/cmr/m/n/12 = 0\OML/cmm/m/it/12 :\OT1
+/cmr/m/n/12 01[[]]$. 
+ []
+
+[3 <./images/WaterTemp.png (PNG copy)>]
+<images/Basin_of_attraction.png, id=41, 691.08188pt x 512.66531pt>
 File: images/Basin_of_attraction.png Graphic file (type png)
 <use images/Basin_of_attraction.png>
-Package pdftex.def Info: images/Basin_of_attraction.png  used on input line 154
+Package pdftex.def Info: images/Basin_of_attraction.png  used on input line 241
 .
 (pdftex.def)             Requested size: 315.14594pt x 233.78719pt.
- [3 <./images/Basin_of_attraction.png (PNG copy)>]
-<images/Bad_points.png, id=45, 900.36375pt x 665.48625pt>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4]
+<images/Bad_points.png, id=56, 900.36375pt x 665.48625pt>
 File: images/Bad_points.png Graphic file (type png)
 <use images/Bad_points.png>
-Package pdftex.def Info: images/Bad_points.png  used on input line 174.
+Package pdftex.def Info: images/Bad_points.png  used on input line 261.
 (pdftex.def)             Requested size: 315.14594pt x 232.93382pt.
- [4 <./images/Bad_points.png (PNG copy)>] [5]
-(./main.aux)
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5 <./images/Basin_of_attraction.png (PNG copy)>] [6 <./images/Bad_points.png (
+PNG copy)>]
+<images/Newton.png, id=71, 421.575pt x 315.84666pt>
+File: images/Newton.png Graphic file (type png)
+<use images/Newton.png>
+Package pdftex.def Info: images/Newton.png  used on input line 322.
+(pdftex.def)             Requested size: 236.35544pt x 177.08015pt.
+<images/Modified_Newton.png, id=72, 421.575pt x 315.84666pt>
+File: images/Modified_Newton.png Graphic file (type png)
+<use images/Modified_Newton.png>
+Package pdftex.def Info: images/Modified_Newton.png  used on input line 323.
+(pdftex.def)             Requested size: 236.35544pt x 177.08015pt.
+ [7 <./images/Newton.png (PNG copy)> <./images/Modified_Newton.png (PNG copy)>]
+ [8] [9] [10] [11]
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 518.
+ (./code/Problem2.m)
+[12] (./code/Problem4.m [13] [14]) [15] (./code/bisection.m) [16]
+(./code/newton.m) [17] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 30119 strings out of 478994
- 695159 string characters out of 5864751
- 1086314 words of memory out of 5000000
- 47105 multiletter control sequences out of 15000+600000
- 408075 words of font info for 45 fonts, out of 8000000 for 9000
+ 32624 strings out of 478994
+ 727383 string characters out of 5864751
+ 1683894 words of memory out of 5000000
+ 49331 multiletter control sequences out of 15000+600000
+ 409366 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,12n,103p,1239b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/sh
-are/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
-b>
-Output written on main.pdf (5 pages, 273872 bytes).
+ 102i,12n,103p,1239b,1922s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></u
+sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/ams
+fonts/symbols/msbm10.pfb>
+Output written on main.pdf (17 pages, 413516 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
- 81 compressed objects within 1 object stream
- 21 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 457 PDF objects out of 1000 (max. 8388607)
+ 413 compressed objects within 5 object streams
+ 263 named destinations out of 1000 (max. 500000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
