@@ -1,0 +1,206 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5600: Numerical Analysis I}
+\rhead{Homework \#3}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = \arabic*.]
+	\item Let $ x_0, x_1 $ be two successive points from a secant method applied to solving $ f(x) = 0 $ with $ f_0 = f(x_0), f_1 = f(x_1) $. Show that regardless of which point $ x_0 $ or $ x_1 $ is regarded as the most recent point, the new point derived from the secant step will be the same.
+	
+	Suppose $ x_1 $ is the most recent point. Then the next point $ x_2 $ produced by the secant method would be given by
+	\begin{align*}
+		x_2 &= x_1 - f_1 \frac{x_1 - x_0}{f_1 - f_0} \\
+		&= \frac{x_1(f_1 - f_0) - f_1(x_1 - x_0)}{f_1 - f_0} \\
+		&= \frac{x_1 f_1 - x_1 f_0 - x_1 f_1 + x_0 f_1}{f_1 - f_ 0} \\
+		&= \frac{x_0 f_1 - x_1 f_0}{f_1 - f_0} \\
+		&= \frac{x_0 f_1 - x_1 f_0 + x_0 f_0 - x_0 f_0}{f_1 - f_0} \\
+		&= \frac{x_0 (f_1 - f_0) + f_0(x_0 - x_1) }{f_1 - f_0} \\
+		&= x_0 - f_0 \frac{x_0 - x_1}{f_0 - f_1}
+	\end{align*}
+	which is the secant iteration if $ x_0 $ was the most recent point. Thus, regardless of which point is the most recent, the secant iteration will produce the same point $ x_2 $.
+	
+	\item Determine whether the following sets of vectors are dependent or linearly independent:
+	\begin{enumerate}[label = (\alph*)]
+		\item $ (1,2,-1,3), (3,-1,1,1), (1,9,-5,11) $.
+		
+		We can determine if this set of vectors in linearly independent by forming the matrix and row reducing as follows
+		\[
+			\begin{pmatrix}
+				 1 &  3 &  1 \\
+				 2 & -1 &  9 \\
+				-1 &  1 & -5 \\
+				 3 &  1 & 11
+			\end{pmatrix}
+			\sim
+			\begin{pmatrix}
+				1 & 0 & 4 \\
+				0 & 1 & -1 \\
+				0 & 0 & 0 \\
+				0 & 0 & 0
+			\end{pmatrix}.
+		\]
+		This row reduction shows that our third vector can be written as a linear combination of the first two vectors and so our set is \emph{linearly dependent}.
+		
+		\item $ (1,1,0), (0,1,1), (1,0,1) $.
+		
+		Just as in part (a), we can test linear dependence by forming a matrix and row reducing as follows
+		\[
+			\begin{pmatrix}
+				1 & 0 & 1 \\
+				1 & 1 & 0 \\
+				0 & 1 & 1
+			\end{pmatrix}
+			\sim
+			\begin{pmatrix}
+				1 & 0 & 0 \\
+				0 & 1 & 0 \\
+				0 & 0 & 1
+			\end{pmatrix}.
+		\]
+		The row reduction shows that each vector can not be written as a linear combination of the other two vectors and so our set is \emph{linearly independent}.
+	\end{enumerate}
+
+	\newpage
+	\item Let $ \vec{x}_1, \vec{x}_2, \ldots, \vec{x}_k $ be linearly independent vectors in $ \reals^n $ and let $ A $ be a non-singular $ n \times n $ matrix. Define $ \vec{y}_i = A \vec{x}_i $ for $ i = 1, 2, \ldots, k $. Show that $ \vec{y}_1, \vec{y}_2, \ldots, \vec{y}_k $ are linearly independent.
+	
+	\begin{proof}{}
+		Let $A, x_i, $ and $ y_i $ be defined as above for $ i = 1, 2, \ldots, k $. Then, because $ \{x_i\}_{i=1}^k $ forms a linearly independent set, $ x_i \neq 0 $ for $ i = 1,2, \ldots, k $. Furthermore, because $ A $ is non-singular and $ x_i \neq 0 $,
+		\[
+			y_i = A x_i \neq 0
+		\]
+		for each $ i = 1,2, \cdots, k $. With this information in mind, let's find constants $ a_i $ such that $ a_1 y_1 + a_2 y_2 + \cdots + a_k y_k = 0 $. Consider
+		\begin{align*}
+			a_1 y_1 + a_2 y_2 + \cdots + a_k y_k &= a_1 A x_1 + a_2 A x_2 + \cdots + a_k A x_k \\
+			&= A (a_1 x_1 + a_2 x_2 + \cdots + a_k x_k). \label{equ:lincomb}\tag{$*$}
+		\end{align*}
+		Then, because $ A $ is non-singular, setting \eqref{equ:lincomb} equal to zero yields
+		\begin{equation}
+			a_1 x_1 + a_2 x_2 + \cdots + a_k x_k = 0. \label{equ:linindep}
+		\end{equation}
+		Finally, because $ \{x_i\}_{i=1}^k $ is linearly independent, the only solution to \eqref{equ:linindep} is $ a_i = 0 $ for each $ i = 1, 2, \ldots, k $. Thus, the only solution to $ a_1 y_1 + a_2 y_2 + \cdots + a_k y_k = 0 $ is when $ a_i = 0 $ for each $ i = 1, 2, \ldots, k $. Therefore, $ \{y_i\}_{i=1}^k $ forms a linearly independent set.
+	\end{proof}
+
+	\item Given the orthogonal vectors
+	\[
+		\vec{u}_1 = (1,2,-1) \quad \vec{u}_2 = (1, 1, 3)
+	\]
+	produce a third vector $ \vec{u}_3 $ such that $ \{\vec{u}_1, \vec{u}_2, \vec{u}_3\} $ is an orthogonal basis for $ \reals^3 $. Normalize the vectors to create an orthonormal basis.
+	
+	For any number of dimensions, we could use the Gram-Schmidt process to generate orthogonal vectors to our given vectors but we are in $ \reals^3 $ and so we can simply use the cross product to get a third orthogonal vector $ \vec{u}_3 $. We can produce $ \vec{u}_3 $ as
+	\[
+		\vec{u}_3 = \vec{u}_1 \times \vec{u}_2
+		=
+		\begin{vmatrix}
+			\hat{i} & \hat{j} & \hat{k} \\
+			1 & 2 & -1 \\
+			1 & 1 & 3
+		\end{vmatrix}
+		=
+		(6 + 1)\hat{i} - (3 + 1)\hat{j} + (1 - 2)\hat{k} = (7, -4, -1)
+	\]
+	Thus, $ \{\vec{u}_1, \vec{u}_2, \vec{u}_3\} = \{(1,2,-1), (1,1,3), (7,-4,-1)\} $ is an orthogonal basis for $ \reals^3 $. Going further, we can normalize each vector to get the orthonormal basis
+	\[
+		\left\{
+		\frac{1}{\sqrt{6}} \pmat{1 \\ 2 \\ -1},
+		\frac{1}{\sqrt{11}} \pmat{1 \\ 1 \\ 3},
+		\frac{1}{\sqrt{66}} \pmat{7 \\ -4 \\ -1} 
+		\right\}.
+	\]
+	
+	\item Prove that similar matrices have the same eigenvalues and that there is a one-to-one correspondence of the eigenvectors.
+	
+	\begin{proof}{}
+		Suppose we have similar square $ n \times n $ matrices $ A $ and $ B $. Then, by the definition of similar matrices, there exists an invertible $ n \times n $ matrix $ P $ such that
+		\begin{equation}
+			A = P^{-1} B P. \label{equ:sim}
+		\end{equation}
+		Now, suppose $ A $ has an eigenvalue $ \lambda $ with corresponding eigenvector $ \vec{\lambda} $. Then, $ A \vec{\lambda} = \lambda \vec{\lambda} $. Furthermore,
+		\[
+			P^{-1} B P \vec{\lambda} = A \vec{\lambda} = \lambda \vec{\lambda}.
+		\]
+		Rearranging yields
+		\begin{equation}
+			B (P \vec{\lambda}) = \lambda (P \vec{\lambda}) \label{equ:eig}
+		\end{equation}
+		which implies $ P \vec{\lambda} $ is an eigenvector of $ B $ with corresponding eigenvalue $ \lambda $. Thus, $ A $ and $ B $ both have the same eigenvalue and because we picked any eigenvalue of $ A $ and $ A $ and $ B $ are the same size, $ A $ and $ B $ must have the same eigenvalues. Furthermore, from \eqref{equ:eig}, we can form a one-to-one correspondence between the eigenvectors $ \vec{\lambda}_A $ of $ A $ to the eigenvectors $ \vec{\lambda}_B $ of $ B $ as
+		\[
+			\vec{\lambda}_B = P \vec{\lambda}_A.
+		\]
+	\end{proof}
+\end{enumerate}
+\end{document}
