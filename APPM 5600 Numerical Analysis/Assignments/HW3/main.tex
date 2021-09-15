@@ -202,5 +202,35 @@
 			\vec{\lambda}_B = P \vec{\lambda}_A.
 		\]
 	\end{proof}
+
+    \item A matrix $ A \in \reals^{n \times n} $ is \emph{positive definite} if and only if $ \inner{A \vec{x}, \vec{x}} > 0 $ for all $ \vec{x} \in \reals^n; x \neq 0 $,
+    
+    Prove that if $ A $ is positive definite, then $ A $ is non-singular.
+    
+    \begin{proof}{Proof by contradiction:}
+        Suppose $ A \in \reals^{n \times n} $ is a positive definite matrix. Then, $ \inner{A \vec{x}, \vec{x}} > 0 $ for all non-zero $ x \in \reals^n $. 
+        
+        Now, suppose there exists some $ \vec{x} \neq 0 $ such that $ A\vec{x} = 0 $. Then
+        \[
+            \inner{A\vec{x}, \vec{x}} = \inner{0, \vec{x}} = 0.
+        \]
+        But, because $ A $ is positive definite, we know if $ \vec{x} \neq 0 $, then $ \inner{A\vec{x}, \vec{x}} > 0$ which is a contradiction. Therefore, $ A\vec{x} = 0 $ only if $ \vec{x} = 0 $ which shows that $ A $ is non-singular.
+    \end{proof}
+
+    \item Let $ M $ be any real $ n \times n $ non-singular matrix and let $ A = M^T M $. Prove that $ A $ is positive definite.
+    
+    \begin{proof}{}
+        Let $ M $ and $ A $ be defined as above and let any non-zero $ \vec{x} \in \reals^n $ be given. Then
+        \begin{align*}
+            \vec{x}^T A \vec{x} &= \vec{x}^T M^T M \vec{x} \\
+            &= (M \vec{x})^T (M \vec{x}) \\
+            &= (M \vec{x}) \cdot (M \vec{x}).
+        \end{align*}
+        Now, we have the dot product between two identical vectors. Furthermore, because $ M $ is non-singular and $ \vec{x} \neq 0 $, we must have $ M \vec{x} \neq 0 $. Finally, because the dot product is an inner product, the dot product between two identical non-zero vectors must be strictly positive. So, putting everything together, we must have
+        \begin{equation}
+            \vec{x}^T A \vec{x} = (M \vec{x}) \cdot (M \vec{x}) > 0. \label{equ:posdef}
+        \end{equation}
+        Then, because the choice of non-zero $ \vec{x} $ was arbitrary, \eqref{equ:posdef} must hold for all non-zero $ x \in \reals^n $ which by definition means $ A $ is positive definite.
+    \end{proof}
 \end{enumerate}
 \end{document}
