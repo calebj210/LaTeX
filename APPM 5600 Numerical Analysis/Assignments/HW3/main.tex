@@ -199,8 +199,9 @@
 		\end{equation}
 		which implies $ P \vec{\lambda} $ is an eigenvector of $ B $ with corresponding eigenvalue $ \lambda $. Thus, $ A $ and $ B $ both have the same eigenvalue and because we picked any eigenvalue of $ A $ and $ A $ and $ B $ are the same size, $ A $ and $ B $ must have the same eigenvalues. Furthermore, from \eqref{equ:eig}, we can form a one-to-one correspondence between the eigenvectors $ \vec{\lambda}_A $ of $ A $ to the eigenvectors $ \vec{\lambda}_B $ of $ B $ as
 		\[
-			\vec{\lambda}_B = P \vec{\lambda}_A.
+			\vec{\lambda}_B = P \vec{\lambda}_A
 		\]
+		because $ P $ is invertible and thus one-to-one in mapping eigenvectors of $ A $ to of eigenvectors $ B $.
 	\end{proof}
 
     \item A matrix $ A \in \reals^{n \times n} $ is \emph{positive definite} if and only if $ \inner{A \vec{x}, \vec{x}} > 0 $ for all $ \vec{x} \in \reals^n; x \neq 0 $,
