@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.8.31)  17 SEP 2021 11:08
+=======
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.8.29)  17 SEP 2021 15:10
+>>>>>>> 3d8d7f4cf603eaa011ba06e9bbc8b8fae3d54285
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -834,7 +838,7 @@ hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/p
 ublic/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/ams
 fonts/symbols/msbm10.pfb>
-Output written on main.pdf (3 pages, 103827 bytes).
+Output written on main.pdf (3 pages, 103928 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  69 compressed objects within 1 object stream
