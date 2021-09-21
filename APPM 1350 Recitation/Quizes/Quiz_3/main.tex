@@ -1,0 +1,57 @@
+\documentclass[12pt]{exam}
+\usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath, amscd, amssymb, amsthm, xspace, graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry} % We can control the margins here
+\usepackage[all]{xy}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{mathtools}  
+\DeclarePairedDelimiter\Floor\lfloor\rfloor
+\DeclarePairedDelimiter\Ceil\lceil\rceil
+
+\newcommand{\class}{APPM 1350}
+\newcommand{\term}{Fall 2021}
+\newcommand{\examnum}{Quiz 3}
+\newcommand{\examdate}{09/21/2021}
+\newcommand{\timelimit}{10 Minutes}
+
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\examnum\ - Page \thepage\ of \numpages}{\examdate}
+\runningheadrule
+
+
+\begin{document}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+	\textbf{\class} & \textbf{Name:} & \makebox[2in]{\hrulefill}\\
+	\textbf{\term} &&\\
+	\textbf{\examnum} &&\\
+	\textbf{\examdate} &&\\
+	\textbf{Time Limit: \timelimit} & Recitation Section: & \makebox[2in]{\hrulefill}
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+
+\begin{questions}
+
+\question A ball is thrown straight up into the air at a time $ t = 0 $. The height of the ball relative to the ground at any point in time is given by the function
+\[
+	p(t) = -t^2 + 6t + 7.
+\]
+\begin{enumerate}[label = \textbf{(\alph*)}]
+    \item (6 points) For $t > 0$, find the instantaneous velocity of the object using the \underline{limit definition of the derivative}.
+    \item (2 points) At what time does the ball first hit the ground?
+    \item (2 points) What is the instantaneous velocity of the ball when it hits the ground in part (b)?
+\end{enumerate}
+
+
+
+\end{questions}
+
+\end{document}

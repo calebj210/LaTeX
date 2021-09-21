@@ -1,0 +1,65 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{tabularx} % extra features for tabular environment
+\usepackage{amsmath}  % improve math presentation
+
+\usepackage{graphicx} % takes care of graphic including machinery
+\usepackage[margin=1in,letterpaper]{geometry} % decreases margins
+\usepackage{cite} % takes care of citations
+\usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
+\hypersetup{
+	colorlinks=true,       % false: boxed links; true: colored links
+	linkcolor=blue,        % color of internal links
+	citecolor=blue,        % color of links to bibliography
+	filecolor=magenta,     % color of file links
+	urlcolor=blue         
+}
+\usepackage{blindtext}
+\usepackage{amssymb}
+\setlength\parindent{0pt}
+\usepackage{setspace}
+\usepackage{enumitem}
+\doublespacing
+\begin{document}
+\section*{APPM 1350 Recitation, Fall 2021, Week  5, Sep 21}
+\subsection*{1}
+Use the limit definition to find the derivative of the following functions at the given points:
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x)=\frac{1}{x}$ at $x=2$.
+			\item $g(x)=|x-6|$ at $x=6$.
+			\item $g(x)=\sqrt{9-x}$ at any $x$.
+		\end{enumerate}
+
+\subsection*{2}
+		Find the derivatives of the following functions:
+		\begin{enumerate}[label=\alph*)]
+			\item $f(x)=x^2+\frac{4}{x^3}$
+			\item $g(x)=A\cos(x)+B\sin(x)+C$ ($A$, $B$, and $C$ are constants)
+			\item $h(x)=\frac{\sqrt[10]{x}}{50}-\frac{19}{\sqrt[4]{x}}$
+			\item $y(x)=\frac{\sqrt{x}+x^2}{x}$
+		\end{enumerate}
+	
+\subsection*{3}
+	Suppose we a weight hanging from spring. The spring is bouncing up and its position relative to the ground at any time $ t $ is given by 
+		\[
+			p(t) = 2\sin(t) + 5.
+		\]
+		\begin{enumerate}[label = \alph*)]
+			\item For any time $ t > 0 $, find the instantaneous velocity of the weight.
+			
+			\item At what times does the weight change directions?
+			
+			\item What is the maximum and minimum height of the weight
+		\end{enumerate}
+\subsection*{4}
+    	\begin{enumerate}[label=\alph*)]
+		    \item Find the equation of the line that is tangent to the given function at the given point:\\
+		    $y=\sqrt{x}+5\sin(x)$ at $\left(\pi,\sqrt{\pi}\right)$.
+		
+			\item Find the equation of the line that is normal to $y=x-\sqrt{x}$ at the point $(4,2)$.
+			
+			\item Find the equation of the line tangent to the curve $y = x\sqrt{x}$ and parallel to the line $-3x + y = 1$.
+		\end{enumerate}
+
+\subsection*{5}
+Prove that $\frac{d}{dx}[f(x)-g(x)]=\frac{d}{dx}f(x)-\frac{d}{dx}g(x)$ using the limit definition of the derivative.
+\end{document}
