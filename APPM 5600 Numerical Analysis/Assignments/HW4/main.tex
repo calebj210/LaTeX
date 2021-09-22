@@ -73,12 +73,59 @@
 \fancyhead{}
 \lhead{Caleb Jacobs}
 \chead{APPM 5600: Numerical Analysis I}
-\rhead{Homework \#1}
+\rhead{Homework \#4}
 \cfoot{}
 \setlength{\headheight}{35pt}
 \setlength{\parskip}{0.25cm}
 \setlength{\parindent}{0pt}
 
 \begin{document}
-\textbf{Problem:}
+\begin{enumerate}[label = \arabic*.]
+	\item Prove the following for $ x \in \comps^n $:
+		\begin{enumerate}[label = (\alph*)]
+			\item $ \norm{x}_\infty \leq \norm{x}_1 \leq n \norm{x}_\infty $.
+				\begin{proof}{}
+					For the first inequality, we have
+					\begin{align*}
+						\norm{x}_\infty &= \max_{1 \leq i \leq n} \abs{x_i} \\
+						&\leq \sum_{i=1}^n \abs{x_i} \\
+						&= \norm{x}_1.
+					\end{align*}
+					 For the second half of our inequality chain, we have
+					 \begin{align*}
+					 	\norm{x}_1 &= \sum_{i=1}^{n} \abs{x_i} \\
+					 	&\leq \sum_{i=1}^{n} \left(\max_{1 \leq j \leq n} \abs{x_j}\right) \\
+					 	&= n \max_{1 \leq j \leq n} \abs{x_j} \\
+					 	&= n \norm{x}_\infty
+					 \end{align*}
+				 
+				 	Thus, $ \norm{x}_\infty \leq \norm{x}_1 \leq n\norm{x}_\infty $.
+				\end{proof}
+			
+			\item $ \norm{x}_\infty \leq \norm{x}_2 \leq \sqrt{n}\norm{x}_\infty $.
+				\begin{proof}{}
+					For the first inequality, we have
+					\begin{align*}
+						\norm{x}_\infty &= \max_{1 \leq i \leq n} \abs{x_i} \\
+						&= \sqrt{\left(\max_{1 \leq i \leq n} \abs{x_i}\right)^2} \\
+						&\leq \sqrt{\sum_{i=1}^{n} \abs{x_i}^2} \\
+						&= \norm{x}_2.
+					\end{align*}
+					For the second half of our inequality chain, we have
+					\begin{align*}
+						\norm{x}_2 &= \sqrt{\sum_{i=1}^{n} \abs{x_i}^2} \\
+						&\leq \sqrt{\sum_{i=1}^{n} \left(\max_{1 \leq j \leq n}\abs{x_j}\right)^2} \\
+						&= \sqrt{n \left(\max_{1 \leq j \leq n} \abs{x_j}\right)^2} \\
+						&= \sqrt{n} \max_{1 \leq j \leq n} \abs{x_j} \\
+						&= n \norm{x}_\infty.
+					\end{align*}
+						Thus, $ \norm{x}_\infty \leq \norm{x}_2 \leq \sqrt{n} \norm{x}_\infty $.
+				\end{proof}
+			
+			\item $ \norm{x}_2 \leq \norm{x}_1 \leq \sqrt{n}\norm{x}_2 $.
+				\begin{proof}{}
+					
+				\end{proof}
+		\end{enumerate}
+\end{enumerate}
 \end{document}
