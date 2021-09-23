@@ -50,10 +50,11 @@
 \newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
 \newcommand{\for}{\text{ for }}
 \newcommand{\dd}[1]{\mathrm{d}#1}
-\newcommand{\spn}{\mathrm{sp}}
-\newcommand{\nul}{\mathcal{N}}
+\newcommand{\spn}{\mathrm{span}}
+\newcommand{\nul}{\mathrm{Null}}
 \newcommand{\col}{\mathrm{col}}
 \newcommand{\rank}{\mathrm{rank}}
+\newcommand{\rng}{\mathrm{Range}}
 \newcommand{\norm}[1]{\lVert #1 \rVert}
 \newcommand{\inner}[1]{\left\langle #1 \right\rangle}
 \newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
@@ -124,8 +125,187 @@
 			
 			\item $ \norm{x}_2 \leq \norm{x}_1 \leq \sqrt{n}\norm{x}_2 $.
 				\begin{proof}{}
-					
+					Let's work on the first half of the inequality:
+					\begin{align*}
+						\norm{x}_2 &= \sqrt{\sum_{i = 1}^{n} \abs{x_i}^2} \\
+						&\leq \sqrt{\sum_{i = 1}^{n} \abs{x_i}^2 + \sum_{i,j, i \neq j}^{n}\abs{x_i}\abs{x_j}} \\
+						&= \sqrt{\left(\sum_{i = 1}^{n} \abs{x_i}\right)\left(\sum_{j = 1}^{n} \abs{x_j}\right)} \\
+						&= \sqrt{\left(\sum_{i = 1}^{n} \abs{x_i}\right)^2} \\
+						&= \sum_{i = 1}^{n} \abs{x_i} \\
+						&= \norm{x}_1.
+					\end{align*}
+					Now, let's show the second half of the inequality
+					\begin{align*}
+						\norm{x}_1 &= \sum_{i = 1}^{n} \abs{x_i} \\
+						&= \sum_{i = 1}^{n} \abs{1} \abs{x_i} \\
+						&\leq \norm{\vec{1}}_2 \norm{x}_2 \qquad \text{by Cauchy-Shwartz} \\
+						&= \left(\sum_{i = 1}^{n} \abs{1}^2\right) \norm{x}_2 \\
+						&= \sqrt{n} \norm{x}_2.
+						\end{align*}
+						Thus, $ \norm{x}_2 \leq \norm{x}_1 \leq \sqrt{n}\norm{x}_2 $.
 				\end{proof}
 		\end{enumerate}
+	
+		\item Let $ A \in \reals^{n \times m} $ be a non-zero matrix with rank $ r $.
+			\begin{enumerate}[label = (\alph*)]
+				\item Write down the singular value decomposition of $ A $. List the properties of the matrices you use in your decomposition.
+					
+				We can write the SVD of $ A $ as 
+				\[
+					A = U \Sigma V^T
+				\]
+				Where $ U \in \reals^{n \times n} $ is made up of the left singular vectors, $ \Sigma \in \reals^{n \times m} $ is a semi-diagonal matrix with positive singular values along the main diagonal, and $ V \in \reals^{m \times m} $ is made up of the right singular vectors. 
+				
+				Some properties of $ U $
+				\begin{itemize}
+					\item it is orthonormal
+					\item the columns of $ U $ are made up of the normalized eigenvectors of $ AA^T $ (i.e. $ U = [u_1 | u_2 | \ldots | u_n] $).
+				\end{itemize}
+				Some properties of $ V $
+				\begin{itemize}
+					\item it is orthonormal
+					\item the columns of $ V $ are made up of the normalized eigenvectors of $ A^TA $ (i.e. $ V = [v_1 | v_2 | \ldots | v_n] $).
+				\end{itemize}
+				Finally, some properties of $ \Sigma $
+				\begin{itemize}
+					\item the diagonal entries of $ \Sigma $ are given by the singular values $ \sigma_i $ for $ i = 1, 2, \ldots, r $. The rest of the entries of $ \Sigma $ are zero.
+					\item by convention, we organize the singular values from the left diagonal to right diagonal as $ \sigma_1 \geq \cdots \geq \sigma_r \geq 0 $.
+				\end{itemize}
+				
+				\item Show that $ \reals^m $ has an orthonormal basis $ v_1, \ldots, v_m $, $ \reals^n $ has an orthonormal basis $ u_1, \ldots, u_n $ and there exists $ \sigma_1 \geq \cdots \geq \sigma_r \geq 0 $ such that
+				\begin{align*}
+					A v_i &= \begin{cases}
+						\sigma_i u_i, & i = 1, \ldots, r \\
+						0, & i = r + 1, \ldots, m
+					\end{cases}, \\
+					A^T u_i &= \begin{cases}
+						\sigma_i v_i, & i = 1, \ldots, r \\
+						0, & i = r + 1, \ldots, m
+					\end{cases}.
+				\end{align*}
+			
+				First off, because we are guaranteed a $ SVD $ for all $ A \in \reals^{n \times m} $, we can get our decomposition given in part (a). Using our SVD from part (a), we know the columns of $ V $ form an orthonormal basis for $ \reals^m $ given by $ v_1, \ldots, v_m $, and the columns of $ U $ form an orthonormal basis for $ \reals^n $ given by $ u_1, \ldots, u_n $. So we can get the two orthonormal bases that we desired.
+				
+				Now, using the SVD in part (a), we have $ \sigma_1 \geq \cdots \geq \sigma_r \geq 0 $ from the singular values matrix $ \Sigma $. Putting all of this together,
+				\begin{align*}
+					A v_i = U \Sigma V^T v_i &= 
+					\begin{cases}
+						\sigma_i u_i (v_i \cdot v_i), & i = 1, \ldots, r \\
+						0, & i = r + 1, \ldots, m
+					\end{cases} \\
+					&= 
+					\begin{cases}
+						\sigma_i u_i, & i = 1, \ldots, r \\
+						0, & i = r + 1, \ldots, m
+					\end{cases}
+				\end{align*}
+				because $ v_i \cdot v_j = 0 $ if $ i \neq j $ and $ v_i \cdot v_j = 1 $ if $ i = j $ by the orthonormalness of $ V $. 
+				
+				For the second equality, we have
+				\begin{align*}
+					A^T u_i = (U \Sigma V^T)^T u_i = V \Sigma^T U^T u_i &=
+					\begin{cases}
+						\sigma_i v_i (u_i \cdot u_i), & i = 1, \ldots, r \\
+						0, & i = r + 1, \ldots, n
+					\end{cases} \\
+				  	&= 
+					\begin{cases}
+						\sigma_i v_i, & i = 1, \ldots, r \\
+						0, & i = r + 1, \ldots, n
+					\end{cases}
+				\end{align*}
+				because $ u_i \cdot u_j = 0 $ if $ i \neq j $ and $ u_i \cdot u_j = 1 $ if $ i = j $ by the orthonormalness of $ U $. 
+				
+				\item Argue that
+					\begin{align}
+						\rng(A) &= \spn\{u_1, \ldots, u_r\} \label{equ:1} \\
+						\nul(A) &= \spn\{v_{r + 1}, \ldots, v_{m}\} \label{equ:2} \\
+						\rng(A^T) &= \spn\{v_1, \ldots, v_r\} \label{equ:3} \\
+						\nul(A^T) &= \spn\{u_{r + 1}, \ldots, u_{n}\}. \label{equ:4}
+					\end{align}
+				
+				\begin{itemize}
+					\item To understand \eqref{equ:1}, suppose we have any $ x \in \reals^m $. Then, because we only have $ r $ singular values and the rest of $ \Sigma $ is either rows of zeros or columns of zeros, we have
+					\[
+						A x = U \Sigma V^T x =  \sum_{i = 1}^{r} \sigma_i u_i v_i^T x = \sum_{i = 1}^{r} (\sigma_i v_i^T x) u_i = \sum_{i = 1}^{r} a_i u_i
+					\]
+					where $ a_i = \sigma_i v_i^T x $ for $ i = 1, \ldots, r $ are constants. Thus, $ Ax $ can be written as a linear combination of $ \{u_1, \ldots, u_r\} $ for all $ x \in \reals^m $ which implies 
+					\[
+						\rng(A) = \spn(u_1, \ldots, u_r).
+					\]
+					
+					\item To argue \eqref{equ:2}, let's find the nullspace previous part:
+					\[
+						Ax = \sum_{i = 1}^{r} a_i u_i
+					\]
+					where $ a_i = \sigma_i v_i^T x $ for $ i = 1, \ldots r $. From this expression, we can see that nullspace is the set of all $ x $ such that $ a_i = 0 $ for $ i = 1, \ldots, r $. In other words, we need $ x $ to satisfy
+					\[
+						\sigma_i v_i^T x = 0
+					\]
+					for each $ i = 1, \ldots, r $. We know each $ \{v_1, \ldots, v_m\} $ is an orthogonal set and so the only $ x $ that make $ a_i = 0 $ are $ x = b_{r + 1} v_{r + 1} + \cdots + b_m v_m $ which implies that 
+					\[
+						\nul(A) = \spn(v_{r + 1}, \ldots, v_m).
+					\]
+									
+					\item Similar to \eqref{equ:1}, we can show \eqref{equ:3}. Suppose we have any $ x \in \reals^n $. Then, 
+					\[
+						A^T x = V \Sigma^T U^T x =  \sum_{i = 1}^{r} \sigma_i v_i u_i^T x = \sum_{i = 1}^{r} (\sigma_i u_i^T x) v_i = \sum_{i = 1}^{r} a_i v_i
+					\]
+					where $ a_i = \sigma_i u_i^T x $ for $ i = 1, \ldots, r $ constants. Thus, $ A^T x $ can be written as a linear combination of $ \{v_1, \ldots, v_r\} $ for all $ x \in \reals^n $ which implies
+					\[
+						\rng(A^T) = \spn(v_1, \ldots, v_r).
+					\]
+					
+					\item We can argue \eqref{equ:4} by applying the argument for \eqref{equ:2} to \eqref{equ:3} with the roles of $ u_i $ and $ v_i $ switched.
+				\end{itemize}
+				
+				\item Now show that $ \rng(A^T) $ is orthogonal to $ \nul(A) $.
+				
+				Suppose we have any $ x \in \rng(A^T) $ and any $ y \in \nul(A) $. Then, from part (c), we know that 
+				\[
+					x = a_1 v_1 + \cdot + a_r v_r
+				\]
+				for some $ a_i \in \reals $ and that
+				\[
+				y = b_{r + 1} v_{r + 1} + \cdot + b_m v_m
+				\]
+				for some $ b_i \in \reals $. Then, 
+				\begin{align*}
+					x \cdot y &= \sum_{i = r + 1}^{m} x \cdot (b_i v_i) \\
+					&= \sum_{i = r + 1}^{m} \sum_{j = 1}^{r} (a_j v_j) \cdot (b_i v_i) \\
+					&= \sum_{i = r + 1}^{m} \sum_{j = 1}^{r} a_j b_i (v_j \cdot v_i) \\
+					&= \sum_{i = r + 1}^{m} \sum_{j = 1}^{r} a_j b_i (0) \qquad \text{because $ i \neq j $ and $ v_j \cdot v_i = 0 $ for $ i \neq j $} \\
+					&= 0.
+				\end{align*}
+				Therefore, $ \rng(A^T) $ is orthogonal to $ \nul(A) $.
+			\end{enumerate}
+		
+		\item Let $ A \in \reals^{n \times n} $	be nonsingular and $ u, v \in \reals^n $.
+			\begin{enumerate}[label = (\alph*)]
+				\item Prove the following matrix identity (Sherman-Morrison)
+				\[
+					(A + u v^T)^{-1} = A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}.
+				\]
+				
+				\begin{proof}{}
+					To prove the Sherman-Morrison formula, we just need to show the RHS is the inverse of $ A + uv^T $.
+					\begin{itemize}
+						\item First direction
+						\begin{align*}
+							\left(A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}\right) (A + u v^T) &= \\
+							&= I.
+						\end{align*}
+					\item The second direction can be shown as
+						\begin{align*}
+							(A + u v^T) \left(A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}\right) &= \\
+							&= I.
+						\end{align*}
+					\end{itemize}
+					Therefore
+					\[
+						(A + u v^T)^{-1} = A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}
+					\]
+				\end{proof}
+			\end{enumerate}
 \end{enumerate}
 \end{document}
