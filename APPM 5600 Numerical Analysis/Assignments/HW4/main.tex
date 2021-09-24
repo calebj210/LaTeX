@@ -292,12 +292,18 @@
 					\begin{itemize}
 						\item First direction
 						\begin{align*}
-							\left(A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}\right) (A + u v^T) &= \\
+							\left(A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}\right) (A + u v^T) &= A^{-1}A + A^{-1}u v^T - \frac{A^{-1} u v^T A^{-1}A + A^{-1} u v^T A^{-1}uv^T}{1 + v^T A^{-1} u} \\
+							&= I + A^{-1}u v^T - \frac{A^{-1} u v^T + A^{-1} u v^T A^{-1}u v^T}{1 + v^T A^{-1} u} \\
+							&= I + A^{-1}u v^T - \frac{A^{-1} u (1 + v^T A^{-1}u) v^T}{1 + v^T A^{-1} u} \\
+							&= I + A^{-1}u v^T - A^{-1}uv^T \\
 							&= I.
 						\end{align*}
 					\item The second direction can be shown as
 						\begin{align*}
-							(A + u v^T) \left(A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}\right) &= \\
+							(A + u v^T) \left(A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}\right) &= AA^{-1} + u v^TA^{-1} - \frac{AA^{-1} u v^T A^{-1} + uv^TA^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u} \\
+							&= I + u v^TA^{-1} - \frac{u v^TA^{-1}  + u v^T A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u} \\
+							&= I + u v^TA^{-1} - \frac{u(1 + v^T A^{-1}u) v^TA^{-1}}{1 + v^T A^{-1} u} \\
+							&= I + u v^TA^{-1} - uv^TA^{-1} \\
 							&= I.
 						\end{align*}
 					\end{itemize}
@@ -306,6 +312,30 @@
 						(A + u v^T)^{-1} = A^{-1} - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}
 					\]
 				\end{proof}
+			
+				\item Suppose that the $ LU $ factorization of $ A $ is available. Explain how the Sherman-Morrison identity can be used to solve the system $ (A + uv^T)x = b $.
+				
+				Firstly, let's solve for $ x $ directly to get
+				\[
+					x = (A + uv^T)^{-1} b.
+				\]
+				Now using the Sherman-Morrison identity, we have
+				\[
+					x = A^{-1}b - \frac{A^{-1} u v^T A^{-1}}{1 + v^T A^{-1} u}b.
+				\]
+				With this expanded expression for $ x $, let's break the expression up into chunks that we can use the $ LU $ factorization of $ A $ on:
+				\[
+					x = y - \frac{z v^T y}{1 + v^T z} = y - \frac{z (v^T y)}{1 + v^T z}
+				\]
+				where $ y = A^{-1}b $ and $ z = A^{-1}u $. Thus, to solve for $ x $, I would use the $ LU $ of $ A $ to solve for $ y $ and $ z $ and then plug those into the rest of the expression to finish up the computation of $ x $ according to the parenthesis. 
+				
+				\item What is the cost of the proposed method for solving for $ x $ in part (b)?
+				
+				To count the number of FLOPs to compute $ x $ in part (b), we need to first compute the cost of computing $ y $ and $ z $ using the $ LU $ factorization of $ A $. The cost for $ y $ and $ z $ is each $ 2n^2 - n $. Then, we need to use this calculation to compute the rest of $ x $. To do so, we need $ n $ subtractions for the main difference, $ 2(2n - 1) $ for the two dot products, $ n $ for the vector scalar multiplication, n for the division, and finally, $ 1 $ flop for the addition in the denominator. Adding all of these up yields a total cost of
+				\[
+					cost = 4n^2 + 5n - 1 = O(n^2) FLOPs.
+				\]
+				
 			\end{enumerate}
 \end{enumerate}
 \end{document}
