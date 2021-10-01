@@ -84,8 +84,40 @@
 	\item Let $ A \in \reals^{n \times n} $ be a tridiagonal matrix where the diagonal entries are given by $ a_j $ for $ j = 1, \ldots, n $, the lower diagonal entries are $ b_j $ for $ j = 2, \ldots, n $ and the upper diagonal entries are $ c_j $ for $ j = 1, \ldots, n-1 $.
 	\begin{enumerate}[label = (\alph*)]
 		\item For $ n = 3 $, derive the $ LU $ factorization of the matrix A.
+		\[
+			\begin{array}{ccccc}
+				U = \pmat{a_1 & c_1 & 0 \\ b_1 & a_2 & c_2 \\ 0 & b_2 & a_3} & \to & \pmat{a_1 & c_1 & 0 \\ 0 & a_2 - \frac{c_1 b_1}{a_1} & c_2 \\ 0 & b_2 & a_3} & \to & \pmat{a_1 & c_1 & 0 \\ 0 & a_2 - \frac{c_1 b_1}{a_1} & c_2 \\ 0 & 0 & a_3 - \frac{c_2 b_2}{a_2 - \frac{c_1 b_1}{a_1}}} \\
+				L = \pmat{1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1} & \to & \pmat{1 & 0 & 0 \\ \frac{b_1}{a_1} & 1 & 0 \\ 0 & 0 & 1} & \to & \pmat{1 & 0 & 0 \\ \frac{b_1}{a_1} & 1 & 0 \\ 0 & \frac{b_2}{a_2 - \frac{c_1 b_1}{a_1}} & 1}.
+			\end{array}
+		\]
+		So, our LU factorization in $ n = 3 $ is given by 
+		\[
+			L = \pmat{1 & 0 & 0 \\ \frac{b_1}{a_1} & 1 & 0 \\ 0 & \frac{b_2}{a_2 - \frac{c_1 b_1}{a_1}} & 1}
+		\]
+		and
+		\[
+			U = \pmat{a_1 & c_1 & 0 \\ 0 & a_2 - \frac{c_1 b_1}{a_1} & c_2 \\ 0 & 0 & a_3 - \frac{c_2 b_2}{a_2 - \frac{c_1 b_1}{a_1}}}.
+		\]
 		
+		\item What is the extension of the LU factorization for general $ n $?
 		
+		Looking at the $ n = 3 $ case, we can see that the next entry in $ U $ and $ L $ can be turned into an iterative process. The iteration process is as follows. 
+		\begin{enumerate}[label = (\arabic*)]
+			\item Set $ U $ to be the zero $ n \times n $ matrix and set $ L $ to be the $ n \times n $ identity matrix.
+			\item Set $ U_{11} = a_1$.
+			\item Set $ k = 1 $.
+			\item Set $ U_{k+1, k+1} = a_k - \frac{c_k b_k}{U_{k,k}} $.
+			\item Set $ U_{k, k+1} = c_k $.
+			\item Set $ L_{k+1, k} = \frac{b_k}{U_{k,k}} $
+			\item Increase $ k $ by 1 and then repeat at step (4) until done.
+		\end{enumerate}
+	
+		\item What is the operation count when applying Gaussian Elimination to a tridiagonal system without pivoting.
+		
+		Looking at our operation count in part (b), we can see that step 1, 2, and 3, take 0 flops. Next, step 4 takes 3 flops. Because we are just doing Gaussian Elimination and we don't need to form $ LU $, we can skip the rest of the steps except for the repeat step which occurs $ n - 1 $ times. Thus, the total cost is given by 
+		\[
+			3 (n - 1) = 3n - 3 \; \text{flops}.
+		\]
 	\end{enumerate}
 
 	\item Consider the linear system
@@ -133,33 +165,84 @@
 				\left(\begin{array}{c c c | c}
 					1 & 0.3333 & 0.3333 & -2 \\
 					0 & 0.0001 & -0.3333 & 1.666 \\
-					0 & 0 & -1.333 & 0.3333
+					0 & 1.666 & -1.333 & 0.3333
 				\end{array}\right) \\ 
 				&\sim
 				\left(\begin{array}{c c c | c}
 					1 & 0.3333 & 0.3333 & -2 \\
 					0 & 1 & -3333 & 16660 \\
-					0 & 0 & -1.333 & 0.3333
+					0 & 1.666 & -1.333 & 0.3333
 				\end{array}\right) \\ 
 				&\sim
 				\left(\begin{array}{c c c | c}
 					1 & 0 & 1111 & -5554 \\
 					0 & 1 & -3333 & 16660 \\
-					0 & 0 & -1.333 & 0.3333
+					0 & 0 & 5551 & -27740
 				\end{array}\right) \\ 
 				&\sim
 				\left(\begin{array}{c c c | c}
 					1 & 0 & 1111 & -5554 \\
 					0 & 1 & -3333 & 16660 \\
-					0 & 0 & 1 & -0.2500
+					0 & 0 & 1 & -4.997
 				\end{array}\right) \\ 
 				&\sim
 				\left(\begin{array}{c c c | c}
-					1 & 0 & 0 & -5276 \\
-					0 & 1 & 0 & 15820 \\
-					0 & 0 & 1 & -0.2500
-				\end{array}\right) 
+					1 & 0 & 0 & -3 \\
+					0 & 1 & 0 & 10 \\
+					0 & 0 & 1 & -4.997
+				\end{array}\right). 
 			\end{align*}
+			So, our solution in 4 digit arithmetic without pivoting is given by $ (x,y,z) = (-3, 10, -4.997) $ which has an absolute error of 14.893
+						
+			\item Repeat part (b) with partial pivoting.
+			\begin{align*}
+				\left(\begin{array}{c c c | c}
+					6 & 2 & 2 & -2 \\
+					2 & \frac{2}{3} & \frac{1}{3} & 1\\
+					1 & 2 & -1 & 0
+				\end{array}\right) 
+				&\sim 
+				\left(\begin{array}{c c c | c}
+					6 & 2 & 2 & -2 \\
+					2 & 0.6667 & 0.3333 & 1 \\
+					1 & 2 & -1 & 0
+				\end{array}\right) \\
+				&\sim
+				\left(\begin{array}{c c c | c}
+					6 & 2 & 2 & -2 \\
+					0 & 0.0001 & 0.3333 & 1 \\
+					0 & 1.666 & -1.333 & 0.3333
+				\end{array}\right) \\
+				&\sim
+				\left(\begin{array}{c c c | c}
+					6 & 2 & 2 & -2 \\
+					0 & 1.666 & -1.333 & 0.3333 \\
+					0 & 0.0001 & 0.3333 & 1
+				\end{array}\right) \\
+			&\sim
+			\left(\begin{array}{c c c | c}
+				6 & 2 & 2 & -2 \\
+				0 & 1.666 & -1.333 & 0.3333 \\
+				0 & 0 & 0.3333 & 1
+			\end{array}\right)
+			\end{align*}
+			which implies $ z = 3.000 $, $ y = 2.6 $, and $ x = -2.644 $ which has an absolute error of 11.5091.
+			
+			\item Gaussian elimination with partial pivoting was slightly more accurate in this case and kept us from losing so many significant digits by reducing divisions by relatively small numbers.
 	\end{enumerate}
+
+	\item Consider the system $ Ax = b $ where
+	\[
+		A = \pmat{
+			4 & -1 & 0 &-1 & 0 & 0 \\
+			-1 & 4 & -1 & 0 & -1 & 0 \\
+			0 & -1 & 4 & -1 & 0 & -1 \\
+			-1 & 0 & -1 & 4 & -1& 0 \\
+			0 & -1 & 0 & -1 & 4 & -1 \\
+			0 & 0 & -1 & 0 & -1 & 4
+		} \quad b = \pmat{
+			2 \\ 1\\2\\2\\1\\2
+		}.
+	\]
 \end{enumerate}
 \end{document}
