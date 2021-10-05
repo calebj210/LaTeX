@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{fullpage}
+\usepackage{times}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{comment}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=0.5in]{geometry}
+
+\pagenumbering{gobble}
+
+\begin{document}
+\begin{center}
+	{\Large APPM 1350 - Fall 2021 - Week 7}
+	
+	{\large October 5, 2021}
+\end{center}
+
+\begin{enumerate}[label = \arabic*)]
+    \item Two people on bikes are at the same place. One of the bikers starts riding directly north at a rate of $8$ m/sec. Simultaneously, the second starts to ride directly east at a rate of $5$ m/sec. At what rate is the distance between the two riders increasing after $20$ seconds?
+    
+    
+    The distance between the riders is given by the Pythagorean theorem (draw a picture). So we consider, $x^2 + y^2 = z^2.$ Differentiate this expression with respect to time yields $2x x^\prime + 2y y^\prime  = 2z z^\prime .$ We can solve for $z^\prime $ to get  $z^\prime  = \frac{ x x^\prime + y y^\prime}{z}.$ Since, the north biker has traveled  at a rate of $8$ m/sec for $20$ seconds we know they have traveled a total of $y = 8 * 20 = 160$ ft. Similarly, the east bound biker has traveled $x = 5 * 20 = 100$ ft. Using the Pythagorean theorem we can find that $z = \sqrt{100^2 + 160^2}=188.67$. Therefore, $z^\prime  = \frac{ 100 * 5 + 160 * 8}{188.67} = 9.434.$
+    
+    
+    
+    \item Find the linearization $L(x)$ of the function at $a$
+    \[
+    	f(x) =  (x-3)^\frac{1}{2} \text{ at } a = 6
+    \]
+        
+        We start by considering $f(6) = \sqrt{3}.$ Now we take the derivative of $f(x)$ to get $f^\prime(x) = \frac{1}{2}(x-3)^\frac{-1}{2}.$ Bringing this together we get $L(x) = \sqrt{3} + \frac{1}{2}(3)^\frac{-1}{2}(x-6).$ 
+    
+		\item  Use a linear approximation (or differentials) to estimate the given number.
+	
+	    \[
+	    	\sqrt{9.01}
+	    \]
+	    
+	    We start by considering $f(9) = \sqrt{9} = 3.$ Now we take the derivative of $f(x)$ to get $f^\prime(x) = \frac{1}{2}(x)^{-\frac{1}{2}}.$ This yields $f^\prime(9) = \frac{1}{2}(9)^{-\frac{1}{2}} = \frac{1}{6}.$ We combine these to arrive at the linearization $L(x) = \frac{1}{6}(x - 9) + 3$. Our estimate of $\sqrt{9.01}$ is therefore $L(9.01) = \frac{1}{6}(9.01 - 9) + 3 = \frac{1}{6}0.16\bar{6} = 0.16\bar{6} * 0.01 + 3 = 3.0016\bar{6}$.	
+	
+	\item Calculate $dy/dx$ for the ellipse given by
+	$$\frac{x^2}{a^2}+\frac{y^2}{b^2} = 1.$$
+	\par 
+	Multiply first by $a^2b^2$.  Then,
+	\begin{align*}
+		b^2x^2+a^2y^2 = a^2b^2.
+	\end{align*}
+	Taking derivatives of both sides gives:
+	\begin{align*}
+		\frac{d}{dx}(b^2x^2+a^2y^2) = \frac{d}{dx}(a^2b^2) & \implies 2b^2x+2a^2y\frac{dy}{dx} = 0 \\
+		& \implies \frac{dy}{dx} = -\frac{b^2x}{a^2y}. 
+	\end{align*}
+	\item Calculate $dy/dx$ for the equation
+	$$\cos(xy) = x+\sin(y).$$
+	\par 
+	Taking derivatives of both sides gives:
+	\begin{align*}
+		\frac{d}{dx}(\cos(xy)) = \frac{d}{dx}(x+\sin(y)) & \implies  -\sin(xy)\left[x\frac{dy}{dx}+y\right] = 1+\cos(y)\frac{dy}{dx} \\
+		& \implies \frac{dy}{dx} = \frac{-1-y\sin(xy)}{\cos(y)+x\sin(xy)}.
+	\end{align*}
+	
+	\item A tank of water in the shape of a cone is leaking water at a constant rate of $2$ ft$^3$/hour. The base radius of the tank is $7$ ft and the height of the tank is $14$ ft. At what rate is the depth of the water in the tank changing when the depth of the water is $6$ ft.
+	
+	Let $V$ be the volume of the water, $h$ be the height of the water, and $r$ be the radius of the water. 
+	
+	\begin{center}
+	    $V = \frac{1}{3}\pi r^2 h$\\
+	    Similar triangles yield
+	    $\frac{r}{h} = \frac{7}{14}$ or $r = \frac{h}{2}$ \\
+	    $V = \frac{1}{3}\pi (\frac{h}{2})^2 h = \frac{1}{12}\pi h^3 $\\
+	    $\frac{dV}{dt} = \frac{1}{4}\pi h^2 \frac{dh}{dt}$\\
+	    $ \frac{dh}{dt} = \frac{4}{\pi h^2} \frac{dV}{dt}$\\
+	    $ \frac{dh}{dt} = \frac{-2}{\pi 9} $ ft/hour\\
+	\end{center}
+	
+	\item Given a cylinder with the same height and diameter, the height of the cylinder was measured and found to be $6$ centimeters with a possible error measurement of at most $0.01$ centimeters. What is the maximum error in calculating the volume?
+	
+	\begin{center}
+	    $V = \pi r^2 h \quad 2r = h \implies r = \frac{h}{2}$\\
+	    $V = \pi (\frac{h}{2})^2 h =  \frac{\pi h ^3}{4}$ \\
+	    $h = 6 cm \quad dh = 0.01$ \\
+	    $\frac{dV}{dh} =  \frac{3 \pi h ^2}{4}$\\
+	    $dV =  \frac{3 \pi h ^2}{4} dh$\\
+	    $dV = \frac{3 \pi 6 ^2}{4} (0.01)$ \\
+	    $dV =  0.848$ cm$^3$
+	\end{center}
+	
+	\item Find the critical numbers of the function.
+	
+	\begin{enumerate}
+	    \item $f(x) = x^3 - 3x + 5$
+	    
+	    We proceed by taking the derivative of $f(x)$ to get $f^\prime(x) = 3x^2 - 3.$ Setting this function equal to zero yields $3x^2 - 3 = 0$. This simplifies to $x = \pm 1$. Therefore, $-1$ and $1$ are critical numbers.
+	    
+	    \item $g(t) = t + sin(2t)$ on $[0, 2\pi]$
+	    
+	    We proceed by taking the derivative of $g(t)$ to get $g^\prime(t) = 1 + 2\cos(2t).$ Setting this function equal to zero yields $ 1 + 2\cos(2t) = 0$ or  $ \cos(2t) = \frac{-1}{2}$. We can use the inverse of $\cos$ to get $2t = \frac{2\pi}{3}, \frac{4\pi}{3}, \frac{8\pi}{3}, \frac{10\pi}{3}$. Therefore, the critical values are $t = \frac{\pi}{3},\frac{2\pi}{3},\frac{4\pi}{3},\frac{5\pi}{3}$.
+	    
+	\end{enumerate}
+	
+	\item A 10-ft ladder is leaning against a house on flat ground. The house is to the left of the ladder. The base of the ladder starts to slide away from the house. When the base has slid to 8 ft from the house, it is moving horizontally at the rate of 2 ft/sec. How fast is the ladder’s top sliding down the wall when the base is 8 ft from the house?
+	
+	The height of the ladder is given by the Pythagorean theorem (draw a picture). So we consider, $x^2 + y^2 = z^2.$ Differentiate this expression with respect to time yields $2x x^\prime + 2y y^\prime  = 2z z^\prime .$ Solving for $y^\prime$ yields $y^\prime  = \frac{z z^\prime - x x^\prime}{y}.$ The hypotenuse is given by the ladder length $z = 10$. Note, the length of the ladder is not changing therefore $z^\prime = 0$. From the problem statement we know $x = 8$ and $x^\prime = 2$. Using the Pythagorean theorem we get $8^2 + y^2 = 10^2$ or $64 + y^2 = 100.$ Solving for $y$ yields $y = 6$. Putting this all together we get $y^\prime  = \frac{10 * 0 - 8 * 2}{6} = - \frac{-16}{6} = \frac{-8}{3}$ ft/sec.
+	
+	\item Find the absolute maximum and absolute minimum values of f on the given interval.
+	
+	\begin{enumerate}
+	    \item $f(x) = x - \sin(2x)$ on $[0,\pi]$ 
+	    
+	    \begin{center}
+	        $f^\prime(x) = 1 - 2\cos(2x)$\\
+	        $f^\prime(x) DNE = none$
+	        $f^\prime(x) = 0 = 1 - 2\cos(2x), x = \frac{\pi}{6}$\\
+	        critical point $f(\frac{\pi}{6}) = \frac{\pi}{6} - \frac{\sqrt{3}}{2}$\\ 
+	        end points $f(0) = 0$, $f(\pi) = \pi$\\
+	        ABS MIN $\frac{\pi}{6} - \frac{\sqrt{3}}{2}$\\
+	        ABS MAX $= \pi$
+	    \end{center}
+	    
+	    \item $f(x) = x^{\frac{4}{3}}$ on $[-2,9]$
+	    
+	        \begin{center}
+	        $f^\prime(x) = \frac{4}{3} x^{\frac{1}{3}}$\\
+	        $f^\prime(x) $DNE $= $none \\
+	        $f^\prime(x) = 0 = \frac{4}{3} x^{\frac{1}{3}}, x = 0$\\
+	        critical point $f(0) = 0$\\ 
+	        end points $f(-2) = 2^{\frac{4}{3}}$, $f(9) = 9^{\frac{4}{3}}$\\
+	        ABS MIN $0$\\
+	        ABS MAX $ = 9^{\frac{4}{3}}$
+	    \end{center}
+	    
+	    
+	\end{enumerate}
+	    
+	    
+\end{enumerate}
+
+\end{document}
