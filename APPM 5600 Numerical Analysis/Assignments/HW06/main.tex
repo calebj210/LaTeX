@@ -1,0 +1,159 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = black]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5600: Numerical Analysis I}
+\rhead{Homework \#6}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = \arabic*)]
+	\item In class, we showed that
+	\begin{equation}
+		p_{k+1} = r_{k+1}- \frac{\inner{p_k,r_{k+1}}_A}{\norm{p_k}_A^2}p_k. \label{equ:1}
+	\end{equation}
+	\begin{enumerate}[label = (\alph*)]
+		\item Using the fact that $ r_{k+1} = r_k - \alpha_k A p_k $ and $ r_{k+1}^T r_k = 0 $, show that $ \inner{p_k, r_{k+1}}_A = -\frac{\norm{r_{k+1}}_2^2}{\alpha_k} $.
+		
+		\begin{align*}
+			0 = r_{k+1}^T r_k &= r_{k+1}^T (r_{k+1} + \alpha_k A p_k) \\
+			&= r_{k+1}^T r_{k+1} + \alpha_k r_{k+1} A p_k \\
+			\implies r_{k+1} A p_k &= -\frac{r_{k+1}^T r_{k+1}}{\alpha_k}
+		\end{align*}
+		which implies
+		\[
+			\inner{p_k, r_{k+1}}_A = -\frac{\norm{r_{k+1}}_2^2}{\alpha_k}.
+		\]
+		
+		\item Rewrite $ \norm{p_k}_A^2 $ in terms of $ r_k $ and $ \alpha_k $.
+		
+		\begin{align*}
+			\norm{p_k}_A^2 &= p_k^T A p_k \\
+			&= \left(r_k - \frac{\inner{p_{k-1}, r_k}}{\norm{p_{k-1}}_A^2} p_{k-1} \right)^T \frac{1}{\alpha_k}(r_k - r_{k+1}) \\
+			&= \frac{1}{\alpha_k}(r_k^T r_k - r_k^Tr_{k+1}) \quad \text{because $ p_{k-1} $ is orthogonal to $ r_k $ and $ r_{k+1} $} \\
+			&= \frac{1}{\alpha_k}r_k^T r_k \\
+			&= \frac{1}{\alpha_k} \norm{r_k}_2^2.
+		\end{align*}
+		
+		\item Plug these expressions into \eqref{equ:1} to get a technique for evaluating the next basis vector for the residual space without any applications of the matrix $ A $.
+		\begin{align*}
+			p_{k+1} &= r_{k+1} - \left(-\frac{\norm{r_{k+1}}_2^2}{\alpha_k}\right)\left(\frac{\alpha_k}{\norm{r_k}_2^2}\right) p_k \\
+			&= r_{k+1} + \left(\frac{\norm{r_{k+1}}_2}{\norm{r_k}_2}\right)^2 p_k.
+		\end{align*}
+	\end{enumerate}
+
+	\item Consider a sparse $ 500 \times 500 $ matrix $ A $ constructed as follows.
+	\begin{itemize}[topsep = 0pt]
+		\item Put a $ 1 $ in each diagonal entry.
+		\item In each off-diagonal entry put a random number from the uniform distribution on $ [-1,1] $ but make sure to maintain symmetry. Then replace each off-diagonal entry with $ \abs{A_{ij}} > \tau $ by $ 0 $, where $ \tau $ for $ \tau = 0.01, 0.05, 0.1, $ and $ 0.2 $.
+	
+	\end{itemize}
+		
+	Take the right hand side to be a random vector $ b $ and set the tolerance to $ 10^{-10} $.
+	\begin{enumerate}[label = (\alph*)]
+		\item Write the Steepest Descent (SD) and Conjugate Gradient (CG) solver.
+		
+		\item Apply SD to solve each of the linear systems ad plot the residual for each iteration $ \norm{r_n} $ versus the iteration $ n $ on a \emph{semilogy} scale. 
+		
+		\item Apply CG to solve each of the linear systems ad plot the residual for each iteration $ \norm{r_n} $ versus the iteration $ n $ on a \emph{semilogy} scale. 
+		
+		\item What do you observe about the convergence of these methods? If the methods do not converge for any choices of $ \tau $ explain what's happening.
+		
+		\item How do the residual compare with the error bounds provided in class?
+	\end{enumerate}
+
+	\item Suppose CG is applied to a symmetric positive definite matrix $ A $ with the result $ \norm{e_0}_A = 1 $, and $ \norm{e_{10}}_A = 2 \cdot 2^{-10} $, where $ \norm{e_k}_A = \norm{x_k - x^*}_A $ and $ x^* $ is the true solution. Based solely on this data,
+	\begin{enumerate}[label = (\alph*)]
+		\item What bound can you give on $ \kappa(A) $?
+		\item What bound can you give on $ \norm{e_{20}}_A $?
+	\end{enumerate}
+
+	\item Consider the task of solving the following system of nonlinear equations.
+	\[
+		f_1(x,y) = 3x^2 + 4y^2 - 1 = 0 \text{ and } f_2(x,y) = y^3 - 8x^3 - 1 = 0
+	\]
+	for the solution $ \alpha $ near $ (x,y) = (-0.5, 0.25) $.
+	\begin{enumerate}[label = (\alph*)]
+		\item Apply the fixed point iteration with
+		\[
+			g(x) = x - \pmat{0.016 & -0.17 \\ 0.52 & -0.26} \pmat{3x^2 + 4y^2 - 1 \\ y^3 - 8x^3 - 1}.
+		\]
+		You can use $ (-0.5, 0.25) $ as the initial condition. How many steps are needed to get an approximation to 7 digits of accuracy?
+		
+		\item Why is this a good choice for $ g(x) $.
+	\end{enumerate}
+\end{enumerate}
+\end{document}
