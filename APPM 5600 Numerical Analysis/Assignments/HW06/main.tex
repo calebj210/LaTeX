@@ -126,6 +126,8 @@
 	\begin{enumerate}[label = (\alph*)]
 		\item Write the Steepest Descent (SD) and Conjugate Gradient (CG) solver.
 		
+		\emph{My code is given at the end of the document}
+		
 		\item Apply SD to solve each of the linear systems ad plot the residual for each iteration $ \norm{r_n} $ versus the iteration $ n $ on a \emph{semilogy} scale. 
 		
 		\item Apply CG to solve each of the linear systems ad plot the residual for each iteration $ \norm{r_n} $ versus the iteration $ n $ on a \emph{semilogy} scale. 
@@ -153,7 +155,19 @@
 		\]
 		You can use $ (-0.5, 0.25) $ as the initial condition. How many steps are needed to get an approximation to 7 digits of accuracy?
 		
+		Using my code, the fixed point iteration converges to the answer of $ (x, y) = (-0.49725134, 0.254078566) $ which is surprisingly fast! \emph{My code is given at the end of the document.}
+		
 		\item Why is this a good choice for $ g(x) $.
+		
+		To understand why this is a good choice for $ g(x) $, let's look at the Jacobian of $ f_1 $ and $ f_2 $ at $ (-0.5, 0.25) $:
+		\[
+			J = \pmat{-3 & 2 \\ -6 & 3/16}.
+		\]
+		Then, inverting $ J $ yields
+		\[
+			J^{-1} = \pmat{1/61 & -32/183 \\ 32/61 & -16/61} \approx \pmat{0.016393 & -0.174863 \\ 0.52459 & -0.262295}.
+		\]
+		Thus, $ J^{-1} $ is the almost exactly the same as the $ 2 \times 2 $ matrix in $ g(x) $. Furthermore, the vector function in $ g(x) $ is just the vector function formed from $ f_1 $ and $ f_2 $. All of this together implies that $ g(x) $ is sort of Newton's Method but with a fixed inverse Jacobian. Then, because our initial solution guess is close to the true solution, $ g(x) $ should almost have quadratic convergence to the solution because it is like a local Newton's method.
 	\end{enumerate}
 \end{enumerate}
 \end{document}
