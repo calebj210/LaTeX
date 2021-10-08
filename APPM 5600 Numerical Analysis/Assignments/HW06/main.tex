@@ -152,7 +152,9 @@
 		
 		\item What do you observe about the convergence of these methods? If the methods do not converge for any choices of $ \tau $ explain what's happening.
 		
-		In the case of my stochastic matrix, both methods converged for each value of $ \tau $ but with a few key differences. The most prominent difference is that SD routinely took a few iterations longer to converge than CG for each $ \tau $. Furthermore, the very first iteration of SD did see much improvement in the residual while CG usually had it's greatest reduction in the residual for the very first iteration. We can explain the greatest initial improvement of CG by noting that CG resolves the solution in the direction of the eigenvectors which the greatest modulus eigenvalues. Thus, when we apply CG to each matrix, CG resolves the eigenvalues with magnitude one because they are the most prominent in each matrix. Therefore, the first iteration of CG makes the most ground in solving the system.
+		In the case of my stochastic matrices, both methods converged for the first three values of $ \tau $ but SD did not converge for $ \tau = 0.2 $. The reason SD did not converge for $ \tau = 0.2 $ is that the matrix was increasingly ill-conditioned which pushed each iteration in a random direction causing SD to spiral away from the solution.
+		
+		For the iterations that did converge, the most prominent difference is that SD routinely more iterations to converge than CG for each $ \tau $. Furthermore, the very first iteration of SD did see much improvement in the residual while CG usually had it's greatest reduction in the residual for the very first iteration. We can explain the greatest initial improvement of CG by noting that CG resolves the solution in the direction of the eigenvectors which the greatest modulus eigenvalues. Thus, when we apply CG to each matrix, CG resolves the eigenvalues with magnitude one because they are the most prominent in each matrix. Therefore, the first iteration of CG makes the most ground in solving the system.
 		
 		Another trend to note that is true for both SD and CG plots is the decrease in convergence rate as $ \tau $ increases. As $ \tau $ increases, the eigenvalues of each matrix become more spread out and the matrix might even obtain some negative eigenvalues which means the matrix is no longer SPD. Thus, as $ \tau $ increases the conditioning of each system increases causing each method to converge at a slower rate.
 		
@@ -165,13 +167,13 @@
 		For my random matrices, we have
 		\[
 			\sqrt{\frac{\lambda_{max} - \lambda_{min}}{\lambda_{max} + \lambda_{min}}} = \begin{cases}
-				9.360477432564406e-02, & \tau = 0.01 \\
-				2.583812920609023e-01, & \tau = 0.05 \\
-				3.154992405543542e-01, & \tau = 0.1   \\
-				4.939322020464611e-01, & \tau = 0.2
+				1.695606350621100e-01, & \tau = 0.01 \\
+				5.378379939896955e-01, & \tau = 0.05 \\
+				9.163567447907687e-01, & \tau = 0.1    \\
+				9.986824672367477e-01, & \tau = 0.2
 			\end{cases}.
 		\]
-		Thus, looking at our initial guess of $ 0 $ which has an approximate error of $ 10^1 $ and $ \tau = 0.01 $, we would expect SD to converge with a tolerance of $ 10^{10} $ in under 10 iterations because our error coefficient is on the order of $ 10^{-2} $. This is exactly what our residual plot shows and each iteration appears to increase the accuracy by 2 digits! For each of the other values of $ \tau $, we should expect convergence in a little over 10 iterations because the error coefficient is on the order of $ 10^{-1} $ which means the we should get about another digit of accuracy per iteration. Once again, our residual plot for SD shows this trend as well.
+		Thus, looking at our initial guess of $ 0 $ which has an approximate error of $ 10^1 $, we would expect the first three iterations to converge in over 10 iterations because the error is roughly decreasing by $ 10^{-1} $ at each iteration. Our convergence plot SD shows this trend. Now for $ \tau = 0.2 $, our error coefficient is almost 1 which means the error might not decrease at all at each iteration. Furthermore, once you factor in rounding error, we might expect the solution to get worse and worse at each iteration. Looking at the convergence plot for SD shows this trend with the residuals getting larger and larger at each iteration.
 		
 		For CG, our error bound from class states
 		\[
@@ -180,13 +182,13 @@
 		For my random matrices, we have
 		\[
 			\frac{\sqrt{\kappa(A)} - 1}{\sqrt{\kappa(A)} + 1} = \begin{cases}
-				4.381010972533616e-03, & \tau = 0.01 \\
-				3.341772346442987e-02, & \tau = 0.05 \\
-				4.989378202454497e-02, & \tau = 0.1 \\
-				1.238557836168690e-01, & \tau = 0.2
+				1.437837641951423e-02, & \tau = 0.01 \\
+				1.477941280879589e-01, & \tau = 0.05 \\
+				5.441933365915878e-01, & \tau = 0.1   \\
+				9.299248381593058e-01, & \tau = 0.2
 			\end{cases}.
 		\]
-		Using these error coefficients for the first three values of $ \tau $, we would expect CG to converge in under 10 iterations because the error which starts at about $ 10^1 $ decreases by $ 10^{-3} $ or $ 10^{-2} $ at each iteration. This is exactly what our plot for the convergence of CG shows. Finally, for $ \tau = 0.2 $, the error bound decreases by $ 10^{-1} $ at each iteration and so we should expect convergence in over 10 iterations. Once again, the convergence plot for CG shows this trend as well. 
+		Using these error coefficients for $ \tau = 0.01$, we would expect CG to converge in under 10 iterations because the error which starts at about $ 10^1 $ decreases by $ 10^{-2} $ at each iteration. This is exactly what our plot for the convergence of CG shows. Next, for $ \tau = 0.05 $ and $ \tau = 0.1 $, we would expect the method to converge in under 100 iterations because the error bound decreases by $ 10^{-1} $ at each iteration. Once again, the convergence plot for CG shows this trend as well. Finally, when $ \tau = 0.2 $, our error bound is almost given by a power of 1 which means the error might be stagnant at each iteration. The convergence plot for CG shows that for iterations up to about 600, we do have some stagnation in our convergence and then our method finally starts to hone in on the solution but rounding error keeps it from getting all the way there. 
 		
 		Therefore, our theoretical error bounds apply to both of our actual test problems!
 	\end{enumerate}
