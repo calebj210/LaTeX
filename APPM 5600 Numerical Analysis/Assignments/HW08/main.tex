@@ -122,15 +122,28 @@
 			\]
 			which is within our error bound! So our error bound holds $ x = 0.1 $.
 		\end{enumerate}
-
+	
+	\newpage
 	\item \
 		\begin{enumerate}[label = (\roman*)]
 			\item Show there is a unique cubic polynomial $ p(x) $ for which 
 			\begin{align*}
-				p(x_0) &= f(x_0) & p(x_2) &= f(x_2) \\
+				p(x_0)  &= f(x_0) & p(x_2)   &= f(x_2) \\
 				p'(x_1) &= f'(x_1) & p''(x_1) &= f''(x_1)
 			\end{align*}
 			where $ f(x) $ is a given function and $ x_0 \neq x_2 $.
+			
+			Suppose $ p(x) $ and $ q(x) $ are two cubic polynomials satisfying
+			\begin{align*}
+				p(x_0) = q(x_0)  &= f(x_0) & p(x_2) = q(x_2)    &= f(x_2) \\
+				p'(x_1) = q(x_1) &= f'(x_1) & p''(x_1) = q''(x_1) &= f''(x_1).
+			\end{align*}
+			Now let $ v(x) + p(x) - q(x) $. Then, by linearity, $ v(x) $ is a cubic polynomial that satisfies
+			\begin{align*}
+				v(x_0)  &= 0 & v(x_2)  &= 0 \\
+				v'(x_1) &= 0 & v''(x_1) &= 0.
+			\end{align*}
+			Furthermore, because $ v(x) $ is a cubic polynomial, there exists constants $ a_0, a_1, $ and $ a_2 $ such that
 			
 			\item Derive a formula for $ p(x) $.
 			
