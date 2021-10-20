@@ -7,7 +7,7 @@
 \pgfplotsset{compat=newest}
 \usepackage{enumitem}
 \usepackage{fancyhdr}
-\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+\usepackage[colorlinks = true, linkcolor = blue, citecolor = black]{hyperref}
 
 \newcommand{\nats}{\mathbb{N}}
 \newcommand{\reals}{\mathbb{R}}
@@ -44,11 +44,40 @@
 \fancyhead{}
 \lhead{Caleb Jacobs}
 \chead{Evolving Curves and Surfaces Handout}
-\rhead{20-10-2021}
+\rhead{October 20, 2021}
 \cfoot{}
 \setlength{\headheight}{35pt}
 \setlength{\parskip}{0.25cm}
 \setlength{\parindent}{0pt}
 
 \begin{document}
+\section*{List Overview}
+	\begin{itemize}
+		\item The work in \cite{article} involves solving PDEs over evolving domains in contrast to our work which focuses on PDEs on evolving surfaces.
+		\begin{itemize}
+			\item They use Semi-Lagrangian based automatic Overlapped RBF-FD methods to solve advection-diffusion equations.
+			
+			\item Evolving domains are actually on our list of possible extensions of our method. Our extension would look quite different from what was done in \cite{article} in that we would be using tensor formulations to handle the evolving domains.
+			
+			\item Merging domains can be easier to resolve because we can take advantage of interior data.
+		\end{itemize}
+		
+		\item Semi-Lagrange (SL) based automatic Overlapped RBF-FD method for solving advection-type equations
+		\begin{itemize}
+			\item To use an SL method, Shankar, et al. used a fixed background node set that had its nodes activated and deactivated to keep track of the boundary of the domain. This dynamic node set looks really similar to modern level-set methods and closest point methods for solving evolving surfaces.
+			
+			\item Shankar, et al. use appended Legendre polynomials when solving for their FD weights. In contrast, we have only used monomials up to this point but have started to explore using Barycentric formulations for the appended polynomials.
+			
+			\item In contrast to using an overlap parameter $ \delta $, Shankar, et al. have replaced $ \delta $ with two proxies to measure the quality of the FD stencils. This is my first time hearing about Overlapped RBF-FD methods. As such, I could definitely see using Overlapped RBF-FD methods to improve our accuracy and stability in solving surface PDEs.
+		\end{itemize}
+	\end{itemize}
+
+\section*{Remarks}
+Although our research is currently focused on PDEs on evolving surfaces, the scope of PDEs we are attempting to solve is broader than advection-diffusion equations. As a result, we are not able to rely on SL methods directly for solving our PDEs. However, we could possibly improve modern level-set techniques by employing an SL based automatic Overlapped RBF-FD method for solving the advection-type level-set equation. 
+
+The improvement of Overlapped RBF-FD methods could be used instead of RBF-FD to solve our PDEs. Using Overlapped RBF-FD methods could improve the cost of our current method and may even improve stability by creating better stencils.
+
+% Citations
+\bibliographystyle{plain}
+\bibliography{research}
 \end{document}

@@ -1,0 +1,52 @@
+\documentclass[12pt]{exam}
+\usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath, amscd, amssymb, amsthm, xspace, graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry} % We can control the margins here
+\usepackage[all]{xy}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{mathtools}  
+\DeclarePairedDelimiter\Floor\lfloor\rfloor
+\DeclarePairedDelimiter\Ceil\lceil\rceil
+
+\newcommand{\class}{APPM 1350}
+\newcommand{\term}{Fall 2021}
+\newcommand{\examnum}{Quiz 6}
+\newcommand{\examdate}{10/19/2021}
+\newcommand{\timelimit}{10 Minutes}
+
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\examnum\ - Page \thepage\ of \numpages}{\examdate}
+\runningheadrule
+
+
+\begin{document}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+	\textbf{\class} & \textbf{Name:} & \makebox[2in]{\hrulefill}\\
+	\textbf{\term} &&\\
+	\textbf{\examnum} &&\\
+	\textbf{\examdate} &&\\
+	\textbf{Time Limit: \timelimit} & Recitation Section: & \makebox[2in]{\hrulefill}
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+
+\begin{enumerate}
+\item Which of these functions has a slant asymptote? If it exists, find it. If not, explain why it does not exist.
+\begin{enumerate}[label=(\alph*),leftmargin=2.2cm]
+	\item $\displaystyle y = \frac{x^2-x + 2}{x-4}$ \vspace{0.5cm}
+	\item $\displaystyle y = \frac{5x+9}{8x^3+1}$ \vspace{0.5cm}
+\end{enumerate}
+
+\item For the function that has a slant asymptote, use the \textit{slant} asymptote as well as the \textit{vertical} asymptote to sketch the graph.
+\end{enumerate}
+
+
+\end{document}
