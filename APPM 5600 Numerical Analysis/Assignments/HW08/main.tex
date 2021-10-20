@@ -231,17 +231,56 @@
 				f(x) - p(x) = \frac{x^4 - 1}{4!}f^4(\eta_x)
 			\]
 			for some $ \eta_x \in [-1,1] $.
+			
+			Suppose we have a fixed $ t \in [-1,1] $ such that $ t \neq x_0 $ and $ t \neq x_2 $. Next, define
+			\[
+				G(x) = E(x) - \frac{x^4 - 1}{t^4 - 1} E(t)
+			\]
+			where $ E(x) = f(x) - p(x) $. Then, by construction, we have $ G(x_0) = G(x_2) = G(t) = 0 $. Next, using Rolle's theorem, we have must have at least two roots to $ G'(x) $. But, $ G'(x_1) = 0 $ by construction and so as long as the two roots from Rolle's theorem do not coincide with $ x_1 $, $ G'(x) $ has three roots (Note it is highly unlikely that $ x_1 $ will be the point given from Rolle's theorem). Then, using Rolle's theorem again implies that $ G''(x) $ also has two roots that are not equal to $ x_1 $. So, because $ G''(x_1) = 0 $, we know $ G''(x) $ also has at least three roots. Using Rolle's theorem twice more tells us that $ G^{(3)}(x) $ has two roots which implies $ G^{(4)}(x) $ has one root; call this root $ \eta_x \in [-1,1] $. Then, we have
+			\begin{align*}
+				G^{(4)} &= E^{(4)}(\eta_4) - \frac{4!}{t^4 - 1} E(t) \\
+				&= f^{(4)}(\eta_x) - \frac{4!}{t^4 - 1} E(t) = 0
+			\end{align*}
+			which implies
+			\[
+				E(t) = \frac{t^4 - 1}{4!} f^{(4)}(\eta_x).
+			\]
+			Then, if we rename $ t $ to $ x $, we have
+			\[
+				E(x) = f(x) - p(x) = \frac{x^4 - 1}{4!} f^{(4)}(\eta_x).
+			\]
+			
 		\end{enumerate}
-	
+	 \newpage
 	\item Suppose we have $ m $ data points $ \{(t_i, y_i)\}_{i = 1}^m $, where the $ t $-values all occur in some interval $ [x_0, x_n] $. We subdivide the interval $ [x_0, x_n] $ into $ n $ subintervals $ \{[x_k, x_{k + 1}]_{k = 0}^{n - 1}\} $ of equal length $ h $ and attempt to choose a spline function $ s(x) $ with nodes at $ \{x_k\}_{k = 0}^n $ in such a way so that
 	\[
 		\sum_{i = 1}^{m} \abs{y_i - s(t_i)}^2
 	\]
 	is \emph{minimized}.
 		\begin{enumerate}[label = (\roman*)]
-			\item \emph{Sheeeeeeeeeeeeesh}
+			\item My B-Spline code is given at the end of the document
+			
+			\item Using my code, I was able to produce the following noisy plots:
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width = 0.45\textwidth]{images/sin.png}
+				\includegraphics[width = 0.45\textwidth]{images/exp.png}
+				
+				\includegraphics[width = 0.45\textwidth]{images/sinc.png}
+			\end{figure}
+			
+			\newpage
+			\item My spy plot is given below. We can see that we have nice and relatively uniform sparse structure throughout the matrix. Each row has at most 4 nonzero entries that are all consecutive. Furthermore, each new row either shifts the 4 consecutive non entries to the right by 1 or not at all. 
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width = 0.6\textwidth]{images/spy.png}
+			\end{figure}
 		\end{enumerate}
 \end{enumerate}
 
+\newpage
 \section*{Code Used}
+\rule{\textwidth}{0.4pt}
+	\lstinputlisting[language = matlab]{code/B_Splines.m}
+\rule{\textwidth}{0.4pt}
 \end{document}

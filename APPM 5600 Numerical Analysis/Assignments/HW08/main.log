@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.8.29)  18 OCT 2021 21:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.8.31)  20 OCT 2021 17:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -835,18 +835,48 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 87.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
-] [2] [3] [4] (./main.aux)
+] [2] [3] [4]
+<images/sin.png, id=44, 421.575pt x 316.18124pt>
+File: images/sin.png Graphic file (type png)
+<use images/sin.png>
+Package pdftex.def Info: images/sin.png  used on input line 266.
+(pdftex.def)             Requested size: 236.35544pt x 177.26773pt.
+<images/exp.png, id=45, 421.575pt x 316.18124pt>
+File: images/exp.png Graphic file (type png)
+<use images/exp.png>
+Package pdftex.def Info: images/exp.png  used on input line 267.
+(pdftex.def)             Requested size: 236.35544pt x 177.26773pt.
+<images/sinc.png, id=46, 421.575pt x 316.18124pt>
+File: images/sinc.png Graphic file (type png)
+<use images/sinc.png>
+Package pdftex.def Info: images/sinc.png  used on input line 269.
+(pdftex.def)             Requested size: 236.35544pt x 177.26773pt.
+ [5 <./images/sin.png (PNG copy)> <./images/exp.png (PNG copy)> <./images/sinc.
+png (PNG copy)>]
+<images/spy.png, id=55, 421.575pt x 316.18124pt>
+File: images/spy.png Graphic file (type png)
+<use images/spy.png>
+Package pdftex.def Info: images/spy.png  used on input line 276.
+(pdftex.def)             Requested size: 315.14594pt x 236.36342pt.
+ [6 <./images/spy.png (PNG copy)>] (/usr/share/texmf-dist/tex/latex/listings/ls
+tlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 284.
+
+(./code/B_Splines.m [7] [8]) [9] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 31934 strings out of 478994
- 722860 string characters out of 5864751
- 1118385 words of memory out of 5000000
- 48906 multiletter control sequences out of 15000+600000
- 409028 words of font info for 48 fonts, out of 8000000 for 9000
+ 32974 strings out of 478994
+ 734259 string characters out of 5864751
+ 1736866 words of memory out of 5000000
+ 49786 multiletter control sequences out of 15000+600000
+ 409665 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,12n,103p,727b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,12n,103p,779b,2488s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/publi
@@ -856,11 +886,12 @@ share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></u
-sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (4 pages, 123244 bytes).
+sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (9 pages, 229951 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
- 72 compressed objects within 1 object stream
- 17 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 292 PDF objects out of 1000 (max. 8388607)
+ 261 compressed objects within 3 object streams
+ 162 named destinations out of 1000 (max. 500000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
