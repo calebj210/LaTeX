@@ -1,0 +1,169 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5600: Numerical Analysis I}
+\rhead{Homework \#9}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = (\arabic*)]
+	\item A circulant matrix of size $ (2n + 1) \times (2n + 1) $ has the form
+	\[
+		C = 
+		\pmat{
+			a_0 & a_1 & \cdots & \cdots & a_{2n} \\
+			a_{2}  & a_0 & a_1 & \cdots & a_{2n - 1} \\
+			a_{2n - 1} & a_{2n} & a_0 & \cdots & a_{2n - 2} \\
+			\vdots & \vdots & \vdots & \ddots & \vdots \\
+			a_1 & a_2 & \cdots & a_{2n} & a_0
+		}.
+	\]
+	Furthermore, let $ S $ denote the matrix that shifts the index of a vector by 1. In this case, $ S $ will be a $ (2n + 1) \times (2n + 1) $ matrix of the form
+	\[
+		S = 
+		\pmat{
+			0 & 1 & 0 & 0 & \cdots & 0 \\
+			0 & 0 & 1 & 0 & \cdots & 0 \\
+			0 & 0 & 0 & 1 & \cdots & 0 \\
+			\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & \vdots & \cdots & \cdots & 1 \\
+			1 & 0 & 0 & \cdots & \cdots &  0
+		}.
+	\]
+	\begin{enumerate}[label = (\alph*)]
+		\item Show that any circulant matrix can be written as a polynomial of the $ S $ matrix.
+		
+		To create a polynomial that makes any circulant matrix, notice that each $ a_0 $ in $ C $ is along the diagonal which can be formed by $ a_0 I = a_0 S^0 $. Next, notice that each $ a_1 $ in $ C $ can be given by $ a_1 S^1 $. Continuing this trend, we can see that each $ a_{2n} $ in $ C $ can be given by $ a_{2n} S^{2n} $. Finally, we can simply add up each term to get
+		\[
+			C = a_0 + a_1 S + a_2 S^2 + \cdots + a_{2n} S^{2n}
+		\]
+		which is a polynomial of $ S $.
+		
+		\item Let $ v^k $ denote the $ k $th orthogonal Fourier basis vector where the $ j $th entry of $ v^k $ is given by
+		\[
+			v_j^k = e^{\frac{2\pi i j k}{2n + 1}}.
+		\]
+		Prove that the vectors $ v^k $ are all the eigenvectors of the circulant matrix. Furthermore, what are the eigenvalues?
+		
+		To prove that the vectors $ v^k $ are the eigenvectors of the circulant matrix, let's check that each of these ``eigenvectors'' is actually an eigenvector of $ C $:
+		\begin{align*}
+			C v^k &= (a_0 + a_1 S + a_2 S^2 + \cdots + a_{2n} S^{2n}) v^k \\
+			&= a_0v^k + a_1 Sv^k + a_2 S^2v^k + \cdots + a_{2n} S^{2n}v^k \\
+			&= 
+			\pmat{
+				a_0v_0^k + a_1v_1^k + a_2 v_2^k + \cdots + a_{2n} v_{2n}^k \\
+				a_0v_1^k + a_1v_2^k + a_2 v_3^k + \cdots + a_{2n} v_{0}^k \\
+				\vdots\qquad\vdots\qquad\vdots\qquad\vdots\qquad\vdots \\
+				a_0v_{2n}^k + a_1v_0^k + a_2 v_1^k + \cdots + a_{2n} v_{2n-1}^k
+			} \\
+			&= 
+			\pmat{
+				a_0e^{\frac{2\pi i 0 k}{2n + 1}} + a_1e^{\frac{2\pi i 1 k}{2n + 1}} + a_2 e^{\frac{2\pi i 2 k}{2n + 1}} + \cdots + a_{2n} e^{\frac{2\pi i 2n k}{2n + 1}} \\
+				a_0e^{\frac{2\pi i 1 k}{2n + 1}} + a_1e^{\frac{2\pi i 2 k}{2n + 1}} + a_2 e^{\frac{2\pi i 3 k}{2n + 1}} + \cdots + a_{2n} e^{\frac{2\pi i 0 k}{2n + 1}} \\
+				\vdots\qquad\vdots\qquad\vdots\qquad\vdots\qquad\vdots \\
+				a_0e^{\frac{2\pi i 2n k}{2n + 1}} + a_1e^{\frac{2\pi i 0 k}{2n + 1}} + a_2 e^{\frac{2\pi i 1 k}{2n + 1}} + \cdots + a_{2n} e^{\frac{2\pi i (2n-1) k}{2n + 1}}
+			} \\
+			&= 
+			\left(a_0 + a_1e^{\frac{2\pi i 1 k}{2n + 1}} + a_2 e^{\frac{2\pi i 2 k}{2n + 1}} + \cdots + a_{2n} e^{\frac{2\pi i 2n k}{2n + 1}}\right)
+			\pmat{
+				e^{\frac{2\pi i 0 k}{2n + 1}} \\
+				e^{\frac{2\pi i 1 k}{2n + 1}} \\
+				\vdots \\
+				e^{\frac{2\pi i 2n k}{2n + 1}}
+			} \\
+			&= \left(a_0 + a_1e^{\frac{2\pi i 1 k}{2n + 1}} + a_2 e^{\frac{2\pi i 2 k}{2n + 1}} + \cdots + a_{2n} e^{\frac{2\pi i 2n k}{2n + 1}}\right) v^k.
+		\end{align*}
+		Thus, $ v^k $ is an eigenvector of $ C $ with eigenvalue
+		\[
+			\lambda_k = a_0 + a_1e^{\frac{2\pi i 1 k}{2n + 1}} + a_2 e^{\frac{2\pi i 2 k}{2n + 1}} + \cdots + a_{2n} e^{\frac{2\pi i 2n k}{2n + 1}}.
+		\]
+		Finally, because the collection of $ v^k $ forms a basis of dimension $ 2n + 1 $ and $ C $ is a $ (2n + 1) \times (2n + 1) $ matrix, the collection of $ v^k $ is all of the eigenvectors of $ C $.
+	\end{enumerate}
+
+	\newpage
+	\item Let $ 0 \leq t_0 < t_1 < \cdots < t_{2n} < w\pi $ and consider the trigonometric polynomial interpolation problem: define
+	\[
+		l_j(t) = \prod_{\substack{k = 0 \\ k \neq j}}^{2n} \frac{\sin\left(\frac{1}{2} (t - t_k)\right)}{\sin\left(\frac{1}{2} (t_j - t_k)\right)}
+	\]
+	for $ j = 0, 1 \ldots, 2n $. It is easy to show that $ l_j(t_i) = \delta_{ij} $ for each $ j $.
+	
+	Show that $ l_j(t) $ is a trigonometric polynomial of degree less than or equal to $ n $. Then the solution of the trigonometric interpolation problem is given by
+	\[
+		p_n(t) = \sum_{j = 0}^{2n} f(t_j) l_j(t).
+	\]
+\end{enumerate}
+\end{document}
