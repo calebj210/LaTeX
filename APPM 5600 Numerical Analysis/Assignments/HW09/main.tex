@@ -157,7 +157,7 @@
 	\newpage
 	\item Let $ 0 \leq t_0 < t_1 < \cdots < t_{2n} < w\pi $ and consider the trigonometric polynomial interpolation problem: define
 	\[
-		l_j(t) = \prod_{\substack{k = 0 \\ k \neq j}}^{2n} \frac{\sin\left(\frac{1}{2} (t - t_k)\right)}{\sin\left(\frac{1}{2} (t_j - t_k)\right)}
+		l_j^{(n)}(t) = \prod_{\substack{k = 0 \\ k \neq j}}^{2n} \frac{\sin\left(\frac{1}{2} (t - t_k)\right)}{\sin\left(\frac{1}{2} (t_j - t_k)\right)}
 	\]
 	for $ j = 0, 1 \ldots, 2n $. It is easy to show that $ l_j(t_i) = \delta_{ij} $ for each $ j $.
 	
@@ -165,5 +165,33 @@
 	\[
 		p_n(t) = \sum_{j = 0}^{2n} f(t_j) l_j(t).
 	\]
+	
+	To prove that the degree of our trig polynomial is less than or equal to $ n $ let's start with the base case when $ n = 1 $.
+	\begin{align*}
+		l_j^{(1)} &=  \prod_{\substack{k = 0 \\ k \neq j}}^{2} \frac{\sin\left(\frac{1}{2} (t - t_k)\right)}{\sin\left(\frac{1}{2} (t_j - t_k)\right)} \\ 
+		&= \frac{\sin\left(\frac{1}{2} (t - t_l)\right)\sin\left(\frac{1}{2} (t - t_s)\right)}{\prod\limits_{\substack{k = 0 \\ k \neq j}}^{2} \sin\left(\frac{1}{2} (t_j - t_k)\right)} \\
+		&= \frac{\cos\left(\frac{1}{2}(t_s - t_l)\right) - \cos\left(t - \frac{1}{2}(t_s + t_l)\right)}{2\prod\limits_{\substack{k = 0 \\ k \neq j}}^{2} \sin\left(\frac{1}{2} (t_j - t_k)\right)} \\
+		&= \frac{\cos\left(\frac{1}{2}(t_s - t_l)\right) - \cos(t)\cos\left(\frac{1}{2}(t_s + t_l)\right) - \sin(t)\sin\left(\frac{1}{2}(t_s + t_l)\right)}{2\prod\limits_{\substack{k = 0 \\ k \neq j}}^{2} \sin\left(\frac{1}{2} (t_j - t_k)\right)} \\
+		&= \sum_{k = 0}^{1} \left(a_k \cos(kt) + b_k \sin(kt)\right)
+	\end{align*}
+	for some constants $ a_n $ and $ b_n $. Therefore, $ l_j^{(1)} $ is a trig polynomial of degree 1 or less.
+	
+	Now, suppose $ l_j^{(i - 1)} $ is a trig polynomial of degree $ i - 1 $ or less. Then
+	\begin{align*}
+		l_j^{(i)} &= \prod_{\substack{k = 0 \\ k \neq j}}^{2i} \frac{\sin\left(\frac{1}{2} (t - t_k)\right)}{\sin\left(\frac{1}{2} (t_j - t_k)\right)} \\
+	   	&= \left(\prod_{\substack{k = 0 \\ k \neq j}}^{2i - 2} \frac{\sin\left(\frac{1}{2} (t - t_k)\right)}{\sin\left(\frac{1}{2} (t_j - t_k)\right)}\right) \left(\prod_{\substack{k = 2i - 1 \\ k \neq j}}^{2i} \frac{\sin\left(\frac{1}{2} (t - t_k)\right)}{\sin\left(\frac{1}{2} (t_j - t_k)\right)}\right) \\
+	   	&= l_j^{(i -1)}(t) \left(\prod_{\substack{k = 2i - 1 \\ k \neq j}}^{2i} \frac{\sin\left(\frac{1}{2} (t - t_k)\right)}{\sin\left(\frac{1}{2} (t_j - t_k)\right)}\right) \\
+	   	&= l_j^{(i -1)}(t) \frac{\sin\left(\frac{1}{2} (t - t_l)\right) \sin\left(\frac{1}{2} (t - t_s)\right)}{\prod\limits_{\substack{k = 2i - 1 \\ k \neq j}}^{2i} \sin\left(\frac{1}{2} (t_j - t_k)\right)} \\
+	   	&= l_j^{(i -1)}(t) \frac{\cos\left(\frac{1}{2}(t_s - t_l)\right) - \cos(t)\cos\left(\frac{1}{2}(t_s + t_l)\right) - \sin(t)\sin\left(\frac{1}{2}(t_s + t_l)\right)}{\prod\limits_{\substack{k = 2i - 1 \\ k \neq j}}^{2i} \sin\left(\frac{1}{2} (t_j - t_k)\right)}\\
+	   	&= l_j^{(i -1)}(t) \left(\alpha + \beta \cos(t) + \gamma \sin(t)\right)
+	\end{align*}
+	for some constants $ \alpha, \beta $ and $ \gamma $. Then, 
+	\begin{align*}
+		l_j^{(i)} &= l_j^{(i -1)}(t) \left(\alpha + \beta \cos(t) + \gamma \sin(t)\right) \\
+		&= \sum_{k = 0}^{i - 1} \left(a_k \cos(k t) + b_k \sin(k t) \left(\alpha + \beta \cos(t) + \gamma \sin(t)\right)\right) \\
+		&= \sum_{k = 0}^{i - 1} A_k \cos((k - 1) t) + B_k \cos((k + 1)t) + C_k \sin((k - 1) t) + D_k \sin((k + 1) t) \\
+		&= \sum_{k = 0}^{i} A'_k \cos(k t) + B'_k \sin(k t)
+	\end{align*}
+	for some constants $ A'_k $ and $ B'_k $. Therefore, $ l_j^{(i)} $ has degree less than or equal to $ i $. So, by induction $ l_j^n $ has degree less than or equal to $ n $.
 \end{enumerate}
 \end{document}
