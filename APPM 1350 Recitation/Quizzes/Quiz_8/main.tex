@@ -1,0 +1,54 @@
+\documentclass[12pt]{exam}
+% \usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath, amscd, amssymb, amsthm, xspace, graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry} % We can control the margins here
+\usepackage[all]{xy}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{mathtools}  
+\DeclarePairedDelimiter\Floor\lfloor\rfloor
+\DeclarePairedDelimiter\Ceil\lceil\rceil
+
+\newcommand{\class}{APPM 1350}
+\newcommand{\term}{Fall 2021}
+\newcommand{\examnum}{Quiz 8}
+\newcommand{\examdate}{11/02/2021}
+\newcommand{\timelimit}{10 Minutes}
+
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\examnum\ - Page \thepage\ of \numpages}{\examdate}
+\runningheadrule
+
+
+\begin{document}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+	\textbf{\class} & \textbf{Name:} & \makebox[2in]{\hrulefill}\\
+	\textbf{\term} &&\\
+	\textbf{\examnum} &&\\
+	\textbf{\examdate} &&\\
+	\textbf{Time Limit: \timelimit} & Recitation Section: & \makebox[2in]{\hrulefill}
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+
+% \begin{enumerate}
+%     \item 
+% \end{enumerate}
+\begin{enumerate}
+\item Let $f(x) = 1 - x^2$ be a curve on the interval $[-1,1]$. For (a) and (b), label \textbf{all} points ($x_i$, $f(x_i)$). 
+\begin{enumerate}
+    \item Using a Riemann sum for $f(x)$, with $n=4$, sketch the curve of $f(x)$ as well as the approximating rectangles using right endpoints. Do \textbf{not} evaluate the sum.
+    \item Do the same as (a) but now using left endpoints. Do \textbf{not} evaluate the sum.
+    \item Without evaluating the sums, are these approximations equal to each other? Briefly explain why or why not.
+\end{enumerate}
+\end{enumerate}
+
+
+\end{document}
