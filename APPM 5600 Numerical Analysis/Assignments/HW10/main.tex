@@ -81,9 +81,20 @@
 
 \begin{document}
 \begin{enumerate}[label = \arabic*.]
-	\item 
+	\item Consider the error plot comparing regular a regular 2D Lagrange interpolant vs a Boolean Sum Lagrange based interpolant
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width = 0.6\textwidth]{images/Errors.png}
+	\end{figure}
+	\begin{enumerate}[label = (\alph*)]
+		\item From the error plot focusing on the equispaced curves, we can see that using a Boolean Sum Lagrange Interpolant works marginally better than a regular Lagrange based method. Although both errors are increasing as the number of nodes increases, the Boolean Sum is increasing a much slower rate.
+		
+		\item From the same error but now focusing on the Chebyshev a curves, we see a slightly different trend. Now the error in the Boolean Sum is remaining relatively constant with an increase in the number of nodes while the error is actually decreasing for the regular lagrange interpolant.
+		 
+		\item To understand the differences between the two methods, let's look closer at the sums we have to compute in each method. In the case of 
+	\end{enumerate}
 	
-	\item Prove the following result:Let $ f \in C^2 [a,b] $ with $ f''(x) > 0 $ for $ a \leq x \leq b $. If $ q_i^*(x) = a_0 + a_1 x $ is the linear minimax approximation to $ f(x) $ on $ [a,b] $, then 
+	\item Prove the following result: Let $ f \in C^2 [a,b] $ with $ f''(x) > 0 $ for $ a \leq x \leq b $. If $ q_i^*(x) = a_0 + a_1 x $ is the linear minimax approximation to $ f(x) $ on $ [a,b] $, then 
 	\[
 		a_1 = \frac{f(b) - f(a)}{b - a}, \quad a_0 = \frac{f(a) + f(c)}{2} - \frac{a + c}{2} \cdot \frac{f(b) - f(a)}{b - a}
 	\]
