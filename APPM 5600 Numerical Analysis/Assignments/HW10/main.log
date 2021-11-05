@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.8.29)  4 NOV 2021 23:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.8.31)  5 NOV 2021 11:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -804,44 +804,75 @@ LaTeX Info: Redefining \nameref on input line 82.
 <images/Errors.png, id=7, 421.575pt x 315.84666pt>
 File: images/Errors.png Graphic file (type png)
 <use images/Errors.png>
-Package pdftex.def Info: images/Errors.png  used on input line 87.
+Package pdftex.def Info: images/Errors.png  used on input line 88.
 (pdftex.def)             Requested size: 315.14594pt x 236.1133pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 97.
+<images/EL15.png, id=8, 421.575pt x 316.18124pt>
+File: images/EL15.png Graphic file (type png)
+<use images/EL15.png>
+Package pdftex.def Info: images/EL15.png  used on input line 89.
+(pdftex.def)             Requested size: 236.35544pt x 177.26773pt.
+<images/EB15.png, id=9, 421.575pt x 316.18124pt>
+File: images/EB15.png Graphic file (type png)
+<use images/EB15.png>
+Package pdftex.def Info: images/EB15.png  used on input line 90.
+(pdftex.def)             Requested size: 236.35544pt x 177.26773pt.
+<images/CL15.png, id=10, 421.575pt x 316.18124pt>
+File: images/CL15.png Graphic file (type png)
+<use images/CL15.png>
+Package pdftex.def Info: images/CL15.png  used on input line 91.
+(pdftex.def)             Requested size: 236.35544pt x 177.26773pt.
+<images/CB15.png, id=11, 421.575pt x 316.18124pt>
+File: images/CB15.png Graphic file (type png)
+<use images/CB15.png>
+Package pdftex.def Info: images/CB15.png  used on input line 92.
+(pdftex.def)             Requested size: 236.35544pt x 177.26773pt.
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
- (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
+ <./images/Errors.png (PNG copy)> <./images/EL15.png (PNG copy)> <./images/EB15
+.png (PNG copy)> <./images/CL15.png (PNG copy)> <./images/CB15.png (PNG copy)>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 106
+.
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 97.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 106
+.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
- <./images/Errors.png (PNG copy)>] [2] (./main.aux)
+) [2]
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 148.
+ (./code/Problem_1.m
+[3] [4] [5]) [6] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 31450 strings out of 478994
- 714044 string characters out of 5864751
- 1099788 words of memory out of 5000000
- 48433 multiletter control sequences out of 15000+600000
- 408422 words of font info for 46 fonts, out of 8000000 for 9000
+ 32506 strings out of 478994
+ 725625 string characters out of 5864751
+ 1642841 words of memory out of 5000000
+ 49325 multiletter control sequences out of 15000+600000
+ 409665 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,12n,103p,727b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
-hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/symbols/msam10.pfb>
-Output written on main.pdf (2 pages, 111337 bytes).
+ 102i,12n,103p,727b,2488s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/s
+hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><
+/usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on main.pdf (6 pages, 461368 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 281 PDF objects out of 1000 (max. 8388607)
+ 253 compressed objects within 3 object streams
+ 159 named destinations out of 1000 (max. 500000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 

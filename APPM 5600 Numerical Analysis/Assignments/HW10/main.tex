@@ -80,18 +80,27 @@
 \setlength{\parindent}{0pt}
 
 \begin{document}
+\section*{Problems}
 \begin{enumerate}[label = \arabic*.]
-	\item Consider the error plot comparing regular a regular 2D Lagrange interpolant vs a Boolean Sum Lagrange based interpolant
+	\item Consider the error plot and surface plots below comparing regular a regular 2D Lagrange interpolant vs a Boolean Sum Lagrange based interpolant
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width = 0.6\textwidth]{images/Errors.png}
+		\includegraphics[width = 0.45\textwidth]{images/EL15.png}
+		\includegraphics[width = 0.45\textwidth]{images/EB15.png} \\
+		\includegraphics[width = 0.45\textwidth]{images/CL15.png}
+		\includegraphics[width = 0.45\textwidth]{images/CB15.png}
 	\end{figure}
+
+	\newpage
 	\begin{enumerate}[label = (\alph*)]
 		\item From the error plot focusing on the equispaced curves, we can see that using a Boolean Sum Lagrange Interpolant works marginally better than a regular Lagrange based method. Although both errors are increasing as the number of nodes increases, the Boolean Sum is increasing a much slower rate.
 		
-		\item From the same error but now focusing on the Chebyshev a curves, we see a slightly different trend. Now the error in the Boolean Sum is remaining relatively constant with an increase in the number of nodes while the error is actually decreasing for the regular lagrange interpolant.
+		\item From the same error but now focusing on the Chebyshev a curves, we see a slightly different trend. Now the error in the Boolean Sum is remaining relatively constant with an increase in the number of nodes while the error is actually decreasing for the regular Lagrange interpolant.
 		 
-		\item To understand the differences between the two methods, let's look closer at the sums we have to compute in each method. In the case of 
+		\item To understand the differences between the two methods, let's take a closer look at the sums we have to compute in each method. In the case of the regular Lagrange basis, we experience Runge at the boudnaries of our interval due to the Lagrange polynomials. So, using Chebyshev nodes pushes the error to the inside of the interval allowing us to actually have convergence of the Lagrange interpolant. Furthermore, the Lagrange interpolant uses the lagrange basis over our whole domain which pushes the error to the corners of our boundaries.
+		
+		On the other hand, we have the Boolean Sum Lagrange interpolant which relies on the data along each x and y axis individually instead of having all of the cross terms. This splitting of the data causes the error to be focused near the middle of our boundaries. So, using Chebyshev nodes, the error is mitigated at the boundaries but the Runge at the middle of the boundaries was not bad to begin with so the error doesn't change much.
 	\end{enumerate}
 	
 	\item Prove the following result: Let $ f \in C^2 [a,b] $ with $ f''(x) > 0 $ for $ a \leq x \leq b $. If $ q_i^*(x) = a_0 + a_1 x $ is the linear minimax approximation to $ f(x) $ on $ [a,b] $, then 
@@ -133,4 +142,10 @@
 		\]
 	\end{proof}
 \end{enumerate}
+
+\section*{Code used}
+\rule{\textwidth}{4pt}
+	\lstinputlisting[language = matlab]{code/Problem_1.m}
+\rule{\textwidth}{4pt}
+
 \end{document}
