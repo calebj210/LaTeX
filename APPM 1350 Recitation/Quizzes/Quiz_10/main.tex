@@ -1,0 +1,50 @@
+\documentclass[12pt]{exam}
+% \usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath, amscd, amssymb, amsthm, xspace, graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry} % We can control the margins here
+\usepackage[all]{xy}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{mathtools}  
+\DeclarePairedDelimiter\Floor\lfloor\rfloor
+\DeclarePairedDelimiter\Ceil\lceil\rceil
+
+\newcommand{\class}{APPM 1350}
+\newcommand{\term}{Fall 2021}
+\newcommand{\examnum}{Quiz 10}
+\newcommand{\examdate}{11/30/2021}
+\newcommand{\timelimit}{10 Minutes}
+
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\examnum\ - Page \thepage\ of \numpages}{\examdate}
+\runningheadrule
+
+
+\begin{document}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+	\textbf{\class} & \textbf{Name:} & \makebox[2in]{\hrulefill}\\
+	\textbf{\term} &&\\
+	\textbf{\examnum} &&\\
+	\textbf{\examdate} &&\\
+	\textbf{Time Limit: \timelimit} & Recitation Section: & \makebox[2in]{\hrulefill}
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+
+\begin{enumerate}
+\item On a certain patch in Montana, a group of rabbits exist. The initial population is 200 rabbits and the number doubles every 400 days.
+\begin{enumerate}
+	\item Write down the general differential equation that represents exponential growth and decay. \\
+	\item Using the solution of the differential equation, solve for how large the population will be after 200 days. Simplify your answer so that it is in terms of $\sqrt{2}$.
+\end{enumerate}
+\end{enumerate}
+
+
+\end{document}
