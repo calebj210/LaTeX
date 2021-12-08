@@ -1,0 +1,173 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = black]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5600: Numerical Analysis I}
+\rhead{Homework \#13}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = \arabic*.]
+	\item 
+		Derive a quadrature based on the cubic Hermite interpolating polynomial with data $ f(a) $, $ f(b) $, $ f'(a) $, and $ f'(b) $. Derive an upper bound on the error.
+		
+		Using the Hermite-Lagrange basis, we can construct our cubic Hermite polynomial as
+		\[
+			p(x) = f(a) H_a(x) + f(b) H_b(x) + f'(a) K_a(x) + f'(b) K_b(x)
+		\]
+		where
+		\begin{align*}
+			H_a(x) &= \left(1 - 2(x - a) \frac{1}{a - b}\right)\frac{(x - b)^2}{(a - b)^2} \\
+			H_b(x) &= \left(1 - 2(x - b) \frac{1}{b - a}\right)\frac{(x - a)^2}{(b - a)^2} \\
+			K_a(x) &= (x - a)\frac{(x - b)^2}{(a - b)^2} \\
+			K_b(x) &= (x - b)\frac{(x - a)^2}{(b - a)^2}.
+		\end{align*}
+		Now, integrating $ p(x) $ over our interval, $ [a, b] $, we obtain our quadrature as
+		\begin{align*}
+			\int_a^b f(x) \;\dd x &\approx \int_a^b p(x) \;\dd x \\
+			&= f(a) \int_a^b H_a(x) \;\dd x + f(b) \int_a^b H_b(x) \;\dd x + f'(a) \int_a^b K_a(x) \;\dd x + f'(b) \int_a^b K_b(x) \;\dd x \\
+			&= f(a) \frac{b - a}{2} + f(b) \frac{b - a}{2} + f'(a) \frac{(a - b)^2}{12} - f'(b) \frac{(a - b)^2}{12} \\
+			&= \boxed{(f(a) + f(b)) \frac{b - a}{2} + (f'(a) - f'(b)) \frac{(a - b)^2}{12}.}
+		\end{align*}
+		Now, assuming $ f \in C^4 [a,b] $, we can get an error bound for this quadrature by integrating the Hermite interpolant error as
+		\begin{align*}
+			E = \int_{a}^{b} \abs{f(x) - p(x)} \;\dd x &= \int_{a}^{b} \abs{\frac{f^{(4)}(\eta_x)}{4!} (x - a)^2 (x - b)^2} \;\dd x & \text{for some $ \eta_x \in [a, b] $} \\
+			&\leq \frac{M}{24} \int_{a}^{b} (x - a)^2 (x - b)^2 \;\dd x & \text{where $ M = \max_{\eta \in [a,b]} \abs{f^{(4)}(\eta)} $} \\
+			&= \frac{M}{24} (\frac{(b - a)^5}{30}) \\
+			&= \boxed{\frac{M (b - a)^5}{720}.}
+		\end{align*}
+	
+	\newpage
+	\item 
+		Assume the error in an integration formula has the asymptotic expansion
+		\[
+			I - I_n = \frac{C_1}{n \sqrt{n}} + \frac{C_2}{n^2} + \frac{C_3}{n^2\sqrt{n}} + \cdots.
+		\]
+		Generalize the Richardson extrapolation process to obtain an estimate of $ I $ with an error on the order $ \frac{1}{n^2 \sqrt{n}} $. Assume that three values $ I_n, I_{n / 2}, $ and $ I_{n / 4} $ have been computed.
+		
+		From the error formula, we have the three equations
+		\begin{align}
+			I &= I_n  + \frac{C_1}{n \sqrt{n}} + \frac{C_2}{n^2} + \frac{C_3}{n^2\sqrt{n}} + \cdots \label{equ:1} \\
+			I &= I_{n / 2}  + 2\sqrt{2} \frac{C_1}{n \sqrt{n}} + 4\frac{C_2}{n^2} + 4\sqrt{2}\frac{C_3}{n^2\sqrt{n}} + \cdots \label{equ:2} \\
+			I &= I_{n / 4}  + 8\frac{C_1}{n \sqrt{n}} + 16\frac{C_2}{n^2} + 32\frac{C_3}{n^2\sqrt{n}} + \cdots. \label{equ:3}
+		\end{align}
+		Using these three equations, we want to eliminate the $ C_1 $ and $ C_2 $ error terms which we can do by reducing
+		\[
+			\pmat{1 & 2\sqrt{2} & 8 \\ 1 & 4 & 16} \sim \pmat{1 & 0 & -8\sqrt{2} \\ 0 & 1 & 2(\sqrt{2} + 2)}
+		\]
+		which tells us that 
+		\[
+			8\sqrt{2}\eqref{equ:1} - 2(\sqrt{2} + 2)\eqref{equ:2} + \eqref{equ:3}
+		\] 
+		will eliminate our desired error terms. So, we have the equation
+		\[
+			(8\sqrt{2} - 2(\sqrt{2} + 2) + 1) I = 8\sqrt{2}I_n - 2(\sqrt{2} + 2)I_{n/2} + I_{n/4} + (16 - 8\sqrt{2})\frac{C_3}{n^2 \sqrt{n}}
+		\]
+		which implies
+		\[
+			I = \frac{8\sqrt{2}I_n - 2(\sqrt{2} + 2)I_{n/2} + I_{n/4}}{8\sqrt{2} - 2(\sqrt{2} + 2) + 1} + O\left(\frac{1}{n^2\sqrt{n}}\right).
+		\]
+		So if we use the integration formula $ I' $ defined as
+		\[
+			\boxed{I' = \frac{8\sqrt{2}I_n - 2(\sqrt{2} + 2)I_{n/2} + I_{n/4}}{8\sqrt{2} - 2(\sqrt{2} + 2) + 1}}
+		\]
+		we get our desired error
+		\[
+			\boxed{I - I' = O\left(\frac{1}{n^2\sqrt{n}}\right)}.
+		\]
+		
+		\newpage
+		\item
+			Let $ n \geq 0 $.
+			\begin{enumerate}[label = (\roman*)]
+				\item Give a formula for the Gauss quadrature points $ x_j, j = 0, \ldots, n $, needed for the weight function $ w(x) = \frac{1}{\sqrt{1 - x^2}} $ on the interval $ [-1, 1] $.
+				
+				First, note that the Chebysheb polynomials are orthogonal under the given weight function. So, to find our nodes, $ x_j $, we need to find the roots of the $ n + 1 $ Chebyshev polynomial which is given by 
+				\[
+					T_{n + 1} (x) = \cos((n + 1)\arccos(x)).
+				\]
+				To find the roots of $ T_{n + 1} $, we need
+				\[
+					(n + 1) \arccos(x) = \frac{\pi}{2} + j \pi
+				\]
+				for any integer $ j $. So, we must have
+				\[
+					\boxed{x_j = \cos\left(\frac{\left(j + \frac{1}{2}\right)\pi}{n + 1}\right).}
+				\]
+				So we don't have overlapping $ x_j $, restrict $ j $ to $ j = 0, \ldots, n $.
+			\end{enumerate}
+\end{enumerate}
+\end{document}
