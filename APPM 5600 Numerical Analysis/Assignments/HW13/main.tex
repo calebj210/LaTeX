@@ -168,6 +168,37 @@
 					\boxed{x_j = \cos\left(\frac{\left(j + \frac{1}{2}\right)\pi}{n + 1}\right).}
 				\]
 				So we don't have overlapping $ x_j $, restrict $ j $ to $ j = 0, \ldots, n $.
+				
+				\item Show that for positive integers $ n $, 
+				\[
+					\sum_{j = 0}^{n} \cos((2j + 1) \theta) = \frac{\sin((2n + 2) \theta)}{2 \sin(\theta)},
+				\]
+				unless $ \theta $ is a multiple of $ \pi $. What is the value of the sum when $ \theta $ is a multiple of $ \pi $?
+				
+				To begin showing our sum, note that from a product-to-sum identity, we have
+				\[
+					2 \sin(\theta)\cos((2j + 1) \theta) = \sin((2j + 2) \theta) - \sin(2j \theta).
+				\]
+				Using this identity, we have the telescoping sum
+				\begin{align*}
+					\sum_{j = 0}^{n} 2 \sin(\theta) \cos((2j + 1)\theta)  =& +\sin(2 \theta) - 0 \\[-0.5cm]
+					& + \sin(4\theta) - \sin(2\theta) \\
+					& + \sin(6\theta) - \sin(4\theta) \\
+					& + \cdots \\
+					& + \sin(2n\theta) - \sin((2n - 2)\theta) \\
+					& + \sin((2n + 2)\theta) - \sin(2n\theta) \\
+					=& \sin((2n + 2)\theta)
+				\end{align*}
+				which implies
+				\[
+					\sum_{j = 0}^{n} 2 \sin(\theta) \cos((2j + 1)\theta) = \sin((2n + 2)\theta)
+				\]
+				or solving for our desired sum,
+				\[
+					\sum_{j = 0}^{n} \cos((2j + 1)\theta) = \frac{\sin((2n + 2)\theta)}{2 \sin(\theta)}
+				\]
+				
+				\item 
 			\end{enumerate}
 \end{enumerate}
 \end{document}
