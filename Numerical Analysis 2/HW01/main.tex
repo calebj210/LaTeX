@@ -1,0 +1,218 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\sign}{\mathrm{sign}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5610: Numerical Analysis II}
+\rhead{Homework \#1}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = (\arabic*)]
+	\item Suppose we have a square matrix $ A $ and it's polar decomposition $ A = SV $ where $ S $ is Hermitian positive semi-definite and $ V $ is a unitary matrix. Then, because $ S $ is Hermitian, it is diagonalizable as $ S = U D U^* $ where $ U $ is unitary and $ D $ is a diagonal matrix with each entry as an eigenvalue of $ S $. Furthermore, because $ S $ is positive semi-definite, each eigenvalue $ \lambda $ of $ S $ satisfies $ \lambda \geq 0 $ so each entry of $ D $ is non-negative. Then
+	
+	\[
+		A = SV = U D U^* V = U D W^*
+	\]
+	where $ W = V^* U $. Note, $ W $ is the product of two unitary matrices and so $ W $ is also unitary. So, from the polar form, we have the SVD of $ A $ as 
+	\[
+		A = U D W^*.
+	\]
+	
+	For a general $ m \times n $ matrix $ A $ of rank $ r \leq \min\{m, n\} $ has an SVD as
+	\[
+		A = U \Sigma V^*
+	\]
+	where $ U $ is $ m \times r $ and $ V $ is $ n \times r $ satisfying $ U^*U = V^*V = I$, and $ \Sigma $ is an $ r \times r $ diagonal matrix with diagonal entries $ \sigma_1 \geq \ldots \geq \sigma_r > 0 $.
+	
+	\newpage
+	\item For each of the following statements, prove that it is true or give a counter example. In all questions $ A = \comps^{n \times n} $.
+	\begin{enumerate}[label = (\alph*)]
+		\item If $ A $ is real and $ \lambda $ is an eigenvalue of $ A $, the so is $ -\lambda $.
+		
+		\emph{False}: Consider the matrix
+		\[
+			A = \pmat{1 & 0 \\ 0 & 2}.
+		\]
+		In this case, $ A $ has eigenvalues of $ 1 $ and $ 2 $ but not $ -1 $ or $ -2 $.
+		
+		\item If $ A $ is real and $ \lambda $ is an eigenvalue of $ A $, then so is $ \bar{\lambda} $.
+		
+		\emph{True}: Suppose $ A $ is real and has an eigenvalue of $ \lambda $. Then, $ \lambda $ satisfies $ p(\lambda) = 0 $ where $ p(x) $ is the characteristic polynomial
+		\[
+			p(x) = \det(A - xI).
+		\]
+		But, because $ A $ is real, the coefficients of $ p(x) $ are all real. Then from the properties of roots of polynomials, we know if $ \lambda $ is a root of $ p(\lambda) = 0 $, then so is $ \bar{\lambda} $ (i.e. $ p(\bar{\lambda}) = 0 $) which implies $ \bar{\lambda} $ is an eigenvalue of $ A $.
+		
+		\item If $ \lambda $ is an eigenvalue of $ A $ and $ A $ is non-singular, then $ \lambda^{-1} $ is an eigenvalue of $ A^{-1} $.
+		
+		\emph{True}: Suppose $ \lambda $ is an eigenvalue of $ A $ with eigenvector $ \vec{x} $ and $ A $ is non-singular. Then
+		\[
+			A \vec{x} = \lambda \vec{x} \implies \vec{x} = \lambda A^{-1} \vec{x} \implies \lambda^{-1} \vec{x} = A^{-1} \vec{x}
+		\]
+		showing that $ \lambda^{-1} $ is an eigenvalue of $ A^{-1} $.
+		
+		\item If $ A $ is Hermitian and $ \lambda $ is an eigenvalue of $ A $, then $ \abs{\lambda} $ is a singular value of $ A $.
+		
+		\emph{True}: Suppose $ A $ is Hermitian with $ \lambda $ as an eigenvalue. Then, because $ A $ is Hermitian, $ A $ is diagonalizable by a unitary matrix
+		\[
+			A = U D U^*
+		\]
+		where $ U $ is unitary and $ D $ is a diagonal matrix of the eigenvalues of $ A $. Furthermore, because $ A $ is Hermitian, all of its eigenvalues are real and so we can write $ D $ as 
+		\[
+			D = \abs{D} \sign(D) = \pmat{\abs{\lambda_1} \\ & \abs{\lambda_2} \\ & & \ddots \\ & & & \abs{\lambda_n}} \pmat{\sign(\lambda_1) \\ & \sign(\lambda_2) \\ & & \ddots \\ & & & \sign(\lambda_n)}.
+		\]
+		Then,
+		\[
+			A = U D U^* = U \abs{D} \underbrace{\sign(D) U^*}_{V^*} = U \abs{D} V^*.
+		\]
+		Then, because $ \sign(D) $ is just a diagonal matrix of $ \pm 1 $, $ V^* = \sign(D) U^* $ is still a unitary matrix. So, because $ \abs{D} $ is a diagonal matrix of non-negative entries, $ A = U \abs{D} V^* $ is an SVD of $ A $ with singular values equal to $ \abs{\lambda} $ where $ \lambda $ are eigenvalues of $ A $.
+	\end{enumerate}
+
+	\newpage
+	\item A matrix $ S \in \comps^{n \times n} $ such that $ S^* = -S $ is called skew-Hermitian. Show that
+	\begin{enumerate}[label = (\alph*)]
+		\item eigenvalues of $ S $ are purely imaginary (or zero):
+		
+		Suppose $ \lambda $ is an eigenvalue of $ S $ with corresponding eigenvector $ \vec{x} $. Then
+		\begin{align*}
+			\lambda \norm{x}^2 &= \lambda \inner{\vec{x}, \vec{x}} = \inner{\lambda \vec{x}, \vec{x}} = \inner{A \vec{x}, \vec{x}} = \inner{\vec{x}, A^* \vec{x}} \\ &= \inner{\vec{x}, -A \vec{x}} = \inner{\vec{x}, -\lambda \vec{x}} = -\bar{\lambda} \norm{\vec{x}}^2
+		\end{align*}
+		showing that $ \lambda = -\bar{\lambda} $ which implies that $ \lambda $ is purely imaginary or zero.
+		
+		\item matrix $ I - S $ is non-singular:
+		
+		Suppose $ S $ has eigenvalues $ \{\lambda_i\}_{i = 1}^n $. Then, $ I - S $ has eigenvalues $ \{1 - \lambda_i \}_{i = 1}^n $. But, from the previous part, we know each $ \lambda_i $ is purely imaginary or zero which implies $ 1 - \lambda_i \neq 0 $ for $ i = 1, \ldots, n $. Thus each eigenvalue of $ I - S $ is non-zero and so $ I - S $ must be non-singular. The same argument can show that $ (I + S) $ is also non-singular.
+		
+		\item matrix $ Q = (I - S)^{-1}(I + S) $ is unitary:
+		
+		From the previous part, we know $ (I - S) $ and $ (I + S) $ are both non-singular. So, by direct computation, we have
+		\begin{align*}
+			Q Q^* &= (I - S)^{-1}(I + S) ((I - S)^{-1}(I + S))^* \\
+			&= (I - S)^{-1} (I + S) (I + S^*) (I - S^*)^{-1} \\
+			&= (I - S)^{-1} (I + S) (I - S) (I + S)^{-1} \\
+			&= (I - S)^{-1} (I - S^2) (I + S)^{-1} \\
+			&= \underbrace{(I - S)^{-1} (I - S)}_I \underbrace{(I + S) (I + S)^{-1}}_I \\
+			&= I
+		\end{align*}
+		Showing that $ Q $ is unitary.
+ 	\end{enumerate}
+ 
+ 	\newpage
+ 	\item Given $ A \in \comps^{n \times n} $, use Schur's decomposition to show that, for every $ \varepsilon > 0 $, there exists a diagonalizable matrix $ B $ such that $ \norm{A - B}_2 \leq \varepsilon $.
+ 	
+ 	Suppose $ A $ has eigenvalues $ \{ \lambda_i \}_{i = 1}^n $. Then, we have a Schur's decomposition of $ A $ as 
+ 	\[
+ 		A = U T U^*
+ 	\]
+ 	where $ U $ is unitary and $ T $ is an upper triangular matrix with diagonal entries equal to the eigenvalues of $ A $;
+ 	\[
+ 	T = 
+ 	\pmat{
+ 		\lambda_1 & \times & \cdots & \times \\
+ 		0 & \lambda_2 & \cdots & \times \\
+ 		\vdots & \vdots & \ddots & \vdots \\
+ 		0 & \cdots & \cdots & \lambda_n}.
+ 	\]
+ 	Now, let any $ \varepsilon > 0 $ be given. Then, define the matrix $ B $ as
+ 	\[
+ 		B = U (T - D) U^*
+ 	\]
+ 	where $ D $ is a diagonal matrix, 
+ 	\[
+ 		D = \diag(\delta_1, \delta_2, \ldots, \delta_n)
+ 	\]
+ 	such that $ \delta_i $ satisfies
+ 	\[
+ 		\max_{i = 1, \ldots, n} \{\abs{\lambda_i - \delta_i}\} < \varepsilon
+ 	\]
+ 	with each $ \lambda_i - \delta_i $ being distinct.
+ 	Now, note that the eigenvalues of $ B $ are $ \{\lambda_i - \delta_i\}_{i = 1}^n $ meaning each eigenvalue of $ B $ is distinct making $ B $ diagonalizable. Then
+ 	\begin{align*}
+ 		\norm{A - B}_2 &= \norm{U T U^* - U (T - D) U^*}_2 \\
+ 		&= \norm{U (T - T + D) U^*}_2 \\
+ 		&= \norm{U D U^*}_2 \\
+ 		&\leq \norm{U}_2 \norm{D}_2 \norm{U^*}_2 \\
+ 		&= \norm{D}_2 \\ 
+ 		&= \sqrt{\max_{\lambda \in \sigma(D^* D)} \lambda} \\
+ 		&= \sqrt{\max_{i = 1, \ldots, n} \abs{\lambda_i - \delta_i}^2} \\
+ 		&= \max_{i = 1, \ldots, n} \abs{\lambda_i - \delta_i}\\
+ 		&< \varepsilon.
+  	\end{align*}
+  	So, diagonalizable matrices are dense in $ \comps^{n \times n}$.
+\end{enumerate}
+\end{document}

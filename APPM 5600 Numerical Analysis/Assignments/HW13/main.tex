@@ -195,10 +195,126 @@
 				\]
 				or solving for our desired sum,
 				\[
-					\sum_{j = 0}^{n} \cos((2j + 1)\theta) = \frac{\sin((2n + 2)\theta)}{2 \sin(\theta)}
+					\boxed{\sum_{j = 0}^{n} \cos((2j + 1)\theta) = \frac{\sin((2n + 2)\theta)}{2 \sin(\theta)}}
+				\]
+				If $ \theta $ is a multiple of $ \pi $, then
+				\[
+					\boxed{\sum_{j = 0}^{n} \cos((2j + 1)\theta) = 
+						\begin{cases}
+							 n + 1, & \theta \text{ is an even multiple} \\ 
+							-n - 1, & \theta \text{ is an odd multiple}
+						\end{cases}.}
 				\]
 				
-				\item 
+				\item Suppose
+				\[
+					T_n(x) = \cos(n \arccos(x)), \quad x \in [-1, 1].
+				\]
+				Then, for integers $ k = 1, \ldots, n $, we have
+				\begin{align*}
+					\sum_{j = 0}^{n} T_k(x_j) &= \sum_{j = 0}^{n} \cos\left(k \arccos\left(\cos\left(\frac{\left(j + \frac{1}{2}\right)\pi}{n + 1}\right)\right)\right) \\
+					&= \sum_{j = 0}^{n} \cos\left(k \left(\frac{\left(j + \frac{1}{2}\right)\pi}{n + 1}\right)\right) \\
+					&= \sum_{j = 0}^{n} \cos\left((2j + 1)\frac{k \pi}{2n + 2}\right) \\
+					&= \frac{\sin\left((2n + 2)\frac{k \pi}{2n + 2}\right)}{2 \sin\left(\frac{k \pi}{2n + 2}\right)} \\
+					&=\frac{\sin(k \pi)}{2 \sin\left(\frac{k \pi}{2n + 2}\right)} \\
+					&= 0.
+				\end{align*}
+				However,
+				\begin{align*}
+					\int_{-1}^{1} \frac{T_k(x)}{\sqrt{1 - x^2}} \;\dd x &= \int_{-1}^{1} \frac{\cos(k \arccos(x))}{\sqrt{1 - x^2}} \;\dd x \\
+					&= \frac{\sin{k \pi}}{k} \\
+					&= 0.
+				\end{align*}
+				So
+				\[
+					\boxed{\sum_{j = 0}^{n} T_k(x_j) = \int_{-1}^{1} \frac{T_k(x)}{\sqrt{1 - x^2}} \;\dd x.}
+				\]
+				
+				Next, we have
+				\[
+					\sum_{j = 0}^{n} T_0(x_j) = \sum_{j = 0}^{n} \cos(0) = \sum_{j = 0}^{n} 1 = n + 1.
+				\]
+				Similarly
+				\[
+					\frac{n + 1}{\pi} \int_{-1}^{1} \frac{T_0(x)}{\sqrt{1 - x^2}} \;\dd x = \frac{n + 1}{\pi} \int_{-1}^{1} \frac{1}{\sqrt{1 - x^2}} \;\dd x = \frac{n + 1}{\pi} \pi = n + 1.
+				\]
+				So
+				\[
+					\boxed{\sum_{j = 0}^{n} T_0(x_j) = \frac{n + 1}{\pi} \int_{-1}^{1} \frac{T_0(x)}{\sqrt{1 - x^2}} \;\dd x.}
+				\]
+				
+				\item Now, lets compute the quadrature weights with the weight function
+				\[
+					w(x) = \frac{1}{\sqrt{1 - x^2}}
+				\]
+				on the interval $ (-1, 1) $.
+				
+				\begin{align*}
+					W_k = \int_{-1}^{1} \frac{\phi(x)}{\sqrt{1 - x^2}} \;\dd x &= \int_{-1}^{1} \frac{\sum_{s = 0}^{n} C_s T_s (x)}{\sqrt{1 - x^2}} \\
+					&= \frac{\pi}{n + 1} C_0 \sum_{j = 1}^{n} T_0 (x_j) + \sum_{s = 1}^{n} \sum_{j = 0}^{n} C_sT_s(x_j) \\
+					&= \frac{\pi}{n + 1}.
+				\end{align*}
 			\end{enumerate}
+		
+		\newpage
+		\item
+			The gamma function is defined by the formula
+			\[
+				\Gamma(x) = \int_{0}^{\infty} t^{x - 1} e^{-t} \;\dd t, \quad x > 0.
+			\]
+			A simple program to approximate $ \Gamma(x) $ using trapezoidal rule applied to a truncated line.
+			
+			\rule{\textwidth}{.4pt}
+				\lstinputlisting[language = matlab]{code/Problem_3.m}
+			\rule{\textwidth}{.4pt}	
+			
+			\begin{enumerate}[label = (\alph*)]
+				\item My idea for choosing the interval to integrate over involved figuring out when the integrand was \emph{small enough} compared to my desired tolerance. Because the integrand decays to zero as $ t -> 0 $ for all $ x $, we are able to find some cutoff so that the tail end of the integral does not affect the overall numerical result to our desired tolerance. 
+				
+				\item In playing with MATLAB, the quad routine in MATLAB used less function evaluations to obtain the same error.
+				
+				\item Using the given Gauss-Laguerre quadrature code to obtain our weights and nodes allowed the integral for $ \Gamma $ to converge much more rapidly and with less work!
+			\end{enumerate}
+		
+		\newpage
+		\item
+			Gaussian quadrature
+			\[
+				\int_{-1}^{1} f(x) \;\dd x = \sum_{k = 0}^{n} w_k f(x_k)
+			\]
+			with nodes including the endpoints ($ x_0 = -1 $ and $ x_n = 1 $) using Legendre polynomials are called \emph{Gauss-Legendre-Lobatto} quadratures.
+			\begin{enumerate}[label = (\roman*)]
+				\item Show that if the interior nodes $ x_1, \ldots, x_{n - 1} $ in the quadrature are given by the roots of $ p'_n(x) $ where $ p_n(x) $ denotes the $ n $-th degree Legendre polynomial, then the quadrature is exact for polynomials up to degree $ 2n - 1 $.
+				
+				Before we begin, note that $ (x^2 - 1)p'_n(x) = \frac{x}{n}p_n(x) - \frac{1}{n}p_{n-1}(x) $. Then, for any $ h \in \pols_{2n - 1} $ and some $ q,r \in \pols_{n - 2} $, we have
+				\[
+					h(x) = \left(\frac{x}{n}p_n(x) - \frac{1}{n}p_{n-1}(x)\right) q(x) + r(x).
+				\]
+				Now, define $ \bar{q}(x) = x q(x) $; note that $ \bar{q} \in \pols_{n - 1} $. Then
+				\begin{align*}
+					\int_{-1}^{1} h(x) \;\dd x &= \int_{-1}^{1} \left(\frac{x}{n}p_n(x) - \frac{1}{n}p_{n-1}(x)\right) q(x) + r(x) \;\dd x \\
+					&= \underbrace{\int_{-1}^{1} \frac{1}{n}p_n(x) \bar{q}(x) - \frac{1}{n}p_{n-1}(x) q(x) \;\dd x}_{\text{0 $ \because $ of orthogonality of $ p_n $ and $ p_{n - 1} $}} + \int_{-1}^{1} r(x) \;\dd x \\
+					&= \underbrace{\int_{-1}^{1} (x^2 - 1)p'_n(x) q(x) \;\dd x}_{\text{still 0}} + \int_{-1}^{1} r(x) \;\dd x \\
+				\end{align*}
+				which implies that if we chose our boundary nodes $ x_0 = -1, x_n = 1 $ and every interior node to be a root of $ p'_n(x) $, by construction, our quadrature will be exact for polynomials $ h \in \pols_{2n - 1} $.
+			
+				\item Find the 4-point Gauss-Legendre-Lobatto quadrature for the integral $ \int_{-1}^{1} f(x) \;\dd x $.
+				
+				First, let's find the interior nodes. We know 
+				\[
+					p_3(x) = \frac{1}{2} (5x^3 - 3x) \implies p'_3(x) = \frac{1}{2} (15 x^2 - 3)
+				\]	
+				So, $ p'_3(x) = 0 $ when $ x = \pm \frac{1}{\sqrt{5}} $. Thus, our nodes are $ x_0 = -1, x_1 = -\frac{1}{\sqrt{5}}, x_2 = \frac{1}{\sqrt{5}}, $ and $ x_3 = 1 $. Next, we can compute our weights as
+				\begin{align*}
+					w_0 &= \int_{-1}^{1} \frac{\left(x + \frac{1}{\sqrt{5}}\right) \left(x - \frac{1}{\sqrt{5}}\right) (x - 1)}{\left(-1 + \frac{1}{\sqrt{5}}\right) \left(-1 - \frac{1}{\sqrt{5}}\right) (-1 - 1)} = \frac{1}{6} \\
+					w_1 &= \int_{-1}^{1} \frac{(x + 1) \left(x - \frac{1}{\sqrt{5}}\right) (x - 1)}{\left(-\frac{1}{\sqrt{5}} + 1\right) \left(-\frac{1}{\sqrt{5}} - \frac{1}{\sqrt{5}}\right) \left(-\frac{1}{\sqrt{5}} - 1\right)} = \frac{5}{6} \\
+					w_2 &= \int_{-1}^{1} \frac{(x + 1) \left(x + \frac{1}{\sqrt{5}}\right) (x - 1)}{\left(\frac{1}{\sqrt{5}} + 1\right) \left(\frac{1}{\sqrt{5}} + \frac{1}{\sqrt{5}}\right) \left(\frac{1}{\sqrt{5}} - 1\right)} = \frac{5}{6} \\
+					w_3 &= \int_{-1}^{1} \frac{(x + 1) \left(x + \frac{1}{\sqrt{5}}\right) \left(x - \frac{1}{\sqrt{5}}\right)}{(1 + 1) \left(1 + \frac{1}{\sqrt{5}}\right) \left(1 - \frac{1}{\sqrt{5}}\right)} = \frac{1}{6}.
+				\end{align*}
+				Therefore, our quadrature is
+				\[
+					\boxed{\int_{-1}^{1} f(x) \;\dd x \approx \frac{1}{6} f(-1) + \frac{5}{6} f\left(-\frac{1}{\sqrt{5}}\right) + \frac{5}{6} f\left(\frac{1}{\sqrt{5}}\right) + \frac{1}{6} f(1).}
+				\]
+			\end{enumerate} 
 \end{enumerate}
 \end{document}
