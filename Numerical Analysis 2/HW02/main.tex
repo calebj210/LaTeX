@@ -1,0 +1,167 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = black]{hyperref}
+\usepackage{nameref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5610: Numerical Analysis II}
+\rhead{Homework \#2}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = (\arabic*)]
+	\item Show that the Hilbert matrix is positive definite.
+	
+	\begin{proof}{}
+		Suppose we have the $ n \times n $ Hilbert matrix
+		\[
+			H_{ij} = \frac{1}{i + j - 1}, \quad i,j = 1, \ldots, n.
+		\]
+		Then, to show that $ H $ is positive definite, we need to show that $ x^* H x > 0 $ for all $ x \neq 0 $ in $ \comps^n $. So, suppose we have any nonzero $ x \in \comps^n $.
+		Then,
+		\begin{align*}
+			x^* H x = \sum_{i = 1}^{n} \left(\bar{x}_i \sum_{j = 1}^{n} x_j H_{ij}\right) &= \sum_{i = 1}^{n} \sum_{j = 1}^{n} \bar{x}_i x_j \frac{1}{i + j - 1} \\
+			&= \sum_{i = 1}^{n} \sum_{j = 1}^{n} \bar{x}_i x_j \int_{0}^{1} t^{i + j - 2} \dd t \\
+			&= \sum_{i = 1}^{n} \sum_{j = 1}^{n} \int_{0}^{1} (\bar{x}_i t^{i - 1}) (x_j t^{j - 1}) \dd t \\
+			&= \int_{0}^{1} \sum_{i = 1}^{n} \sum_{j = 1}^{n} (\bar{x}_i t^{i - 1}) (x_j t^{j - 1}) \dd t \\
+			&= \int_{0}^{1} \left(\sum_{i = 1}^{n} \bar{x}_i t^{i - 1}\right) \left(\sum_{j = 1}^{n} x_j t^{j - 1}\right) \dd t.
+		\end{align*}
+		Now if we let $ \alpha = \sum_{j = 1}^{n} x_j t^{j - 1} $, our equation becomes
+		\begin{align*}
+			x^* H x &= \int_{0}^{1} \left(\sum_{i = 1}^{n} \bar{x}_i t^{i - 1}\right) \left(\sum_{j = 1}^{n} x_j t^{j - 1}\right) \dd t \\
+			&= \int_{0}^{1} \bar{\alpha} \alpha \dd t \\
+			&= \int_{0}^{1} \abs{\alpha}^2 \dd t \\
+			&> 0.
+		\end{align*}
+		So, our Hilbert matrix must be positive definite.
+	\end{proof}
+
+	\newpage
+	\item Using my power iteration code (attached in section: \nameref{sec:code}), I generated the table below of the largest eigenvalues for different size Hilbert matrices.
+	
+	\newpage
+	\item To find the smallest eigenvalues using a power iteration, I just change the matrix-vector multiplication to a backslash as to solve $ Ax = b $ instead of computing $ x = Ab $. This change has the effect of making the smallest eigenvalue of $ A $ dominate the power iteration. For $ n = 16 $, I obtained the eigenvalue:
+	\[
+		\lambda_{\min} = 
+	\]
+	
+	\newpage
+	\item Assume that a real matrix $ A $ has eigenvalues $ \lambda_1 = -\lambda_2 $ and $ \abs{\lambda_1} = \abs{\lambda_2} > \abs{\lambda_3} \geq \abs{\lambda_n} $. 
+	
+	Without loss of generality, assume $ \lambda_1 > 0 $ which makes $ \lambda_2 < 0 $. Now, note that because $ A $, eigenvectors corresponding to different eigenvalues of $ A $ are orthogonal. Then, to find the eigenvectors corresponding to $ \lambda_1 $ and $ \lambda_2 $, run the standard power iteration (until convergence) to find some normalized vector, $ \vec{v}_0 $, in the span of $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ where $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ are eigenvectors corresponding to $ \lambda_1 $ and $ \lambda_2 $ respectively. Then, because $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ are orthogonal, we can uniquely decompose $ \vec{v}_0 $ as 
+	\[
+		\vec{v}_0 = a \vec{\lambda}_1 + b \vec{\lambda}_2
+	\]
+	for some constants $ a $ and $ b $. Then, one more power iteration on $ \vec{v}_0 $ will yield
+	\[
+		\vec{v}_1 = a \vec{\lambda}_1 - b \vec{\lambda}_2
+	\]
+	because $ \lambda_2 < 0 $ and the eigenvectors are orthogonal. Then, we can simply find an eigenvector corresponding to $ \lambda_1 $ as
+	\[
+		\vec{v}_0 + \vec{v}_1 = 2a \vec{\lambda}_1
+	\]
+	and an eigenvector corresponding to $ \lambda_2 $ as 
+	\[
+		\vec{v}_0 - \vec{v}_1 = 2b \vec{\lambda}_2.
+ 	\]
+ 	
+ 	\newpage
+ 	\item A real symmetric matrix $ A $ has an eigenvalue 1 of multiplicity $ 8 $; the rest of the eigenvalues are $ \leq 0.1 $ in absolute value.
+ 	
+ 	We can find an orthogonal basis for the $ 8 $-dimensional eigenspace corresponding to the dominant eigenvalue by combining the standard power iteration with the Gram-Schmidt process. The idea is to pick a random initial eigenvector and then run the power iteration until convergence to some normalized vector, $ \vec{v}_1 $ in the span of the dominant eigenvectors.
+ 	
+ 	Then, pick a new random vector and use Gram-Schmidt to remove the component of this new vector in the direction of $ \vec{v}_1 $. Just as before, apply the power iteration to this new vector to get $ \vec{v}_2 $ which is orthogonal to $ \vec{v}_1 $ but still in the span of the dominant eigenvectors.
+ 	
+ 	Repeat this process, subtracting each previously found vector out of the new vector using Gram-Schmidt and then apply power iteration again. Once you have 8 vectors, you have formed a basis for the dominant eigenspace.
+ 	
+ 	To estimate how long it will take to find this basis for an $ n \times n $ matrix, we need to figure out how long it will take each power iteration to converge to double-precision. If each subdominant eigenvalue has a magnitude less than or equal to $ 0.1 $, we should expect our iteration to converge in
+ 	\[
+ 		(n - 8) (0.1)^i \leq 10^{-16}
+ 	\]
+ 	or
+ 	\[
+ 		i = \log_{0.1} \frac{10^{-16}}{n - 8}
+ 	\]
+ 	iterations. This calculation comes from the fact that we need $ n - 8 $ vectors with $ \abs{\lambda} < 0.1 $ to vanish from power iteration to have convergence to double-precision.
+ 	Then, we need to do 8 power iterations for a total of 
+ 	\[
+ 		8 i = 8 \log_{0.1} \frac{10^{-16}}{n - 8}
+ 	\]
+ 	iterations minimum for convergence. For $ n \leq 1000 $, $ i \leq 19 $ so for any matrix smaller than $ 1000 \times 1000 $, we should expect convergence to our basis in a minimum of $ 152 $  iterations.
+\end{enumerate}
+
+\newpage
+\section*{Code Used}\label{sec:code}
+\end{document}
