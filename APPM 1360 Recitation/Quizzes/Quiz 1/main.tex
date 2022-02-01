@@ -1,0 +1,50 @@
+\documentclass[12pt]{exam}
+\usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath, amscd, amssymb, amsthm, xspace, graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry} % We can control the margins here
+\usepackage[all]{xy}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{mathtools}  
+\DeclarePairedDelimiter\Floor\lfloor\rfloor
+\DeclarePairedDelimiter\Ceil\lceil\rceil
+
+\newcommand{\class}{APPM 1360}
+\newcommand{\term}{Spring 2022}
+\newcommand{\examnum}{Quiz 1}
+\newcommand{\examdate}{01/18/2022}
+\newcommand{\timelimit}{10 Minutes}
+
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\examnum\ - Page \thepage\ of \numpages}{\examdate}
+\runningheadrule
+
+
+\begin{document}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+	\textbf{\class} & \textbf{Name:} & \makebox[2in]{\hrulefill}\\
+	\textbf{\term} &&\\
+	\textbf{\examnum} &&\\
+	\textbf{\examdate} &&\\
+	\textbf{Time Limit: \timelimit} & Recitation Section: & \makebox[2in]{\hrulefill}
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+
+\begin{questions}
+
+\question (10 points) Evaluate
+	\[
+		\int_1^2 x \ln(x^4) \; \mathrm{d} x
+	\]
+
+\end{questions}
+
+\end{document}

@@ -140,11 +140,14 @@
  	\newpage
  	\item A real symmetric matrix $ A $ has an eigenvalue 1 of multiplicity $ 8 $; the rest of the eigenvalues are $ \leq 0.1 $ in absolute value.
  	
- 	We can find an orthogonal basis for the $ 8 $-dimensional eigenspace corresponding to the dominant eigenvalue by combining the standard power iteration with the Gram-Schmidt process. The idea is to pick a random initial eigenvector and then run the power iteration until convergence to some normalized vector, $ \vec{v}_1 $ in the span of the dominant eigenvectors.
+ 	We can find an orthogonal basis for the $ 8 $-dimensional eigenspace corresponding to the dominant eigenvalue by combining the standard power iteration with the Gram-Schmidt process. To do so:
  	
- 	Then, pick a new random vector and use Gram-Schmidt to remove the component of this new vector in the direction of $ \vec{v}_1 $. Just as before, apply the power iteration to this new vector to get $ \vec{v}_2 $ which is orthogonal to $ \vec{v}_1 $ but still in the span of the dominant eigenvectors.
- 	
- 	Repeat this process, subtracting each previously found vector out of the new vector using Gram-Schmidt and then apply power iteration again. Once you have 8 vectors, you have formed a basis for the dominant eigenspace.
+ 	\begin{enumerate}[label = (\roman*)]
+ 		\item Generate 8, random vectors.
+ 		\item Apply power iteration to each vector until convergence. The resulting vectors will be in the span of the dominant eigenvectors.
+ 		\item Apply Gram-Schmidt to the set of generated vectors.
+ 		\item You're all done!
+ 	\end{enumerate}
  	
  	To estimate how long it will take to find this basis for an $ n \times n $ matrix, we need to figure out how long it will take each power iteration to converge to double-precision. If each subdominant eigenvalue has a magnitude less than or equal to $ 0.1 $, we should expect our iteration to converge in
  	\[
