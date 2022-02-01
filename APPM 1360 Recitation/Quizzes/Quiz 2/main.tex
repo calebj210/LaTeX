@@ -1,0 +1,72 @@
+\documentclass[12pt]{exam}
+\usepackage[utf8]{inputenc}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath, amscd, amssymb, amsthm, xspace, graphicx}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry} % We can control the margins here
+\usepackage[all]{xy}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{mathtools}  
+\DeclarePairedDelimiter\Floor\lfloor\rfloor
+\DeclarePairedDelimiter\Ceil\lceil\rceil
+
+\newcommand{\class}{APPM 1360}
+\newcommand{\term}{Spring 2022}
+\newcommand{\examnum}{Quiz 2}
+\newcommand{\examdate}{02/01/2022}
+\newcommand{\timelimit}{10 Minutes}
+
+\pagestyle{head}
+\firstpageheader{}{}{}
+\runningheader{\class}{\examnum\ - Page \thepage\ of \numpages}{\examdate}
+\runningheadrule
+
+
+\begin{document}
+
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+	\textbf{\class} & \textbf{Name:} & \makebox[2in]{\hrulefill}\\
+	\textbf{\term} &&\\
+	\textbf{\examnum} &&\\
+	\textbf{\examdate} &&\\
+	\textbf{Time Limit: \timelimit} & Recitation Section: & \makebox[2in]{\hrulefill}
+\end{tabular*}\\
+\rule[2ex]{\textwidth}{2pt}
+
+$$T_n=\frac{\Delta x}{2}\left[f(x_0)+2f(x_1)+\dots+2f(x_{n-1})+f(x_n)\right], \quad \Delta x=\frac{b-a}{n}$$
+
+$$M_n=\Delta x\left[f(\overline{x}_1)+\dots+f(\overline{x}_n) \right] , \quad \Delta x=\frac{b-a}{n}, \quad \overline{x}_i=\frac{x_{i-1}+x_i}{2}$$
+
+\vspace{10mm}
+
+\begin{questions}
+
+\question (10 points) Let $f(t)=e^{t^2}$.
+
+\begin{itemize}
+    \item[(a)] Draw a graph of $f(t)$ on the interval $[0,2]$.
+    
+    \vspace{5mm}
+    
+    \item[(b)] On the same graph, draw the trapezoids corresponding to $T_2$, the trapezoidal rule approximation of $\int_0^2 f(t)\text{d}t$.
+    
+    \vspace{5mm}
+    
+    \item[(c)] Calculate $T_2$. Leave your answer in terms of powers of $e$.
+    
+    \vspace{5mm}
+    
+    \item[(d)] Is $T_2$ an underestimate or overestimate of $\int_0^2 f(t)\text{d}t$?
+\end{itemize}
+
+
+
+
+\end{questions}
+
+\end{document}
