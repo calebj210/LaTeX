@@ -109,13 +109,38 @@
 	\end{proof}
 
 	\newpage
-	\item Using my power iteration code (attached in section: \nameref{sec:code}), I generated the table below of the largest eigenvalues for different size Hilbert matrices.
+	\item Using my power iteration code (attached in section: \nameref{sec:code}), I generated the table below of the largest eigenvalues for the first 10 square Hilbert matrices.
+	
+	\[
+		\begin{array}{rcl}
+			n  & \text{Eigenvalue} & \text{Eigenvector} \\
+			1  & 1.00 & [1.0]^T \\
+			2  & 1.27 & [0.88, 0.47]^T \\
+			3  & 1.41 & [0.83, 0.46, 0.32]^T \\
+			4  & 1.50 & [0.79, 0.45, 0.32, 0.25]^T \\
+			5  & 1.57 & [0.77, 0.45, 0.32, 0.25, 0.21]^T \\
+			6  & 1.62 & [0.75, 0.44, 0.32, 0.25, 0.21, 0.18] \\
+			7  & 1.66 & [0.73, 0.44, 0.32, 0.25, 0.21, 0.18, 0.16]^T \\
+			8  & 1.70 & [0.72, 0.43, 0.32, 0.26, 0.21, 0.18, 0.16, 0.15]^T \\
+			9  & 1.73 & [0.71, 0.43, 0.32, 0.26, 0.21, 0.19, 0.16, 0.15, 0.13]^T \\
+			10 & 1.75 & [0.70, 0.43, 0.32, 0.26, 0.22, 0.19, 0.16, 0.15, 0.13, 0.12]^T
+		\end{array}
+	\]
 	
 	\newpage
 	\item To find the smallest eigenvalues using a power iteration, I just change the matrix-vector multiplication to a backslash as to solve $ Ax = b $ instead of computing $ x = Ab $. This change has the effect of making the smallest eigenvalue of $ A $ dominate the power iteration. For $ n = 16 $, I obtained the eigenvalue:
 	\[
-		\lambda_{\min} = 
+		\lambda_{\min} = -2.765686556840889 \cdot 10^{-18}
 	\]
+	which is not even positive even though we know Hilbert matrices are symmetric positive definite. So my naive Julia code is definitely not converging properly under double precision. Using Mathematica, I found that the actual smallest eigenvalue was
+	\[
+		\lambda_{\min} = 9.1974198206514524197318 \cdot 10^{-23}.
+	\]
+	Hence, we can see that my computed eigenvalue is off by over 5 orders of magnitude. I believe this is consistent with the estimate given by
+	\[
+		\min_{\lambda \in \sigma(A)} \abs{\mu - \lambda} \leq \norm{E}_2
+	\]
+	because $ \norm{E}_2 $ should be on the order of $ 10^{-16} $ which is the best we can do in double precision. 
 	
 	\newpage
 	\item Assume that a real matrix $ A $ has eigenvalues $ \lambda_1 = -\lambda_2 $ and $ \abs{\lambda_1} = \abs{\lambda_2} > \abs{\lambda_3} \geq \abs{\lambda_n} $. 
