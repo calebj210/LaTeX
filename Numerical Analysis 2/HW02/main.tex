@@ -1,8 +1,8 @@
 \documentclass[a4paper,12pt]{article}
 
-\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} \usepackage{unicode-math}
 \usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsmath,amsfonts}
 \usepackage{pgfplots,graphicx,calc,changepage}
 \pgfplotsset{compat=newest}
 \usepackage{enumitem}
@@ -37,6 +37,19 @@
 }
 
 \lstset{style=mystyle}
+
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
 
 \newcommand{\nats}{\mathbb{N}}
 \newcommand{\reals}{\mathbb{R}}
@@ -132,20 +145,20 @@
 	\[
 		\lambda_{\min} = -2.765686556840889 \cdot 10^{-18}
 	\]
-	which is not even positive even though we know Hilbert matrices are symmetric positive definite. So my naive Julia code is definitely not converging properly under double precision. Using Mathematica, I found that the actual smallest eigenvalue was
+	which is not even positive even though we know Hilbert matrices are symmetric positive definite. So my naive Julia code is definitely not converging properly under double precision. Putting my Julia code in quad precision yields the eigenvalue
 	\[
-		\lambda_{\min} = 9.1974198206514524197318 \cdot 10^{-23}.
+		\lambda_{\min} =  9.197419820719313\cdot 10^{-23}.
 	\]
-	Hence, we can see that my computed eigenvalue is off by over 5 orders of magnitude. I believe this is consistent with the estimate given by
+	which is consistent with Mathematica's eigenvalue. Hence, we can see that my computed double-precision eigenvalue is off by over 5 orders of magnitude. However, this result is still consistent with our error estimate
 	\[
 		\min_{\lambda \in \sigma(A)} \abs{\mu - \lambda} \leq \norm{E}_2
 	\]
-	because $ \norm{E}_2 $ should be on the order of $ 10^{-16} $ which is the best we can do in double precision. 
+	because $ \norm{E}_2 $ should be on the order of $ 10^{-16} $ which is the best we can do in double precision.
 	
 	\newpage
 	\item Assume that a real matrix $ A $ has eigenvalues $ \lambda_1 = -\lambda_2 $ and $ \abs{\lambda_1} = \abs{\lambda_2} > \abs{\lambda_3} \geq \abs{\lambda_n} $. 
 	
-	Without loss of generality, assume $ \lambda_1 > 0 $ which makes $ \lambda_2 < 0 $. Now, note that because $ A $, eigenvectors corresponding to different eigenvalues of $ A $ are orthogonal. Then, to find the eigenvectors corresponding to $ \lambda_1 $ and $ \lambda_2 $, run the standard power iteration (until convergence) to find some normalized vector, $ \vec{v}_0 $, in the span of $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ where $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ are eigenvectors corresponding to $ \lambda_1 $ and $ \lambda_2 $ respectively. Then, because $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ are orthogonal, we can uniquely decompose $ \vec{v}_0 $ as 
+	Without loss of generality, assume $ \lambda_1 > 0 $ which makes $ \lambda_2 < 0 $. Now, note that because $ A $ is symmetric, eigenvectors corresponding to different eigenvalues of $ A $ are orthogonal. Then, to find the eigenvectors corresponding to $ \lambda_1 $ and $ \lambda_2 $, run the standard power iteration to find some normalized vector, $ \vec{v}_0 $, in the span of $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ where $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ are eigenvectors corresponding to $ \lambda_1 $ and $ \lambda_2 $ respectively. Then, because $ \vec{\lambda}_1 $ and $ \vec{\lambda}_2 $ are orthogonal, we can uniquely decompose $ \vec{v}_0 $ as 
 	\[
 		\vec{v}_0 = a \vec{\lambda}_1 + b \vec{\lambda}_2
 	\]
@@ -174,22 +187,15 @@
  		\item You're all done!
  	\end{enumerate}
  	
- 	To estimate how long it will take to find this basis for an $ n \times n $ matrix, we need to figure out how long it will take each power iteration to converge to double-precision. If each subdominant eigenvalue has a magnitude less than or equal to $ 0.1 $, we should expect our iteration to converge in
- 	\[
- 		(n - 8) (0.1)^i \leq 10^{-16}
- 	\]
- 	or
- 	\[
- 		i = \log_{0.1} \frac{10^{-16}}{n - 8}
- 	\]
- 	iterations. This calculation comes from the fact that we need $ n - 8 $ vectors with $ \abs{\lambda} < 0.1 $ to vanish from power iteration to have convergence to double-precision.
- 	Then, we need to do 8 power iterations for a total of 
- 	\[
- 		8 i = 8 \log_{0.1} \frac{10^{-16}}{n - 8}
- 	\]
- 	iterations minimum for convergence. For $ n \leq 1000 $, $ i \leq 19 $ so for any matrix smaller than $ 1000 \times 1000 $, we should expect convergence to our basis in a minimum of $ 152 $  iterations.
+ 	To estimate how long it will take to find this basis for an $ n \times n $ matrix, we need to figure out how long it will take each power iteration to converge to double-precision. If each subdominant eigenvalue has a magnitude less than or equal to $ 0.1 $, we should expect each power iteration to converge in 16 to 17 iterations because $ \abs{\lambda_{\text{next}} /
+ 	\lambda_1} \leq 0.1 $. Then, we need to run power iteration for each of the 8 vectors for a total of 136 iterations.
 \end{enumerate}
 
 \newpage
 \section*{Code Used}\label{sec:code}
+\emph{Note that some characters are missing because \LaTeX\ can't display some of the unicode characters in my code.}
+
+\rule{\textwidth}{0.4pt}
+	\lstinputlisting[language = Julia]{Code/Power_Iteration.jl}
+\rule{\textwidth}{0.4pt}
 \end{document}
