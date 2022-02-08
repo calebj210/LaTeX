@@ -1,0 +1,148 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5610: Numerical Analysis II}
+\rhead{Homework \#3}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = (\arabic*)]
+	\item Prove that
+	\begin{enumerate}[label = (\alph*)]
+		\item If all singular values of a matrix $ A \in \comps^{n \times n} $ are equal, then $ A = \gamma U $,where $ U $ is unitary and $ \gamma $ is a constant.
+		
+		\begin{proof}{}
+			Suppose $ A $ has singular values all equal to $ \gamma \geq 0 $. Then $ A $ has the SVD
+			\[
+				A = W \Sigma V^*
+			\]
+			where $ W $ and $ V $ are unitary and $ \Sigma $ is a diagonal matrix of $ \gamma $. Then
+			\[
+				A = W \Sigma V^* 
+				    = W \gamma I V^* 
+				    = \gamma W V^* 
+				    = \gamma U
+			\]
+			where $ U = W V^* $ is unitary because it is the product of two unitary matrices.
+		\end{proof}
+	
+		\item If $ A \in \comps^{n \times b} $ is non-singular and $ \lambda $ is an eigenvalue of $ A $, then $ \norm{A^{-1}}^{-1}_2 \leq \abs{\lambda} \leq \norm{A}_2 $.
+		
+		\begin{proof}{}
+			Suppose $ A \in \comps{n \times n} $ is non-singular with an eigenvalue $ \lambda $. Then, by the properties of induced matrix-norms, we have
+			\[
+				\abs{\lambda} \leq \rho(A) \leq \norm{A}_2
+			\]
+			where $ \rho(A) $ denotes the spectral radius of $ A $. Now, because $ A $ is non-singular, $ A^{-1} $ exists and 
+			\[
+				\rho(A^{-1}) = \frac{1}{\min\limits_{i = 1, \ldots, n} \abs{\lambda_i}}
+			\]
+			where $ \lambda_i $ denotes the ith eigenvalue of $ A $. Then
+			\[
+				\frac{1}{\norm{A^{-1}}_2} \leq \frac{1}{\rho(A^{-1})} 
+				= \frac{1}{\frac{1}{\min\limits_{i = 1, \ldots, n} \abs{\lambda_i}}} 
+				= \min\limits_{i = 1, \ldots, n} \abs{\lambda_i} 
+				\leq \abs{\lambda}.
+			\]
+			Putting everything together yields
+			\[
+				\norm{A^{-1}}^{-1}_2 \leq \abs{\lambda} \leq \norm{A}_2.
+			\]
+		\end{proof}
+	\end{enumerate}
+
+	\item Show that any square matrix $ A \in \comps^{n \times n} $ may be represented in the form $ A = SU $, where $ S $ is a Hermitian non-negative definite matrix and $ U $ is a unitary matrix. Show that if $ A $ is invertible such representation is unique.
+	
+	\begin{proof}{}
+		Suppose we have a matrix $ A \in \comps^{n \times n}  $. Then, $ A $ has the SVD 
+		\[
+			A = W \Sigma V^*
+		\]
+		where $ W $ and $ V $ are unitary and $ \Sigma $ is a matrix of the singular values. Then
+		\[
+			A = W \Sigma V^* = W \Sigma W^* W V^* = S U
+		\]
+		where $ S = W \Sigma W^* $ and $ U = W V^* $. Note, because $ \Sigma $ is a diagonal matrix of non-negative entries and $ W $ is unitary, $ S $ must be positive semi-definite and Hermitian. Furthermore, $ U $ is unitary because it is the product of two unitary matrices. So, we have the desired decomposition of $ A $.
+		
+		Now, suppose $ A $ is non-singular. Then
+		\[
+			A = \underbrace{(A^* A)^{\frac{1}{2}}}_S \underbrace{(A^* A)^{-\frac{1}{2}} A}_U
+		\]
+		Then, because $ A^* A $ is non-singular and Hermitian positive definite, $ S = (A^* A)^{1/2} $ is Hermitian positive-semidefinite and unique.
+	\end{proof}
+\end{enumerate}
+\end{document}
