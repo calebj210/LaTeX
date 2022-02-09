@@ -111,7 +111,7 @@
 			\[
 				\rho(A^{-1}) = \frac{1}{\min\limits_{i = 1, \ldots, n} \abs{\lambda_i}}
 			\]
-			where $ \lambda_i $ denotes the ith eigenvalue of $ A $. Then
+			where $ \lambda_i $ denotes the $ i $th eigenvalue of $ A $. Then
 			\[
 				\frac{1}{\norm{A^{-1}}_2} \leq \frac{1}{\rho(A^{-1})} 
 				= \frac{1}{\frac{1}{\min\limits_{i = 1, \ldots, n} \abs{\lambda_i}}} 
@@ -125,6 +125,8 @@
 		\end{proof}
 	\end{enumerate}
 
+
+	\newpage
 	\item Show that any square matrix $ A \in \comps^{n \times n} $ may be represented in the form $ A = SU $, where $ S $ is a Hermitian non-negative definite matrix and $ U $ is a unitary matrix. Show that if $ A $ is invertible such representation is unique.
 	
 	\begin{proof}{}
@@ -133,16 +135,76 @@
 			A = W \Sigma V^*
 		\]
 		where $ W $ and $ V $ are unitary and $ \Sigma $ is a matrix of the singular values. Then
-		\[
-			A = W \Sigma V^* = W \Sigma W^* W V^* = S U
-		\]
+		\begin{equation}
+			A = W \Sigma V^* = W \Sigma W^* W V^* = S U \label{decomp}
+		\end{equation}
 		where $ S = W \Sigma W^* $ and $ U = W V^* $. Note, because $ \Sigma $ is a diagonal matrix of non-negative entries and $ W $ is unitary, $ S $ must be positive semi-definite and Hermitian. Furthermore, $ U $ is unitary because it is the product of two unitary matrices. So, we have the desired decomposition of $ A $.
 		
 		Now, suppose $ A $ is non-singular. Then
 		\[
-			A = \underbrace{(A^* A)^{\frac{1}{2}}}_S \underbrace{(A^* A)^{-\frac{1}{2}} A}_U
+			A = \underbrace{(A A^*)^{\frac{1}{2}}}_S \underbrace{(A A^*)^{-\frac{1}{2}} A}_U = SU
 		\]
-		Then, because $ A^* A $ is non-singular and Hermitian positive definite, $ S = (A^* A)^{1/2} $ is Hermitian positive-semidefinite and unique.
+		Then, because $ A A^* $ is non-singular and Hermitian positive definite, $ S = (A^* A)^{1/2} $ is Hermitian positive-definite and unique. Now let's show that $ U = (A A^*)^{-\frac{1}{2}}A $ is unitary and unique. Using a spectral decomposition, we have
+		\[
+			U = (A A^*)^{-\frac{1}{2}}A = P D^{-\frac{1}{2}} P^* A
+		\]
+		where $ P $ is unitary and $ D $ is diagonal. So, because $ P $ is the unitary matrix that came from $ A A^* $ in the spectral decomposition, $ P $ is actually the left singular matrix of the SVD of $ A $. Now, we can write the SVD of $ A $ as $ A = P D^{\frac{1}{2}} W^* $ which gives us
+		\[
+			U = P D^{-\frac{1}{2}} P^* A = P D^{-\frac{1}{2}} P^* P D^{\frac{1}{2}} W^* = P W^*.
+		\]	
+		This shows that $ U $ is the product of two unitary matrices and is thus unitary. From \eqref{decomp}, we can write $ U $ as
+		\[
+			U = S^{-1}A
+		\]
+		but we know $ S $ and $ A $ are non-singular and so $ U $ must be uniquely determined here. Thus, the decomposition, $ A = SU $, is unique when $ A $ is non-singular.
+	\end{proof}
+	
+	\newpage
+	\item Consider the Discrete Fourier transform (DFT) matrix $ F \in \comps^{n \times n} $,
+	\[
+		F = 
+		\pmat{
+			1 & 1 & 1 & \cdots & 1 \\
+			1 & \omega & \omega^2 & \cdots & \omega^{n - 1} \\
+			1 & \omega^2 & \omega^4 & \cdots & \omega^{2(n - 1)} \\
+			\vdots & \vdots & \vdots & \ddots & \vdots \\
+			1 & \omega^{n - 1} & \omega^{2 (n - 1)} & \cdots & \omega^{(n - 1)^2}
+		}
+	\]
+	where $ \omega = e^{i \frac{2\pi}{n}} $ is the $ n $th root of unity. Show that $ F^* F = n I $.
+	
+	\begin{proof}{}
+		Note, because $ \bar{\omega} = e^{-i \frac{2\pi}{n}} $, we have
+		\[
+			F^* = 
+			\pmat{
+				1 & 1 & 1 & \cdots & 1 \\
+				1 & \omega^{-1} & \omega^{-2} & \cdots & \omega^{-(n - 1)} \\
+				1 & \omega^{-2} & \omega^{-4} & \cdots & \omega^{-2(n - 1)} \\
+				\vdots & \vdots & \vdots & \ddots & \vdots \\
+				1 & \omega^{-(n - 1)} & \omega^{-2 (n - 1)} & \cdots & \omega^{-(n - 1)^2}
+			}.
+		\]
+		Furthermore, we have the identity
+		\begin{equation}
+			1 + \omega + \cdots + \omega^{n - 1} = \sum_{k = 0}^{n - 1} \omega^k = \frac{1 - \omega^n}{1 - \omega} = \frac{1 - e^{2\pi i}}{1 - \omega} = 0. \label{geom}
+		\end{equation}
+		Now, let's look at the $ i $th row and $ j $th column of $ F^* F $. If $ i = j $, then
+		\[
+			[F^* F]_{i i} = \sum_{k = 0}^{n - 1} \omega^{-k (i - 1)} \omega^{k (i - 1)} = \sum_{k = 0}^{n - 1} 1 = n.
+		\]
+		Then, if $ i \neq j $, we have
+		\[
+			[F^* F]_{i j} = \sum_{k = 0}^{n - 1} \omega^{-k(i - 1)} \omega^{k(j - 1)} = \sum_{k = 0}^{n - 1} \omega^{k (j - i)}
+		\]
+		which is just a rearrangement of \eqref{geom} because $ \omega^{k} $ is $ n $-periodic in $ k $. So, we have
+		\[
+			[F^* F]_{i j} = \sum_{k = 0}^{n - 1} \omega^{k (j - i)} = \sum_{k = 0}^{n - 1} \omega^{k} = 0.
+		\]
+		This shows that the diagonal entries of $ F^* F $ are $ n $ and the off diagonal entries of $ F^* F $ are zero. So, we can factor out the diagonal to get
+		\[
+			F^* F = n I
+		\]
 	\end{proof}
 \end{enumerate}
 \end{document}
