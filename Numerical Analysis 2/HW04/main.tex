@@ -1,0 +1,134 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5610: Numerical Analysis II}
+\rhead{Homework \#4}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = (\arabic*)]
+	\item Show that Jacobi's method for finding eigenvalues of a real symmetric matrix is ultimately quadratically convergent. Assume that all off-diagonal elements of the matrix $ A_k $ are $ O(\eps) $,where $ k $ enumerates Jacobi sweeps. Show that the all rotations of the next Jacobi sweep are of the form
+	\[
+		\pmat{
+			1 & 0 & \cdots & \cdots & \cdots & \cdots & 0 \\
+			0 & 1 & \cdots & \cdots & \cdots & \cdots & 0 \\
+			\cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+			0 & \cdots & 1- O(\eps^2) & \cdots & O(\eps) & \cdots & 0 \\
+			\cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
+			0 & \cdots & O(\eps) & \cdots & 1 - O(\eps^2) & \cdots & 0 \\
+			0 & \cdots & \cdots & \cdots & \cdots & 1 & 0 \\
+			0 & \cdots & \cdots & \cdots & \cdots & 0 & 1
+		}
+	\]
+	Then demonstrate that this implies that, after the sweep, all off-diagonal elements of $ A_{k+1} $ are $ O(\eps^2) $. Assume that all eigenvalues are non-zero and distinct.
+	
+	\newpage
+	\item Show that $ A $ is diagonalizable iff there is a positive definite self-adjoint matrix $ H $ such that $ H^{-1} A H $ is normal.
+	
+	\begin{proof}{}
+		($ \implies $)Suppose a matrix $ A $ is diagonalizable. Then we can write
+		\[
+			A = P D P^{-1} \implies D = P^{-1} A P
+		\]
+		where $ D $ is a diagonal and $ P $ is an invertible. Next, let's take the polar decomposition of $ P $ as $ H = HU $ where $ H $ is positive definite self-adjoint and $ U $ is unitary. Note, $ H^{-1} $ is also positive definite-self-adjoint and $ H = PU^* $. Then
+		\[
+			H^{-1} A H = U P^{-1} A P U^* = U D U^*.
+		\]
+		Then
+		\begin{align*}
+			(H^* A H)^*(H^* A H) &= (U D U^*)^*(U D U^*) \\
+			&= (U D^* U^*)(U D U^*) \\
+			&= U D^* D U^* \\
+			&= U D D^* U^* \\
+			&= (U D U^*) (U D^* U^*) \\
+			&= (U D U^*) (U D U^*)^* \\
+			&= (H^{-1} A H) (H^{-1} A H)^*
+		\end{align*}
+		Showing that there exists a positive definite self-adjoint matrix $ H  $ such that $ H^{-1}AH $ is normal.
+		
+		($ \impliedby $) Now, suppose there exists a positive definite self-adjoint matrix $ H $ such that $ H^{-1} A H $ is normal. Then, because $ H^{-1} A H $ is normal, it is diagonalizable by a unitary matrix:
+		\[
+			H^{-1} A H = U D U^*
+		\]
+		where $ D $ is diagonal and $ U $ is unitary. Then, we have
+		\[
+			D = U^* H^{-1} A H U = P^{-1} A P 
+		\]
+		where $ P = HU $. So, $ A $ is similar to a diagonal matrix and is thus diagonalizable.
+	\end{proof}
+\end{enumerate}
+\end{document}
