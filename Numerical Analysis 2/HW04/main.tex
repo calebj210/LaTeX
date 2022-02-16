@@ -2,6 +2,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{blkarray}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{pgfplots,graphicx,calc,changepage}
 \pgfplotsset{compat=newest}
@@ -83,19 +84,119 @@
 \begin{enumerate}[label = (\arabic*)]
 	\item Show that Jacobi's method for finding eigenvalues of a real symmetric matrix is ultimately quadratically convergent. Assume that all off-diagonal elements of the matrix $ A_k $ are $ O(\eps) $,where $ k $ enumerates Jacobi sweeps. Show that the all rotations of the next Jacobi sweep are of the form
 	\[
-		\pmat{
-			1 & 0 & \cdots & \cdots & \cdots & \cdots & 0 \\
-			0 & 1 & \cdots & \cdots & \cdots & \cdots & 0 \\
-			\cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
-			0 & \cdots & 1- O(\eps^2) & \cdots & O(\eps) & \cdots & 0 \\
-			\cdots & \cdots & \cdots & \cdots & \cdots & \cdots & \cdots \\
-			0 & \cdots & O(\eps) & \cdots & 1 - O(\eps^2) & \cdots & 0 \\
-			0 & \cdots & \cdots & \cdots & \cdots & 1 & 0 \\
-			0 & \cdots & \cdots & \cdots & \cdots & 0 & 1
-		}
+		\begin{blockarray}{rcccccccc}
+			\begin{block}{r(ccccccc)c}
+				& 1 & \cdots & 0 & \cdots & 0 & \cdots & 0 & \\
+				& \vdots & \ddots & \vdots & & \vdots & & \vdots & \\
+				& 0 & \cdots & 1 + O(\eps^2) & \cdots & O(\eps) & \cdots & 0 & i \\
+				J(i,j) = & \vdots &  & \vdots & \ddots & \vdots & & \vdots & \\
+				& 0 & \cdots & O(\eps) & \cdots & 1 + O(\eps^2) & \cdots & 0 & j \\
+				& \vdots &  & \vdots & & \vdots & \ddots & \vdots & \\
+				& 1 & \cdots & 0 & \cdots & 0 & \cdots & 0 & \\
+			\end{block}
+			& & & i & & j & & &
+		\end{blockarray}
 	\]
 	Then demonstrate that this implies that, after the sweep, all off-diagonal elements of $ A_{k+1} $ are $ O(\eps^2) $. Assume that all eigenvalues are non-zero and distinct.
 	
+	First, let's assume our matrix $ A $ has off diagonal entries as $ O(\eps) $, that is
+	\[
+		A = 
+			\pmat{
+				a_1 & O(\eps) & \cdots & O(\eps) \\
+				O(\eps) & a_2 & \cdots & O(\eps) \\
+				\vdots & \vdots & \ddots & \vdots \\
+				O(\eps) & O(\eps) & \cdots & a_n
+			}.
+	\]
+	Then, for the components of a Jacobi rotation for $ A $ at $ (i,j) $ can be computed as
+	\[
+		\tau = \frac{a_j - a_i}{2 a_{ij}} = \frac{a_j - a_i}{O(\eps)} = O\left(\frac{1}{\eps}\right)
+	\]
+	which implies
+	\begin{align*}
+		\theta &= \arctan\left(\frac{1}{\tau \pm \sqrt{1 + \tau}}\right) \\
+		&= \arctan\left(\frac{1}{O\left(\frac{1}{\eps}\right) \pm \sqrt{1 + O\left(\frac{1}{\eps}\right)}}\right) \\
+		&= \arctan \left(\frac{1}{O\left(\frac{1}{\eps}\right)}\right) \\
+		&= \arctan(O(\eps)) \\
+		&= O(\eps)
+	\end{align*}
+	and so
+	\begin{align*}
+		\cos(\theta) &= 1 + \frac{1}{2}\theta^2 + \cdots = 1 + O(\eps^2) \\
+		\sin(\theta) &= \theta + \cdots = O(\eps).
+	\end{align*}
+	Then, the Jacobi rotation is given as
+	\begin{align*}
+		J(i,j) &= 
+				\pmat{
+					1 & \cdots & 0 & \cdots & 0 & \cdots & 0 \\
+					\vdots & \ddots & \vdots & & \vdots & & \vdots \\
+					0 & \cdots & \cos(\theta) & \cdots & \sin(\theta) & \cdots & 0 \\
+					\vdots &  & \vdots & \ddots & \vdots & & \vdots \\
+					0 & \cdots & -\sin(\theta) & \cdots & \cos(\theta) & \cdots & 0 \\
+					\vdots &  & \vdots & & \vdots & \ddots & \vdots \\
+					1 & \cdots & 0 & \cdots & 0 & \cdots & 0 \\
+				} \\
+			&= 
+				\pmat{
+					1 & \cdots & 0 & \cdots & 0 & \cdots & 0 \\
+					\vdots & \ddots & \vdots & & \vdots & & \vdots \\
+					0 & \cdots & 1 + O(\eps^2) & \cdots & O(\eps) & \cdots & 0 \\
+					\vdots &  & \vdots & \ddots & \vdots & & \vdots \\
+					0 & \cdots & O(\eps) & \cdots & 1 + O(\eps^2) & \cdots & 0 \\
+					\vdots &  & \vdots & & \vdots & \ddots & \vdots \\
+					1 & \cdots & 0 & \cdots & 0 & \cdots & 0 \\
+				}.
+	\end{align*}
+	Next, we can perform a cyclic row sweep of $ A $ as
+	\begin{gather*}
+		A^{(1)} = J(1,2)^* A J(1,2) = 
+			\pmat{
+				a_1 + O(\eps^2) & 0 & O(\eps) & \cdots & O(\eps) & O(\eps) \\
+				0 & a_2 + O(\eps^2) & O(\eps) & \cdots & O(\eps) & O(\eps) \\
+				O(\eps) &  O(\eps) & a_3 & \cdots & O(\eps) & O(\eps) \\
+				\vdots & \vdots & \vdots & \ddots &  & \vdots \\
+				O(\eps) & O(\eps) & O(\eps) &  & a_{n-1} & O(\eps) \\
+				O(\eps) &  O(\eps) & O(\eps) & \cdots & O(\eps) & a_n
+			}, \\
+		A^{(2)} = J(1,3)^* A^{(1)} J(1,3) = 
+			\pmat{
+				a_1 + O(\eps^2) & O(\eps^2) & 0 & \cdots & O(\eps) & O(\eps) \\
+				O(\eps^2) & a_2 + O(\eps^2) & O(\eps) & \cdots & O(\eps) & O(\eps) \\
+				0 &  O(\eps) & a_3 + O(\eps^2) & \cdots & O(\eps) & O(\eps) \\
+				\vdots & \vdots & \vdots & \ddots &  & \vdots \\
+				O(\eps) & O(\eps) & O(\eps) &  & a_{n-1} & O(\eps) \\
+				O(\eps) &  O(\eps) & O(\eps) & \cdots & O(\eps) & a_n
+			},
+	\end{gather*}
+	and continuing to the end of the row yields
+	\[
+		A^{(k-1)} = 
+			\pmat{
+				a_1 + O(\eps^2) & O(\eps^2) & O(\eps^2) & \cdots & O(\eps^2) & 0 \\
+				O(\eps^2) & a_2 + O(\eps^2) & O(\eps) & \cdots & O(\eps) & O(\eps) \\
+				O(\eps^2) &  O(\eps) & a_3 + O(\eps^2) & \cdots & O(\eps) & O(\eps) \\
+				\vdots & \vdots & \vdots & \ddots &  & \vdots \\
+				O(\eps^2) & O(\eps) & O(\eps) &  & a_{n-1} + O(\eps^2) & O(\eps) \\
+				0 &  O(\eps) & O(\eps) & \cdots & O(\eps) & a_n + O(\eps^2)
+			}
+		\]
+		and finally finishing the sweep yields
+		\[
+		A^{(\text{sweep})} = 
+			\pmat{
+				a_1 + O(\eps^2) & O(\eps^2) & O(\eps^2) & \cdots & O(\eps^2) & O(\eps^3) \\
+				O(\eps^2) & a_2 + O(\eps^2) & O(\eps^2) & \cdots & O(\eps^2) & O(\eps^3) \\
+				O(\eps^2) &  O(\eps^2) & a_3 + O(\eps^2) & \cdots & O(\eps^2) & O(\eps^3) \\
+				\vdots & \vdots & \vdots & \ddots &  & \vdots \\
+				O(\eps^2) & O(\eps^2) & O(\eps^2) &  & a_{n-1} + O(\eps^2) & 0 \\
+				O(\eps^3) &  O(\eps^3) & O(\eps^3) & \cdots & 0 & a_n + O(\eps^2)
+			}.
+	\]
+	Thus, we can see that after a sweep, all of the off diagonal entries are at least $ O(\eps^2) $ which means that our matrix is moving towards the diagonal matrix quadratically.
+	
+
 	\newpage
 	\item Show that $ A $ is diagonalizable iff there is a positive definite self-adjoint matrix $ H $ such that $ H^{-1} A H $ is normal.
 	
