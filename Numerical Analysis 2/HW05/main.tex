@@ -1,0 +1,207 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\sign}{\mathrm{sign}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5610: Numerical Analysis II}
+\rhead{Homework \#5}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = (\arabic*)]
+	\item Suppose that an $ n $-by-$ n $ matrix $ A $ is symmetric and positive definite. Consider the following iteration:
+	\begin{gather*}
+		A_0 = A \\
+		\textbf{for } k = 1,2,3,\ldots \\
+		A_{k - 1} = G_k G_k^T\\
+		A_k = G_k^T G_k
+	\end{gather*}
+	where $ G_k G_k^T $ is the Cholesky factorization of a symmetric positive definite matrix.
+	
+	Suppose we have a matrix $ A $ defined as above. Then, $ A $ has the LDLT decomposition as
+	\[
+		A = LDL^T
+	\]
+	where $ L $ is unit lower triangular and $ D $ is a positive diagonal matrix. Expanding further, we have
+	\[
+		A = \underbrace{L D^{1/2}}_G \underbrace{(D^{1/2})^T L^T}_{G^T}.
+	\]
+	Then, we have
+	\[
+		G^T G = (D^{1/2})^T L^T L D^{1/2}
+	\]
+	where $ L^T L $ is symmetric positive definite. Now, for any $ n $-dimensional vector $ x $, define the vector $ y = D^{1/2} x $. Then,
+	\[
+		x^T G^T G x = x^T (D^{1/2})^T L^T L D^{1/2} x = y^T (L^T L) y > 0
+	\]
+	showing that $ G^T G $ is symmetric positive definite and so the iteration $ A_k = G^T_k G_k $ is well defined.
+	
+	Now suppose we have the matrix
+	\[
+		A = \pmat{a & b \\ b & c}
+	\]
+	with $ a \geq c $ and $ A $ has eigenvalues $ \lambda_1 \geq \lambda_2 > 0 $. Then, if $ A_0 = A $, our iteration yields
+	\[
+		A_{k + 1} = G_k^T G_k = G_k^{-1} G_k G_k^T G_k = G_k^{-1} A_k G_k
+	\]
+	which implies
+	\begin{align*}
+		A_{k + 1} &= G_k^{-1} A_k G_k \\
+		&= G_{k}^{-1} G_{k - 1}^{-1} A_{k - 1} G_{k - 1} G_k \\
+		& \qquad \vdots \qquad \vdots \qquad \vdots \qquad \vdots \qquad \vdots \\
+		&= G_{k}^{-1} G_{k - 1}^{-1} \cdots G_0^{-1} A_0 G_0 \cdots G_{k - 1} G_k \\
+		&= \bar{G}_k^{-1} A_0 \bar{G}_k
+	\end{align*}
+	where $ \bar{G}_k = G_0 \cdots G_{k - 1} G_k $. This shows that the $ (k + 1) $th iteration is similar to $ A $ and thus has the same eigenvalues as $ A $. But, as $ k $ increases, $ \bar{G}_k $ grows larger and so 
+	
+	\newpage
+	\item Compute a QR step with the matrix
+	\[
+		A = \pmat{2 & \eps \\ \eps & 1}
+	\]
+	\begin{enumerate}[label = (\alph*)]
+		\item without a shift
+		
+		First, we compute the QR decomposition of $ A $ as
+		\[
+			A = 
+			\underbrace{\pmat{
+				\frac{2}{\sqrt{\eps^2 + 4}} & \frac{\eps \sign(\eps^2 - 2)}{\sqrt{\eps^2 + 4}} \\
+				\frac{\eps}{\sqrt{\eps^2 + 4}} & \frac{-2 \sign(\eps^2 - 2)}{\sqrt{\eps^2 + 4}}
+			}}_Q \underbrace{\pmat{
+				\sqrt{\eps^2 + 4} & \frac{3 \eps}{\sqrt{\eps^2 + 4}} \\
+				0 & \frac{\abs{\eps^2 - 2}}{\sqrt{\eps^2 + 4}}
+			}}_R.
+		\]
+		Then, we have the first QR step of $ A $ as
+		\[
+			A_1 = R Q = 
+			\pmat{
+				5 - \frac{12}{\eps^2 + 4} & \sign(\eps^2 - 2) \left(\eps - \frac{6\eps}{\eps^2 + 4}\right)\\
+				\frac{\eps \abs{\eps^2 - 2}}{\eps^2 + 4} & \frac{-2 (\eps^2 - 2)}{\eps^2 + 4}
+			}
+		\]
+		
+		\item with the shift $ \mu = 1 $.
+		
+		First, we compute the QR decomposition of $ A - \mu I $ as
+		\[
+			A - I = 
+			\underbrace{\pmat{
+				\frac{1}{\sqrt{\eps^2 + 1}} & \frac{\eps}{\sqrt{\eps^2 + 1}} \\
+				\frac{\eps}{\sqrt{\eps^2 + 1}} & \frac{-1}{\sqrt{\eps^2 + 1}}
+			}}_Q \underbrace{\pmat{
+				\sqrt{\eps^2 + 1} & \frac{\eps}{\sqrt{\eps^2 + 1}} \\
+				0 & \frac{\eps^2}{\sqrt{\eps^2 + 1}}}}_R.
+		\]
+		Then, we have the shifted QR step of $ A $ as
+		\[
+			A_1 = RQ + I = 
+			\pmat{
+				3 - \frac{1}{\eps^2 + 1} & \eps - \frac{\eps}{\eps^2 + 1} \\
+				\frac{\eps^3}{\eps^2 + 1} & \frac{1}{\eps^2 + 1}
+			}.
+		\]
+	\end{enumerate}
+	which appears to be better?
+	
+	Now, comparing the non-shifted step and the shifted step, it appears that the shift is converging faster to the actual eigenvalues of $ A $ with one of the off diagonal entries on the order of $ O(\eps^3) $. This better convergence is in line with the potential for a shift to accelerate convergence of QR iteration. In this case, $ \mu = 1 $ is pretty close to the perturbed eigenvalue of $ \lambda_2 = 1 + O(\eps) $ and so we should expect the shifted QR step to be more accurate.
+	
+	\newpage
+	\item Implement QR iteration for a real symmetric tridiagonal matrix and demonstrate its performance on e.g. $ 100 \times 100 $ example.
+	
+	\emph{My code is given below.} Running my code on matrices under size $ 20 \times 20 $ was yielding a max norm error of up to $ 10^{-14} $. However, as the matrix got larger up to $ 100 \times 100 $, I noticed the max norm error was approaching $ 10^{-1} $ quite rapidly. I'm guessing the poor convergence is due to me using the black box QR algorithms in Julia instead of using the optimized Givens method in Golub and Van Loan for tridiagonal matrices. Still, the largest eigenvalues were still getting resolved to a couple of digits of accuracy.
+\end{enumerate}
+
+\emph{Note, some symbols are missing in my code snippet because \LaTeX does not support some unicode characters.}
+
+\rule{\textwidth}{.4pt}
+	\lstinputlisting[language = Julia]{Code/QR_Iteration.jl}
+\rule{\textwidth}{.4pt}
+\end{document}
