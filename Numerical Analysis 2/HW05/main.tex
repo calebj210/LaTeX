@@ -138,7 +138,24 @@
 		&= G_{k}^{-1} G_{k - 1}^{-1} \cdots G_0^{-1} A_0 G_0 \cdots G_{k - 1} G_k \\
 		&= \bar{G}_k^{-1} A_0 \bar{G}_k
 	\end{align*}
-	where $ \bar{G}_k = G_0 \cdots G_{k - 1} G_k $. This shows that the $ (k + 1) $th iteration is similar to $ A $ and thus has the same eigenvalues as $ A $. But, as $ k $ increases, $ \bar{G}_k $ grows larger and so 
+	where $ \bar{G}_k = G_0 \cdots G_{k - 1} G_k $. This shows that the $ (k + 1) $th iteration is similar to $ A $ and thus has the same eigenvalues as $ A $. With this in mind, let's compute the first few iterations of $ A $ exactly:
+	\[
+		A = A_0 = L_0 L_0^T = 
+		\pmat{
+			\sqrt{a} & 0 \\ \frac{b}{\sqrt{a}} & \sqrt{c - \frac{b^2}{a}}
+		}
+		\pmat{
+			\sqrt{a} & \frac{b}{\sqrt{a}} \\ 0 & \sqrt{c - \frac{b^2}{a}}
+		}
+	\]
+	which implies
+	\[
+		A_1 = L_0^T L_0 = 
+		\pmat{
+			a + \frac{b^2}{a} & \frac{b}{\sqrt{a}} \sqrt{c - \frac{b^2}{a}} \\ \frac{b}{\sqrt{a}} \sqrt{c - \frac{b^2}{a}} & c - \frac{b^2}{a}
+		}.
+	\]
+	From this, we can see that the diagonal entries of $ A_1 $ have grown while the off-diagonal entries have become smaller. You can continue doing this, say in Mathematica, and the trend continues showing the off-diagonal entries of our iterates are decaying. So, in the limit, the off-diagonal entries of our iterate will go to zero leaving only a diagonal matrix. But, from before, we know this diagonal matrix is similar to $ A $ and so it has the same eigenvalues. So, the final diagonal matrix has diagonal entries equal to $ \lambda_1 $ and $ \lambda_2 $.
 	
 	\newpage
 	\item Compute a QR step with the matrix

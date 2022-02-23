@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.13.2 (TeX Live 2021/Arch Linux)  (format=lualatex 2022.1.13)  20 FEB 2022 23:04
+This is LuaHBTeX, Version 1.13.2 (TeX Live 2021/Arch Linux)  (format=lualatex 2022.1.13)  22 FEB 2022 18:58
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -874,10 +874,10 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 98.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
-] [2]
+] [2] [3]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 205.
- (./Code/QR_Iteration.jl) [3
+nput line 222.
+ (./Code/QR_Iteration.jl) [4
 Missing character: There is no μ (U+03BC) in font [lmmono10-regular]:!
 Missing character: There is no ∈ (U+2208) in font [lmmono10-regular]:!
 Missing character: There is no μ (U+03BC) in font [lmmono10-regular]:!
@@ -894,12 +894,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 33583 strings out of 477875
- 244190,1373583 words of node,token memory allocated
- 563 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 19 attribute, 55 glue_spec
-, 19 attribute_list, 2 write nodes
-   avail lists: 1:3,2:3077,3:237,4:4016,5:3784,6:84,7:8076,8:68,9:11360,10:27,11
+ 33584 strings out of 477875
+ 244191,1373583 words of node,token memory allocated
+ 571 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 21 attribute, 55 glue_spec
+, 21 attribute_list, 2 write nodes
+   avail lists: 1:1,2:3077,3:237,4:4016,5:3784,6:84,7:8076,8:68,9:11360,10:27,11
 :690
  53042 multiletter control sequences out of 65536+600000
  43 fonts using 3145663 bytes
@@ -918,10 +918,10 @@ fb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmsy8.pfb>
-Output written on main.pdf (3 pages, 122721 bytes).
+Output written on main.pdf (4 pages, 126230 bytes).
 
-PDF statistics: 146 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
- 41 named destinations out of 1000 (max. 131072)
+PDF statistics: 150 PDF objects out of 1000 (max. 8388607)
+ 114 compressed objects within 2 object streams
+ 42 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 100000000)
 
