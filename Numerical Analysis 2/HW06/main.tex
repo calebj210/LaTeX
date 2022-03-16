@@ -1,0 +1,253 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=1in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5610: Numerical Analysis II}
+\rhead{Homework \#6}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\section*{Problems}
+\begin{enumerate}[label = (\arabic*)]
+	\item Implement the trapezoidal rule to solve the initial value problem
+	\[
+		y' = f(t, y)
+	\]
+	where
+	\[
+		y = \pmat{y_1 \\ y_2}, f(t, y) = \pmat{f_1(t, y) \\ f_2(t, y)}, y(0) = y_0.
+	\]
+	Use repeated Richardson extrapolation to improve the results. Then, use your code to solve
+	\[
+		\begin{cases}
+			t^2 y'' + t y' + (t^2 - 1 ) y = 0, t \in [0, 3\pi] \\
+			y(0) = 0, \quad y'(0) = \frac{1}{2}
+		\end{cases}
+	\]
+	Use repeated Richardson extrapolation to compute $ y(3\pi) $ with 10 digits of accuracy.
+	
+	First, let's reduce our ODE to a system of first order ODEs as
+	\[
+		\mathbf{y}' = \pmat{y_1' \\ y_2'}= \pmat{y_2 \\ \frac{1}{t^2}((1 - t^2)y_1 - t y_2)}
+	\]
+	where $ y_1 = y $ and $ y_2 = y' $. Now, notice our ODE has a singularity at $ t = 0 $. To get around this, we can simply expand our solution about $ t = 0 $ to get the approximate system
+	\[
+		\mathbf{y}' = \pmat{y_1' \\ y_2'}= \pmat{y_2 \\ -\frac{3}{8} t + \bigO(t^2)}.
+	\]
+	So, to use these systems in my code, I will use my code to solve the second system when we are near $ t = 0 $ to avoid the singularity and then use the first system when we are away form the singularity. Doing so, my code gives me 
+	\[
+		y(3\pi) = 0.17672519830082117
+	\]
+	which is accurate to at least 10 digits of the Bessel function of the first kind of order one at $ t = 3\pi $!
+	
+	\begin{center}
+		\emph{My code is given at the end of the document.}
+	\end{center}
+	
+	\newpage
+	\item Show that the two step method
+	\[
+		y_{n + 1} = \frac{1}{2} (y_n + y_{n - 1}) + \frac{h}{4} \big(4 f(t_{n + 1}, y_{n + 1}) - f(t_n, y_n) + 3 f(t_{n - 1}, y_{n - 1})\big)
+	\]
+	is second order.
+	
+	\begin{align*}
+		y(t_{n + 1}) - \frac{1}{2} (y(t_n) + y(t_{n - 1})) - \frac{h}{4} \big(4 f(t_{n + 1}, y(t_{n + 1})) - f(t_n, y(t_n)) + 3 f(t_{n - 1}, y(t_{n - 1}))\big) &= \\
+		y(t_n) + h y'(t_n) + \frac{1}{2} h^2 y''(t_n) + \bigO(h^3) &- \\
+		\frac{1}{2}(y(t_n) + y(t_n) - hy'(t_n) + \frac{1}{2} h^2 y''(t_n) + \bigO(h^3)) &- \\
+		\frac{h}{4}(4(y'(t_n) + h y''(t_n) + \bigO(h^2)) - y'(t_n) + 3(y'(t_n) - h y''(t_n) + \bigO(h^2))) &= \\
+		y(t_n) - y(t_n) + \bigO(h^3) &+ \\
+		h\left(y'(t_n) + \frac{1}{2} y'(t_n) - y'(t_n) + y'(t_n) + \frac{3}{4} y'(t_n)\right) + \bigO(h^3) &+ \\
+		h^2\left(\frac{1}{2} y''(t_n) - \frac{1}{4} y''(t_n) - y''(t_n) + \frac{3}{4} y''(t_n)\right) + \bigO(h^3) &= \bigO(h^3).
+	\end{align*}
+	So, the method is order two.
+	
+	\newpage
+	\item Determine order of the multistep method
+	\[
+		y_{n + 1} = 4y_n - 3y_{n - 1} - 2h f(t_{n - 1}, y_{n - 1})
+	\]
+	and illustrate with an example that the method is unstable.
+	
+	\begin{align*}
+		y(t_{n + 1}) - 4y(t_n) + 3y(t_{n - 1}) + 2h f(t_{n - 1}, y(t_{n - 1}) &= \\
+		y(t_n) + h y'(t_n) + \frac{1}{2} h^2 y''(t_n) + \frac{1}{6} h^3 y'''(t_n) + \bigO(h^4) &- \\
+		4y(t_n) + 3(y(t_n) - h y'(t_n) + \frac{1}{2} h^2 y''(t_n) - \frac{1}{6} h^3 y'''(t_n)) + \bigO(h^4) &+ \\
+		2h(y'(t_n) - h y''(t_n) + \frac{1}{2} h^2 y'''(t_n) + \bigO(h^3)) &= \\
+		\frac{1}{6}h^3 y'''(t_n) + \bigO(h^4) &= \bigO(h^3).
+	\end{align*}
+	So, the method is order two.
+	
+	A nice and simple example where the multistep is method is unstable is in the autonomous ODE
+	\[
+		\begin{cases}
+			y' = y(2 - y) \\
+			y(0) = 1
+		\end{cases}
+	\]	
+	which should have a solution that just tends to $ y = 2 $ as $ t $ increases. Furthermore, even if the solution over shoots $ y = 2 $, we should expect the ODE to pull the equation back down to 2. If we start the multistep method with $ y_0 = 0 $, $ y_1 = 1 $, and $ h = 0.1 $ we get
+	\begin{align*}
+		y_2 &= 4 \\
+		y_3 &= 12.8 \\
+		y_4 &= 40.8 \\
+		y_5 &= 152.448 
+	\end{align*}
+	and so on with a number that just keeps growing even though our ODE has a stable equilibrium at $ y = 2 $. Even with very tiny step sizes, our solution still blows up because the $ 4y_n $ term dominates the growth of the solution. One last thing, even if we start on the stable equilibrium, this multistep method will pull away from the stable equilibrium to infinity.
+	
+	\newpage
+	\item Show that the multistep method
+	\[
+		y_{n + 3} + a_2 y_{n + 2} + a_1 y_{n + 1} + a_0 y_n = h(b_2 f(t_{n + 2}, y_{n + 2}) + b_1 f(t_{n + 1}, y_{n + 1}) + b_0 f(t_n, y_n))
+	\]
+	is fourth order only if $ a_0 + a_2 = 8 $ and $ a_1 = -9 $. Deduce that this method cannot be both fourth order and convergent.
+	
+	\begin{align*}
+		y_{n + 3} + a_2 y_{n + 2} + a_1 y_{n + 1} + a_0 y_n - h(b_2 f(t_{n + 2}, y_{n + 2}) - b_1 f(t_{n + 1}, y_{n + 1}) - b_0 f(t_n, y_n)) &= \\
+		y(t_n) + 3h y'(t_n) + \frac{1}{2} 3^2 h^2 y''(t_n) + \frac{1}{6} 3^3 h^3 y'''(t_n) + \frac{1}{24} 3^4 h^4 y^{(4)}(t_n) + \bigO(h^5) &+ \\
+		a_2 y(t_n) + 2a_2 h y'(t_n) + \frac{1}{2} 2^2 a_2  h^2 y''(t_n) + \frac{1}{6} 2^3 a_2 h^3 y'''(t_n) + \frac{1}{24} 2^4 a_2 h^4 y^{(4)}(t_n) + \bigO(h^5) &+ \\
+		a_1 y(t_n) + a_1 h y'(t_n) + \frac{1}{2} a_1 h^2 y''(t_n) + \frac{1}{6} a_1 h^3 y'''(t_n) + \frac{1}{24} a_1 h^4 y^{(4)}(t_n) + \bigO(h^5) &+ \\
+		a_0 y(t_n) &+ \\
+		- b_2 h y'(t_n) - 2 b_2 h^2 y''(t_n) - \frac{1}{2} 2^2 b_2 h^3 y'''(t_n) - \frac{1}{6} 2^3 b_2 h^4 y^{(4)}(t_n) + \bigO(h^5) &+ \\
+		- b_1 h y'(t_n) - b_1 h^2 y''(t_n) - \frac{1}{2} b_1 h^3 y'''(t_n) - \frac{1}{6} b_1 h^4 y^{(4)}(t_n) + \bigO(h^5) &+ \\
+		- b_0 h y'(t_n) &= \\
+		(1 + a_2 + a_1 + a_0) y(t_n) + \bigO(h^5) &+ \\
+		(3 + 2a_2 + a_1 - b_2 - b1 - b_0) h y'(t_n) + \bigO(h^5) &+ \\
+		\left(\frac{1}{2}3^2 + \frac{1}{2}2^2 a_2 + \frac{1}{2}a_1 - 2 b_2 - b_1\right) h^2 y''(t_n) + \bigO(h^5) &+ \\
+		\left(\frac{1}{6} 3^3 + \frac{1}{6} 2^3 a_2 + \frac{1}{6} a_1 - \frac{1}{2} 2^2 b_2 - \frac{1}{2} b_1\right) h^3 y'''(t_n) + \bigO(h^5) &+ \\
+		\left(\frac{1}{24} 3^4 + \frac{1}{24} 2^4 a_2 + \frac{1}{24} a_1 - \frac{1}{6} 2^3 b_2 - \frac{1}{6} b_1\right) h^4 y^{(4)}(t_n) + \bigO(h^5)
+	\end{align*}
+	which implies our multistep method is only fourth order if our coefficients solve the system
+	\begin{align*}
+		1 + a_2 + a_1 + a_0 &= 0 \\
+		3 + 2a_2 + a_1 - b_2 - b1 - b_0 &= 0 \\
+		\frac{1}{2}3^2 + \frac{1}{2}2^2 a_2 + \frac{1}{2}a_1 - 2 b_2 - b_1&= 0 \\
+		\frac{1}{6} 3^3 + \frac{1}{6} 2^3 a_2 + \frac{1}{6} a_1 - \frac{1}{2} 2^2 b_2 - \frac{1}{2} b_1 &= 0 \\
+		\frac{1}{24} 3^4 + \frac{1}{24} 2^4 a_2 + \frac{1}{24} a_1 - \frac{1}{6} 2^3 b_2 - \frac{1}{6} b_1 &= 0.
+	\end{align*}
+	Reducing this system yields
+	\begin{align*}
+		a_0 + a_2 &= 8 \\
+		a_1 &= -9 \\
+		-\frac{1}{3} a_2 + b_2 &= 3 \\
+		-\frac{4}{3} a_2+ b_1 &= -6 \\
+		-\frac{1}{3} a_2 + b_0 &= -3.
+	\end{align*}
+	So, for our method to have any hope of being fourth order, we must have $ a_0 + a_2 = 8 $, $ a_1 = -9 $, and a few other conditions. Now, the polynomials associated with our multistep method are given by
+	\[
+		\rho(\omega) = a_0 + a_1 \omega + a_2 \omega^2 + \omega^3
+	\]
+	and
+	\[
+		\sigma(\omega) = b_0 + b_1 \omega + b_2 \omega^2.
+	\]
+	Then, if we want our method to be fourth order, our $ \rho(\omega) $ becomes
+	\[
+		\rho(\omega) = 8 - a_2 - 9\omega + a_2 \omega^2 + \omega^3.
+	\]
+	So, finding the roots of $ \rho(\omega) $ yields the roots
+	\begin{align*}
+		\omega_1 &= 1 \\
+		\omega_2 &= \frac{1}{2} \left(-a_2-1 - \sqrt{a_2^2 - 2 a_2+33}\right) \\
+		\omega_3 &= \frac{1}{2} \left(-a_2-1 + \sqrt{a_2^2 + 2 a_2+33}\right).
+	\end{align*}
+	From these, we can clearly see that $ \omega_1 $ is on the unit disk and simple. However, there is no $ a_2 $ such that both $ \omega_2 $ and $ \omega_3 $ are within the unit disk and so there no $ a_2 $ such that our polynomial satisfies the root condition. Therefore, by the Dahlquist equivalence theorem, our fourth order multistep method cannot converge.
+\end{enumerate}
+
+\newpage
+\section*{Code Used}
+\vspace{-0.5cm}
+\emph{Note: some of the symbols are missing in my code snippet because \LaTeX\ does not support all unicode characters.}
+
+\vspace{-0.5cm}
+\rule{\textwidth}{.4pt}
+	\lstinputlisting[language = Julia]{Code/Trapezoidal_ODE.jl}
+\rule{\textwidth}{.4pt}
+
+\end{document}
