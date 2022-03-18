@@ -1,0 +1,98 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=0.75in,bottom=0.75in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arcCot}
+\DeclareMathOperator{\arccsc}{arcCsc}
+\DeclareMathOperator{\arccosh}{arcCosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arcCsch}
+\DeclareMathOperator{\arccoth}{arcCoth} 
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}[1]{\mathrm{d}#1}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5480: Asymptotics}
+\rhead{Project Proposal}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{center}
+	{\Large\textbf{RBF Interpolants Over Near-Flat Surfaces}}
+\end{center}
+
+\subsection*{Background and Problem}
+Given a small parameter $ \eps $ that we will call the shape parameter and data $ \{\mathbf{x}_i, f_i\}_{i = 1}^n $, we can write out a radial basis function (RBF) based interpolant of the data as
+\begin{equation}
+	s(\mathbf{x}) = \sum_{i = 1}^n \lambda_i \phi_\eps(\norm{\mathbf{x} - \mathbf{x}_i}_2) \label{func:interp}
+\end{equation}
+where $ \lambda_i $ are interpolant weights and $ \phi_\eps $ is a radial function (such as $ \phi_\eps(r) = e^{-(\eps r)^2} $). In the most direct form, we can find $ \lambda_i $ by solving the system
+\[
+	\pmat{
+		\phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_n}) \\
+		\phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_n}) \\
+		\vdots & \vdots & \ddots & \vdots \\
+		\phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_n})
+	} \pmat{
+		\lambda_1 \\ \lambda_2 \\ \vdots \\ \lambda_n
+	} = \pmat{
+		f_1 \\ f_2 \\ \vdots \\ f_n
+	}.
+\]
+In solving this system numerically, it is known that taking $ \eps $ smaller and smaller tends to increase the accuracy of our interpolant. However, if $ \eps $ becomes too small, the matrix above becomes severely ill-conditioned and the interpolant becomes unusable numerically even when it should be well behaved. So, to find $ \lambda_i $ even when $ \eps $ is small, Bengt and some of his previous students have developed multiple methods that take $ \eps $ to be complex and then they perform a contour integral about $ \eps = 0 $ to recover the small $ \eps $ interpolant stably. The most recent and robust method, so called RBF-RA, is based on rational approximations of our underlying function. 
+
+Now with small $ \eps $, we can apply RBF-RA to data that is on a surface with a large curvature $ \kappa $ or a completely flat surface (i.e. $ \kappa = 0 $) to get stable and desired results. However, applying RBF-RA to data on a surface that is nearly flat (i.e. $ 0 < \kappa \ll 1 $) leads to erroneous results. Both C\'ecile and Bengt have numerically explored this discrepancy with a few visuals (a singularity appears to pop up at the origin) but have not yet come to understand it nor fix it. Intuition tells us that this singularity for $ 0 < \kappa \ll 1 $ should be removable because both $ \kappa = 0 $ and $ 0 \ll \kappa $ lead to well behaved results. 
+
+Herein lies my project, I am seeking to understand how our interpolant behaves when we perturb $ \kappa $ near zero.  The methods of Asymptotics appear to be a perfect candidate for developing this new understanding. However, before we can apply Asymptotics to this problem, we need to see where $ \kappa $ is embedded in our RBF interpolant. In this case, $ \kappa $ will appear in the data. For completely flat surfaces, the data all falls in a single plane. But, once we start perturbing $ \kappa $, our data will start to deviate from this plane. The simplest example of a surface with curvature $ \kappa $ is given by a circle of radius $ 1/\kappa $
+\begin{equation}
+	x^2 + y^2 = \frac{1}{\kappa^2} \implies y(x; \kappa) \label{equ:circ}
+\end{equation}
+Note that locally, any smooth curve can be approximated by this circle and that this circle can easily be extended to higher dimensions (i.e. hyperspheres). \textbf{So, our perturbation problem can be posed as asymptotically describe the interpolant $ s(x; \kappa) $ given in \eqref{func:interp} when we take our data to be $ \mathbf{x}_i = (x_i, y_i) $ subject to \eqref{equ:circ} with $ 0 < \kappa \ll 1 $}.
+
+This problem is wide open and it doesn't appear anyone has been trying to tackle it in the field. Furthermore, if we can develop an understanding of how $ \kappa $ affects our interpolant, we could learn how to avoid numerical instability in the small $ \kappa $ regime and improve the RBF-RA method. As a personal impact of this project, C\'ecile, one of her grad students, and I have been using RBF-RA on general surfaces of which we are not guaranteed $ \kappa $ will be outside of the near-flat regime. So any new understanding of how $ \kappa $ affects RBF interpolants could greatly improve our results.
+\end{document}
