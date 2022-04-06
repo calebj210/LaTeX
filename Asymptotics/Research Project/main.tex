@@ -1,8 +1,8 @@
 \documentclass[a4paper,11pt]{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[left=0.5in,right=0.5in,top=0.75in,bottom=0.75in]{geometry}
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[left=0.5in,right=0.5in,top=0.6in,bottom=0.75in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts,bm}
 \usepackage{pgfplots,graphicx,calc,changepage}
 \pgfplotsset{compat=newest}
 \usepackage{enumitem}
@@ -72,27 +72,40 @@ Given a small parameter $ \eps $ that we will call the shape parameter and data 
 	s(\mathbf{x}) = \sum_{i = 1}^n \lambda_i \phi_\eps(\norm{\mathbf{x} - \mathbf{x}_i}_2) \label{func:interp}
 \end{equation}
 where $ \lambda_i $ are interpolant weights and $ \phi_\eps $ is a radial function (such as $ \phi_\eps(r) = e^{-(\eps r)^2} $). In the most direct form, we can find $ \lambda_i $ by solving the system
-\[
-	\pmat{
+\begin{equation}
+	\underbrace{\pmat{
 		\phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_n}) \\
 		\phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_n}) \\
 		\vdots & \vdots & \ddots & \vdots \\
 		\phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_n})
-	} \pmat{
+	}}_{A} \underbrace{\pmat{
 		\lambda_1 \\ \lambda_2 \\ \vdots \\ \lambda_n
-	} = \pmat{
+	}}_{\pmb{\lambda}} = \underbrace{\pmat{
 		f_1 \\ f_2 \\ \vdots \\ f_n
-	}.
-\]
-In solving this system numerically, it is known that taking $ \eps $ smaller and smaller tends to increase the accuracy of our interpolant. However, if $ \eps $ becomes too small, the matrix above becomes severely ill-conditioned and the interpolant becomes unusable numerically even when it should be well behaved. So, to find $ \lambda_i $ even when $ \eps $ is small, Bengt and some of his previous students have developed multiple methods that take $ \eps $ to be complex and then they perform a contour integral about $ \eps = 0 $ to recover the small $ \eps $ interpolant stably. The most recent and robust method, so called RBF-RA, is based on rational approximations of our underlying function. 
-
-Now with small $ \eps $, we can apply RBF-RA to data that is on a surface with a large curvature $ \kappa $ or a completely flat surface (i.e. $ \kappa = 0 $) to get stable and desired results. However, applying RBF-RA to data on a surface that is nearly flat (i.e. $ 0 < \kappa \ll 1 $) leads to erroneous results. Both C\'ecile and Bengt have numerically explored this discrepancy with a few visuals (a singularity appears to pop up at the origin) but have not yet come to understand it nor fix it. Intuition tells us that this singularity for $ 0 < \kappa \ll 1 $ should be removable because both $ \kappa = 0 $ and $ 0 \ll \kappa $ lead to well behaved results. 
-
-Herein lies my project, I am seeking to understand how our interpolant behaves when we perturb $ \kappa $ near zero.  The methods of Asymptotics appear to be a perfect candidate for developing this new understanding. However, before we can apply Asymptotics to this problem, we need to see where $ \kappa $ is embedded in our RBF interpolant. In this case, $ \kappa $ will appear in the data. For completely flat surfaces, the data all falls in a single plane. But, once we start perturbing $ \kappa $, our data will start to deviate from this plane. The simplest example of a surface with curvature $ \kappa $ is given by a circle of radius $ 1/\kappa $
-\begin{equation}
-	x^2 + y^2 = \frac{1}{\kappa^2} \implies y(x; \kappa) \label{equ:circ}
+	}}_{\pmb{F}}. \label{equ:direct}
 \end{equation}
-Note that locally, any smooth curve can be approximated by this circle and that this circle can easily be extended to higher dimensions (i.e. hyperspheres). \textbf{So, our perturbation problem can be posed as asymptotically describe the interpolant $ s(x; \kappa) $ given in \eqref{func:interp} when we take our data to be $ \mathbf{x}_i = (x_i, y_i) $ subject to \eqref{equ:circ} with $ 0 < \kappa \ll 1 $}.
+Where $ A $ is known as the collocation matrix. In solving this system numerically, it is known that taking $ \eps $ smaller and smaller tends to increase the accuracy of our interpolant. However, if $ \eps $ becomes too small, the matrix above becomes severely ill-conditioned and the interpolant becomes unusable numerically even when it should be well behaved. So, to find $ \lambda_i $ even when $ \eps $ is small, Bengt and some of his previous students have developed multiple methods that stably recover the small $ \eps $ interpolant. The most recent and robust method, so called RBF-RA, is based on rational approximations of our underlying function. 
 
-This problem is wide open and it doesn't appear anyone has been trying to tackle it in the field. Furthermore, if we can develop an understanding of how $ \kappa $ affects our interpolant, we could learn how to avoid numerical instability in the small $ \kappa $ regime and improve the RBF-RA method. As a personal impact of this project, C\'ecile, one of her grad students, and I have been using RBF-RA on general surfaces of which we are not guaranteed $ \kappa $ will be outside of the near-flat regime. So any new understanding of how $ \kappa $ affects RBF interpolants could greatly improve our results.
+Now with small $ \eps $, we can apply RBF-RA to data that is on a surface with a large curvature $ \kappa $ or a completely flat surface (i.e. $ \kappa = 0 $) to get stable, desired results. However, applying RBF-RA to data on a surface that is nearly flat (i.e. $ 0 < \kappa \ll 1 $) can lead to erroneous results. 
+
+Herein lies my project, I am seeking to understand how our interpolation weights to \eqref{func:interp} behave when we perturb $ \kappa $ near zero. To explore this behavior, I will take nodes over a circle that just touches the origin with curvature $ \kappa $. Explicitly, we can define our $ n $ nodes as
+\[
+	\begin{cases}
+		x_i = -1 + \dfrac{2}{n - 1} i, & i = 1, 2, \ldots, n \\
+		y_i = \sqrt{\dfrac{1}{\kappa^2} - x_i^2} - \dfrac{1}{\kappa}, & 0 < \kappa \ll 1
+	\end{cases}
+\]
+where our nodes are defined as the pairs $ \mathbf{x}_i = (x_i, y_i) $ for $ i = 1, 2, \ldots, n $. Then, if we plug these nodes into the collocation matrix above, we can expand $ A $ in $ \kappa $ as
+\begin{equation}
+	A = A_0 + \kappa A_1 + \kappa^2 A_2 + \cdots. \label{pert:A}
+\end{equation}
+Inserting \eqref{pert:A} into \eqref{equ:direct} yields the perturbed system
+\begin{equation}
+	(A_0 + \kappa A_1 + \cdots) \pmb{\lambda} = \mathbf{F}. \label{equ:pert}
+\end{equation}
+which is a perfect candidate to be solved with asymptotic methods. Solving and understanding \eqref{equ:pert} is my main objective for this project but if time permits I would also like to explore the $ \kappa $-perturbed eigenvalue problem of $ A $,
+\[
+		(A_0 + \kappa A_1 + \cdots) \mathbf{x} = \lambda \mathbf{x}.
+\]
+ It will also be interesting to see if other small curvature node sets behave differently than the proposed node set above (this could also include higher dimensional node sets). In any case, I will need to take a closer look at our collocation matrix to see if asymptotic order is broken for $ \eps $ small enough which might lead to singularly perturbed solutions.
 \end{document}
