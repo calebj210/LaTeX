@@ -1,0 +1,266 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=0.75in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5610: Numerical Analysis II}
+\rhead{Homework \#9}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = (\arabic*)]
+	\item Implement the Crank-Nicolson scheme for the heat equation
+	\[
+		\begin{cases}
+			u_t = \partial_x (a(x) u_x) + f(x,t), & t > 0, x\in (0,1) \\
+			u(x,0) = u_0(x), & x \in [0,1] \\
+			u(0,t) = u(1,t) = 0, & t > 0
+		\end{cases}
+	\]
+	
+	To implement Crank-Nicolson, we need to find our $ F(x,t,u,u_x, u_{xx}) $ operator. For this PDE, we simply have
+	\[
+		F(x,t,u,u_x,u_{xx}) = \partial_x(a(x) u_x) + f(x,t) = a(x) u_{xx} + a'(x) u_x + f(x,t).
+	\]
+	Then, our Crank-Nicolson scheme is given by
+	\[
+		\frac{u_i^{n + 1} - u_i^n}{h_t} = \frac{1}{2}\left(F_i^{n + 1}(u, x, t, u_x, u_{xx}) + F_i^{n}(u, x, t, u_x, u_{xx})\right)
+	\]
+	where $ F_i^n $ represents the second order finite difference version of $ F $ (I use central differences). Plugging in the finite differences, we have
+	\[
+		F_i^n = a(x_i) \frac{u_{i+1}^n - 2u_{i}^n + u_{i - 1}^n}{h_x^2} + a'(x_i) \frac{u_{i+1}^n - u_{i - 1}^n}{2h_x} + f(x_i, t_n).
+	\]
+	So, taking this expression for $ F_i^n $ and it plugging into our Crank-Nicolson scheme yields the linear tridiagonal system that I wrote my code to solve (Code attached at the end of the document).
+
+	To check that my code is working, I ran it on the test cases below:
+	\begin{enumerate}[label = (\alph*)]
+		\item Standard heat equation
+			\[
+				\begin{cases}
+					u_t = u_{xx}, & t > 0, x\in (0,1) \\
+					u(x,0) = -4x(x-1), & x \in [0,1] \\
+					u(0,t) = u(1,t) = 0, & t > 0
+				\end{cases}
+			\]
+			
+		\item Simple forced heat equation
+			\[
+				\begin{cases}
+					u_t = u_{xx} + x^2 t, & t > 0, x\in (0,1) \\
+					u(x,0) = -4x(x-1), & x \in [0,1] \\
+					u(0,t) = u(1,t) = 0, & t > 0
+				\end{cases}
+			\]
+		
+		\item Spatially variable conductivity
+			\[
+				\begin{cases}
+					u_t = \partial_x(x u_x) & t > 0, x\in (0,1) \\
+					u(x,0) = -4x(x-1), & x \in [0,1] \\
+					u(0,t) = u(1,t) = 0, & t > 0
+				\end{cases}
+			\]
+			
+		\item Ill-posed heat equation
+			\[
+				\begin{cases}
+					u_t = -u_{xx} & t > 0, x\in (0,1) \\
+					u(x,0) = -4x(x-1), & x \in [0,1] \\
+					u(0,t) = u(1,t) = 0, & t > 0
+				\end{cases}
+			\]
+	\end{enumerate}
+	In every case except case $ d $, my code ran stably and accurately for many different spatial and temporal step sizes. However, for case (d), my code leads to an ``exploding'' solution which is expected because the problem doesn't have continuous dependence on the initial data and is thus ill-posed.
+		
+	\newpage
+	\item Implement the second-order central difference scheme for the wave equation
+	\[
+		\begin{cases}
+			u_{tt} = \partial_x (a(x) u_x) + f(x,t), \\
+			u(x,0) = u_0(x), \\
+			u_t(x,0) = u_1(x)
+		\end{cases}
+	\]
+	where all functions are periodic in $ x $ with period 1.
+	
+	To turn this into a finite difference problem, let's first expand the PDE as
+	\[
+		u_{tt} = a(x) u_{xx} + a'(x) u_x + f(x,t).
+	\]
+	Then, plugging in our central differences, we have
+	\[
+		\frac{u_i^{n + 1} - 2u_i^n + u_i^{n - 1}}{h_t^2} = a(x_i) \frac{u_{i+1}^n - 2u_{i}^n + u_{i - 1}^n}{h_x^2} + a'(x_i) \frac{u_{i+1}^n - u_{i - 1}^n}{2h_x} + f(x_i, t_n)
+	\]
+	which yields the explicit time stepping scheme
+	\[
+		u_i^{n + 1} = (r + k) u_{i + 1}^n + (2 - 2r)u_i^n + (r - k)u_{i - 1}^n - u_i^{n - 1} + h_t^2 f(x_i, t_n)
+	\]
+	where
+	\[
+		r = a(x_i) \frac{h_t^2}{h_x^2} \quad\and\quad k = a'(x_i) \frac{h_t^2}{2h_x}.
+	\]
+	Now, this scheme works great on the interior for $ t > 0 $. However, at the very first step, we aren't directly given the $ u_i^{n - 1} $ data and so we need to rely on our initial data. In this case, we can use the condition $ u_t(x, 0) = u_1(x) $ along with finite differences to get
+	\[
+		\frac{u_i^2 - u_i^0}{2h_t} = u_1(x_i) \implies u_i^0 = u_i^2 - 2h_t u_1(x_i).
+	\]
+	This expression can then be plugged into our explicit scheme to yield a slightly modified time stepping scheme for the first time step. My code at the end of the document implements this exact scheme. Do note, I added periodic boundary conditions to my code to make it well posed over the interval for $ x $ from 0 to 1.
+	
+	I ran my code on the test cases below:
+	\begin{enumerate}[label = (\alph*)]
+		\item Standard wave equation
+			\[
+				\begin{cases}
+					u_{tt} = u_{xx}, \\
+					u(x,0) = \sin(2\pi x), \\
+					u_t(x,0) = 0
+				\end{cases}
+			\]
+			
+		\item Resonant wave equation
+			\[
+				\begin{cases}
+					u_{tt} = u_{xx} + \sin(2\pi x) \cos(2\pi t), \\
+					u(x,0) = 0, \\
+					u_t(x,0) = 0
+				\end{cases}
+			\]
+			
+		\item Plucked string
+			\[
+				\begin{cases}
+					u_{tt} = u_{xx}, \\
+					u(x,0) = 0, \\
+					u_t(x,0) = -4x(x - 1)
+				\end{cases}
+			\]
+			
+		\item Variable tension string
+			\[
+				\begin{cases}
+					u_{tt} = \partial_x(x u_x), \\
+					u(x,0) = \sin(2\pi x), \\
+					u_t(x,0) = 0
+				\end{cases}
+			\]
+		
+		\item Ill-posed wave equation
+			\[
+				\begin{cases}
+					u_{tt} = -u_{xx}, \\
+					u(x,0) = \sin(2\pi x), \\
+					u_t(x,0) = 0
+				\end{cases}
+			\]
+	\end{enumerate}
+	
+	In all cases, aside from case (e), my code runs stably so long as we have $ r $ and $ k $ defined above less than 1 which gives us constraints on the relative sizes of $ h_x $ and $ h_t $. So, as long as we pick $ h_x $ and $ h_t $ such that $ \abs{r} < 1 $ and, $ \abs{k} < 1 $, our scheme will be stable. For accuracy however, we desire a smaller $ h_t $ as well. 
+	
+	For case (e), our scheme leads to many growing amplitude, fast oscillation solutions which comes from the ill-posedness of the problem similar to the ill-posed heat equation.
+\end{enumerate}
+
+\newpage
+\section*{Code Used}
+
+\emph{Note: some of the symbols are missing in my code snippet because \LaTeX\ does not support all unicode characters.}
+
+\textbf{Crank-Nicolson Code}
+
+\vspace{-0.5cm}
+\rule{\textwidth}{.4pt}
+\lstinputlisting[language = Julia]{Code/Crank_Nicolson.jl}
+\rule{\textwidth}{.4pt}
+
+\newpage
+\textbf{Central Difference Wave Code}
+
+\vspace{-0.5cm}
+\rule{\textwidth}{.4pt}
+\lstinputlisting[language = Julia]{Code/Wave_FD.jl}
+\rule{\textwidth}{.4pt}
+
+\end{document}
