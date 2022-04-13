@@ -71,7 +71,7 @@ Given a small parameter $ \eps $ that we will call the shape parameter and data 
 \begin{equation}
 	s(\mathbf{x}) = \sum_{i = 1}^n \lambda_i \phi_\eps(\norm{\mathbf{x} - \mathbf{x}_i}_2) \label{func:interp}
 \end{equation}
-where $ \lambda_i $ are interpolant weights and $ \phi_\eps $ is a radial function (such as $ \phi_\eps(r) = e^{-(\eps r)^2} $). In the most direct form, we can find $ \lambda_i $ by solving the system
+where $ \lambda_i $ are interpolant weights and $ \phi_\eps $ is a radial function (in this case we will take $ \phi_\eps(r) = e^{-(\eps r)^2} $). In the most direct form, we can find $ \lambda_i $ by solving the system
 \begin{equation}
 	\underbrace{\pmat{
 		\phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_n}) \\
@@ -95,7 +95,7 @@ Herein lies my project, I am seeking to understand how our interpolation weights
 		y_i = \sqrt{\dfrac{1}{\kappa^2} - x_i^2} - \dfrac{1}{\kappa}, & 0 < \kappa \ll 1
 	\end{cases}
 \]
-where our nodes are defined as the pairs $ \mathbf{x}_i = (x_i, y_i) $ for $ i = 1, 2, \ldots, n $. Then, if we plug these nodes into the collocation matrix above, we can expand $ A $ in $ \kappa $ as
+where our nodes are defined as the pairs $ \mathbf{x}_i = (x_i, y_i) $ for $ i = 1, 2, \ldots, n $. Then, if we plug these nodes into the collocation matrix above, we can expand $ A $ in $ \kappa $ about $ \kappa = 0 $ as
 \begin{equation}
 	A = A_0 + \kappa A_1 + \kappa^2 A_2 + \cdots. \label{pert:A}
 \end{equation}
