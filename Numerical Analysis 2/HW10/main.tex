@@ -1,0 +1,227 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.5in,right=0.5in,top=0.75in,bottom=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{pgfplots,graphicx,calc,changepage}
+\pgfplotsset{compat=newest}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[colorlinks = true, linkcolor = blue]{hyperref}
+
+% Syntax highlighting
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0.40,0.62,0.07}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0.09,0.57,0.73}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codeblue},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                     
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=mystyle}
+
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+	sensitive=true,%
+	alsoother={$},%
+	morecomment=[l]\#,%
+	morecomment=[n]{\#=}{=\#},%
+	morestring=[s]{"}{"},%
+	morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\newcommand{\nats}{\mathbb{N}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\rats}{\mathbb{Q}}
+\newcommand{\ints}{\mathbb{Z}}
+\newcommand{\comps}{\mathbb{C}}
+\newcommand{\pols}{\mathcal{P}}
+\newcommand{\cants}{\Delta\!\!\!\!\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\st}{\backepsilon}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\dom}[1]{\mathrm{dom}\left(#1\right)}
+\newcommand{\for}{\text{ for }}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\spn}{\mathrm{sp}}
+\newcommand{\nul}{\mathcal{N}}
+\newcommand{\col}{\mathrm{col}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\renewcommand{\and}{\text{ and }}
+
+\newsavebox{\qed}
+\newenvironment{proof}[2][$\square$]
+    {\setlength{\parskip}{0pt}\par\textit{Proof:} #2\setlength{\parskip}{0.25cm}
+        \savebox{\qed}{#1}
+        \begin{adjustwidth}{\widthof{Proof:}}{}
+    }
+    {
+        \hfill\usebox{\qed}\end{adjustwidth}
+    }
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{Caleb Jacobs}
+\chead{APPM 5610: Numerical Analysis II}
+\rhead{Homework \#9}
+\cfoot{}
+\setlength{\headheight}{35pt}
+\setlength{\parskip}{0.25cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\begin{enumerate}[label = (\arabic*)]
+	\item Solve the Poisson's equation
+	\[
+		\Delta u = f
+	\]
+	on the square $ (x,y) : 0 \leq x,y \leq 1 $ with homogeneous Dirichlet boundary conditions. Assume that the function $ f $ is well approximated by
+	\[
+		f(x,y) = \sum_{m = 1}^{N} \sum_{n = 1}^{N} \alpha_{mn} \sin(m \pi x) \sin(n \pi x).
+	\]
+	Choose an appropriate discretization for $ f(x,y) $ and organize your computations to use the Fast Fourier Transform (FFT). Verify your results on several examples.
+	
+	First, let's assume that we can approximate $ u $ by
+	\[
+		u(x,y) = \sum_{m = 1}^N \sum_{n = 1}^N \beta_{mn} \sin(m \pi x) \sin(n \pi x).
+	\]
+	Then,
+	\[
+		\Delta u =  \sum_{m = 1}^N \sum_{n = 1}^N -\pi^2(m^2 + n^2) \beta_{mn} \sin(m \pi x) \sin(n \pi x).
+	\]
+	Plugging this approximation for the Laplacian into our PDE yields
+	\[
+		\sum_{m = 1}^N \sum_{n = 1}^N -\pi^2(m^2 + n^2) \beta_{mn} \sin(m \pi x) \sin(n \pi x) = 
+		\sum_{m = 1}^N \sum_{n = 1}^N \alpha_{mn} \sin(m \pi x) \sin(n \pi x)
+	\]
+	which implies we can compute $ \beta_{mn} $ as 
+	\[
+		\beta_{mn} = - \frac{\alpha_{mn}}{\pi^2(m^2 + n^2)}
+	\]
+	where $ \alpha_{mn} $ can be found using the Discrete Fourier Sine Transform (DST) which relies on the FFT. Then, we can find $ \beta_{mn} $ using the found $ \alpha_{mn} $ and then apply the inverse DST to recover our solution to high orders of accuracy. 
+	
+	My code for the above procedure can be found at the end of the document. My code uses FFTW to perform the DST and inverse DST of which I had to implement a normalization when applying the inverse. 
+	
+	A visual comparison between my code and Mathematica's numerical solution can be found on the next page.
+	
+	\newpage
+	\begin{enumerate}[label = (\alph*)]
+		\item $ f(x,y) = -xy(x-1)(y - 1) $
+		
+		\item $ f(x,y) = \sin(6 \pi x)\sin(2 \pi y) $
+		
+		\item $ f(x,y) = 10000 x y (x - 1) (y - 1) \cdot J_0\left (20\left (x^2 + y^2 \right) \right) $ 
+		
+		where $ J_0 $ is the Bessel function of the first kind of order zero.
+		
+		\item $ 10^4\; \triangle(6 \max (\abs{\sqrt{x} - 0.5} , \abs{y^2 - 0.5} )) $
+		
+		where $ \triangle(x) $ is the triangle wave of period 1.
+	\end{enumerate}
+	
+	\newpage
+	\item Let $ \partial \Omega $ be the ellipse $ x^2/a^2 + y^2/b^2 = 1 $. Consider the boundary value problem
+	\[
+		\begin{cases}
+			\Delta u = 1, & (x,y) \in \Omega \\
+			u = x^4 + y^4, & (x,y) \in \partial\Omega
+		\end{cases}.
+	\]
+	\begin{enumerate}[label = (\alph*)]
+		\item Reduce the problem to that with homogeneous boundary conditions.
+		
+		To impose homogeneous boundary conditions on our problem, let's make the change of variables
+		\[
+			u(x,y) = v(x,y) + (x^4 + y^4)
+		\]
+		with the constraint that $ v(x,y) = 0 $ for $ (x,y) \in \partial\Omega $. Then, on the boundary $ \partial\Omega $, we have
+		\[
+			u|_{(x,y)\in \partial\Omega} = v|_{(x,y) \in \partial\Omega} + x^4 + y^4 = x^4 + y^4
+		\]
+		which implies
+		\[
+			v|_{(x,y)\in \partial\Omega} = 0.
+		\]
+		Furthermore, our PDE becomes
+		\[
+			\Delta u = \Delta v + 12(x^2 + y^2) = 1
+		\]
+		or in other words,
+		\[
+			\Delta v = 1 - 12(x^2 + y^2).
+		\]
+		So we can repose our problem as
+		\[
+			\boxed{\begin{cases}
+				\Delta v = 1 - 12(x^2 + y^2), & (x,y) \in \Omega \\
+				v = 0, & (x,y) \in \partial\Omega
+			\end{cases}}
+		\]
+		with the original solution defined  as $ u(x,y) = v + (x^4 + y^4) $.
+		
+		\item Reduce the problem to the Dirichlet problem for the Laplace equation.
+		
+		Our goal for this problem is to make a change of variables such that the Laplacian of our change of variables will kill the forcing term on the RHS of our PDE. There are many possibilities we could choose but I will pick the semi-symmetric change of variables
+		\[
+			u = v + \frac{x^2 + y^2}{4}.
+		\]
+		In this case, our PDE becomes
+		\[
+			\Delta u = \Delta v + 1 = 1
+		\]
+		which implies
+		\[
+			\Delta = 0.
+		\]
+		Furthermore, for $ (x,y) \in \partial \Omega $, we have
+		\[
+			u = v + \frac{x^2 + y^2}{4} = x^4 + y^4
+		\]
+		which implies
+		\[
+			v = x^4 - \frac{x^2 + y^2}{4} + y^4
+		\]
+		on the boundary. So, we can repose our BVP as
+		\[
+			\boxed{\begin{cases}
+				\Delta v = 0, & (x,y) \in \Omega \\
+				v = x^4 - \dfrac{x^2 + y^2}{4} + y^4, & (x,y) \in \partial\Omega
+			\end{cases}}
+		\]
+		with the original solution defined as $ u(x,y) = v + \frac{x^2 + y^2}{4} $.
+	\end{enumerate}
+\end{enumerate}
+
+\newpage
+\section*{Code Used}
+
+\emph{Note: some of the symbols are missing in my code snippet because \LaTeX\ does not support all unicode characters.}
+
+\vspace{-0.5cm}
+\rule{\textwidth}{.4pt}
+\lstinputlisting[language = Julia]{Code/Poisson_FFT.jl}
+\rule{\textwidth}{.4pt}
+\end{document}
