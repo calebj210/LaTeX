@@ -85,7 +85,7 @@
     	\underbrace{\pmat{
     			\phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_1 - \mathbf{x}_n}) \\
     			\phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_2 - \mathbf{x}_n}) \\
-    			\vdots & \vdots & \ddots & \vdots \\
+    			\vdots & \vdots & \ddots & \vdots \\ 
     			\phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_1}) & \phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_2}) & \cdots & \phi_\eps (\norm{\mathbf{x}_n - \mathbf{x}_n})
     	}}_{A} \underbrace{\pmat{
     			\lambda_1 \\ \lambda_2 \\ \vdots \\ \lambda_n
@@ -144,14 +144,14 @@
 				\mathbf{x}_i = \left\langle x_i, y_i, \sqrt{\frac{1}{\kappa^2} - r_i^2} - \frac{1}{\kappa}\right\rangle, \quad r_i = \sqrt{x_i^2 + y_i^2}.
 			\]
 			This is just data over a sphere with curvature $ \kappa $ with the top of the sphere at the origin:
-			\only<1>{\[
+			\only<1>{\vspace{-0.75cm}
+				\begin{figure}[h!]
+					\centering
+					\includegraphics[width = 0.75\textwidth]{Images/Curves.png}
+			\end{figure}}
+			\only<2>{\[
 				x_i^2 + y_i^2 + (z_i + 1 / \kappa)^2 = \frac{1}{\kappa^2}
 			\]}
-			\only<2>{\vspace{-0.75cm}
-			\begin{figure}[h!]
-				\centering
-				\includegraphics[width = 0.75\textwidth]{Images/Curves.png}
-			\end{figure}}
 		\onslide<3-4>
 			\[
 				\mathbf{x}_i = \left\langle x_i, y_i, \sqrt{\frac{1}{\kappa^2} - r_i^2} - \frac{1}{\kappa}\right\rangle, \quad r_i = \sqrt{x_i^2 + y_i^2}.
@@ -194,7 +194,8 @@
 				Note, $ A_0 $ is just the standard collocation matrix if our data was on a flat surface. We know
 				\begin{itemize}
 					\item $ A_0 $ is nonsingular for $ \eps \in \reals, \eps \neq 0 $,
-					\item $ A_0 $ is symmetric.
+					\item $ A_0 $ is symmetric \cite{rbf},
+					\item RBF-RA is able to stably work with $ A_0 $.
 				\end{itemize}
 			}
 	\end{overprint}
@@ -224,7 +225,7 @@
 	\onslide<3->{
 		So in general, 
 		\[
-			\pmb{\lambda}_n = -A_0^{-1} (A_1\pmb{\lambda}_{n - 1} + A_2 \pmb{\lambda}_{n - 2} + \cdots + A_n \pmb{\lambda}_0)
+			\pmb{\lambda}_n = -A_0^{-1} (A_1\pmb{\lambda}_{n - 1} + A_2 \pmb{\lambda}_{n - 2} + \cdots + A_n \pmb{\lambda}_0).
 		\]
 	}
 \end{frame}
@@ -233,30 +234,30 @@
 
 \begin{frame}
 	\frametitle{Remarks}
-	Putting everything together, our interpolation weights can be written as
-	\begin{align*}
-		\pmb{\lambda} &= \pmb{\lambda}_0 + \kappa^2 \pmb{\lambda}_1 + \cdots \\
-		\pmb{\lambda}_n &= -A_0^{-1} (A_1\pmb{\lambda}_{n - 1} + A_2 \pmb{\lambda}_{n - 2} + \cdots + A_n \pmb{\lambda}_0)
-	\end{align*}
-	\pause \textbf{Remarks} \pause
-	\begin{itemize}
-		\item<3-> This shows that $ \pmb{\lambda} $ is asymptotically well behaved when $ \kappa \to 0 $. So ideally, RBF-RA ought to not break in this limit.
-		\item<4-> We can use this asymptotic expansion to bypass the small curvature issue in RBF-RA.
-	\end{itemize}
+	\begin{overprint}
+		Putting everything together, our interpolation weights can be written as
+		\begin{align*}
+			\pmb{\lambda} &= \pmb{\lambda}_0 + \kappa^2 \pmb{\lambda}_1 + \cdots \\
+			\pmb{\lambda}_n &= -A_0^{-1} (A_1\pmb{\lambda}_{n - 1} + A_2 \pmb{\lambda}_{n - 2} + \cdots + A_n \pmb{\lambda}_0)
+		\end{align*}
+		\onslide<2-3>
+		\textbf{Remarks}
+		\begin{itemize}
+			\item<2-> This shows that $ \pmb{\lambda} $ is asymptotically well behaved when $ \kappa \to 0 $. So ideally, RBF-RA ought to not break in this limit.
+			\item<3-> We can use this asymptotic expansion to bypass the small curvature issue in RBF-RA.
+		\end{itemize}
+		\onslide<4-5>
+			\textbf{Modified RBF-RA Algorithm}
+			\begin{enumerate}[label = (\alph*)]
+				\item Compute $ \kappa $ estimate of data using desired algorithm
+				\item Use RBF-RA to stably compute needed $ \pmb{\lambda}_i $
+				\item Compute $ \pmb{\lambda} $ using $ \pmb{\lambda} = \pmb{\lambda}_0 + \kappa^2 \pmb{\lambda}_1 + \cdots $ up to desired term.
+			\end{enumerate}
+			\onslide<5>{
+				Patching an algorithm like this is not ideal. Instead, we would like to understand why the algorithm breaks and then fix the algorithm at the fundamental level.
+			}
+	\end{overprint}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Patched RBF-RA}
-	The modified RBF-RA algorithm is highlighted below
-	\begin{enumerate}[label = (\alph*)]
-		\item Compute $ \kappa $ estimate of data using desired algorithm
-		\item Use RBF-RA to stably compute needed $ \pmb{\lambda}_i $
-		\item Compute $ \pmb{\lambda} $ using $ \pmb{\lambda} = \pmb{\lambda}_0 + \kappa^2 \pmb{\lambda}_1 + \cdots $ up to desired term.
-	\end{enumerate}
-	\pause
-	Patching an algorithm like this is not ideal. Instead, we would like to understand why the algorithm breaks and then fix the algorithm at the fundamental level.
-\end{frame}
-
 
 \section{What's Next}
 

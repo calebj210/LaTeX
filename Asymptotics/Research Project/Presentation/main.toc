@@ -6,4 +6,4 @@
 \beamer@subsectionintoc {3}{1}{A perturbation problem}{23}{0}{2}
 \beamer@subsectionintoc {3}{2}{Perturbed solution}{32}{0}{2}
 \beamer@subsectionintoc {3}{3}{Solution remarks}{36}{0}{2}
-\beamer@sectionintoc {4}{What's Next}{43}{0}{3}
+\beamer@sectionintoc {4}{What's Next}{42}{0}{3}

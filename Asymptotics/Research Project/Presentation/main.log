@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.13.2 (TeX Live 2021/Arch Linux)  (format=lualatex 2022.4.17)  24 APR 2022 22:54
+This is LuaHBTeX, Version 1.13.2 (TeX Live 2021/Arch Linux)  (format=lualatex 2022.4.17)  25 APR 2022 08:21
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -2048,112 +2048,112 @@ Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 136.
  [23
 
 ]
-File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
-<use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 201.
-(luatex.def)             Requested size: 71.03908pt x 17.07182pt.
- [24
-
-]
-<Images/Curves.png, id=272, 1132.23pt x 347.84158pt>
+<Images/Curves.png, id=265, 1132.23pt x 347.84158pt>
 File: Images/Curves.png Graphic file (type png)
 <use Images/Curves.png>
-Package luatex.def Info: Images/Curves.png  used on input line 201.
+Package luatex.def Info: Images/Curves.png  used on input line 202.
 (luatex.def)             Requested size: 298.75394pt x 91.7795pt.
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 201.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 202.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
- [25
+ [24
 
 <./Images/Curves.png>]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 201.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 202.
+(luatex.def)             Requested size: 71.03908pt x 17.07182pt.
+ [25
+
+]
+File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
+<use Images/Logos/CU_One_Line.pdf>
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 202.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [26
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 201.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 202.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [27
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 201.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 202.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [28
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 201.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 202.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [29
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 201.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 202.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [30
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 201.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 202.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [31
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 203.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 204.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [32
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 230.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 231.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [33
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 230.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 231.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [34
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 230.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 231.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [35
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 232.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 233.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [36
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 246.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 260.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [37
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 246.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 260.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
 
 [38
@@ -2161,78 +2161,70 @@ Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 246.
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 246.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 260.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [39
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 246.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 260.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [40
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 258.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 260.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [41
 
 ]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 258.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 262.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [42
 
 ]
-File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
-<use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 261.
-(luatex.def)             Requested size: 71.03908pt x 17.07182pt.
- [43
-
-]
-<Images/Conditioning.png, id=415, 1529.04584pt x 777.40907pt>
+<Images/Conditioning.png, id=416, 1529.04584pt x 777.40907pt>
 File: Images/Conditioning.png Graphic file (type png)
 <use Images/Conditioning.png>
-Package luatex.def Info: Images/Conditioning.png  used on input line 269.
+Package luatex.def Info: Images/Conditioning.png  used on input line 270.
 (luatex.def)             Requested size: 298.75394pt x 151.88478pt.
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 269.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 270.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
- [44
+ [43
 
 <./Images/Conditioning.png>]
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 281.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 282.
+(luatex.def)             Requested size: 71.03908pt x 17.07182pt.
+ [44
+
+]
+File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
+<use Images/Logos/CU_One_Line.pdf>
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 296.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [45
 
-]
+] (./main.bbl)
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 295.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 302.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
- [46
+[46
 
 ]
-(./main.bbl)
 File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
 <use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 301.
+Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 310.
 (luatex.def)             Requested size: 71.03908pt x 17.07182pt.
  [47
-
-]
-File: Images/Logos/CU_One_Line.pdf Graphic file (type pdf)
-<use Images/Logos/CU_One_Line.pdf>
-Package luatex.def Info: Images/Logos/CU_One_Line.pdf  used on input line 309.
-(luatex.def)             Requested size: 71.03908pt x 17.07182pt.
- [48
 
 ]
 \tf@nav=\write6
@@ -2250,15 +2242,15 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 43554 strings out of 477800
+ 43543 strings out of 477800
  125031,1373583 words of node,token memory allocated
  1633 words of node memory still in use:
    16 hlist, 6 vlist, 2 rule, 1 disc, 2 local_par, 24 glue, 12 kern, 9 penalty, 
 23 glyph, 118 attribute, 81 glue_spec, 118 attribute_list, 5 write, 5 pdf_colors
 tack nodes
-   avail lists: 1:1,2:1053,3:277,4:282,5:583,6:45,7:2385,8:128,9:987,10:17,11:15
+   avail lists: 1:1,2:1053,3:277,4:282,5:587,6:45,7:2493,8:128,9:987,10:17,11:15
 6
- 61938 multiletter control sequences out of 65536+600000
+ 61935 multiletter control sequences out of 65536+600000
  106 fonts using 23236271 bytes
  142i,18n,144p,1803b,988s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf></usr/shar
@@ -2275,10 +2267,10 @@ msfonts/cm/cmss10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss
 re/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/publi
 c/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (48 pages, 943676 bytes).
+Output written on main.pdf (47 pages, 942748 bytes).
 
-PDF statistics: 524 PDF objects out of 1000 (max. 8388607)
- 433 compressed objects within 5 object streams
- 110 named destinations out of 1000 (max. 131072)
+PDF statistics: 525 PDF objects out of 1000 (max. 8388607)
+ 429 compressed objects within 5 object streams
+ 108 named destinations out of 1000 (max. 131072)
  96 words of extra memory for PDF output out of 10000 (max. 100000000)
 
