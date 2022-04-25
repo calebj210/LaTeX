@@ -1,0 +1,9 @@
+\beamer@sectionintoc {2}{Introduction/Background}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{Radial Basis Functions}{4}{0}{1}
+\beamer@subsectionintoc {2}{2}{RBF Interpolants}{8}{0}{1}
+\beamer@subsectionintoc {2}{3}{Solving $ A \pmb {\lambda } = \pmb {F} $}{12}{0}{1}
+\beamer@sectionintoc {3}{Enter Asymptotics!}{22}{0}{2}
+\beamer@subsectionintoc {3}{1}{A perturbation problem}{23}{0}{2}
+\beamer@subsectionintoc {3}{2}{Perturbed solution}{32}{0}{2}
+\beamer@subsectionintoc {3}{3}{Solution remarks}{36}{0}{2}
+\beamer@sectionintoc {4}{What's Next}{43}{0}{3}

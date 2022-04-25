@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{rbf}
+{\sc B.~Fornberg and N.~Flyer}, {\em A primer on radial basis functions with
+  applications to the geosciences}, vol.~87 of {CBMS-NSF} regional conference
+  series in applied mathematics, {SIAM}, 2015.
+
+\bibitem{hinch}
+{\sc E.~J. Hinch}, {\em Perturbation Methods}, Cambridge Texts in Applied
+  Mathematics, Cambridge University Press, 1991.
+
+\bibitem{rbf-ra}
+{\sc G.~B. Wright and B.~Fornberg}, {\em Stable computations with flat radial
+  basis functions using vector-valued rational approximations}, Journal of
+  Computational Physics, 331 (2017), pp.~137--156.
+
+\end{thebibliography}
