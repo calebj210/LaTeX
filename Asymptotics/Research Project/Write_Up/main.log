@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.13.2 (TeX Live 2021/Arch Linux)  (format=lualatex 2022.4.17)  26 APR 2022 17:52
+This is LuaHBTeX, Version 1.13.2 (TeX Live 2021/Arch Linux)  (format=lualatex 2022.4.17)  27 APR 2022 01:56
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -778,32 +778,32 @@ File: l3backend-luatex.def 2022-02-07 L3 backend support: PDF output (LuaTeX)
 ) (./main.aux)
 \openout1 = main.aux
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 76.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 7
-6.
+7.
 
 (/usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: luatex
@@ -867,7 +867,7 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 76.
+Package hyperref Info: Link coloring ON on input line 77.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 
@@ -879,20 +879,20 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count326
 )
-LaTeX Info: Redefining \ref on input line 76.
-LaTeX Info: Redefining \pageref on input line 76.
-LaTeX Info: Redefining \nameref on input line 76.
+LaTeX Info: Redefining \ref on input line 77.
+LaTeX Info: Redefining \pageref on input line 77.
+LaTeX Info: Redefining \nameref on input line 77.
 
 (./main.out) (./main.out)
 \@outlinefile=\write4
 
 \openout4 = main.out
-LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
 
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -900,137 +900,145 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<Images/Nodes.png, id=68, 1554.47417pt x 459.28598pt>
+<Images/Nodes.png, id=76, 1554.47417pt x 459.28598pt>
 File: Images/Nodes.png Graphic file (type png)
 <use Images/Nodes.png>
-Package luatex.def Info: Images/Nodes.png  used on input line 161.
+Package luatex.def Info: Images/Nodes.png  used on input line 162.
 (luatex.def)             Requested size: 407.66833pt x 120.44873pt.
  [3<./Images/Nodes.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 190.
+(hyperref)                removing `math shift' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\setbox' on input line 190.
+(hyperref)                removing `\setbox' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 190.
+(hyperref)                removing `\z@' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\hbox' on input line 190.
+(hyperref)                removing `\hbox' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\kappa' on input line 190.
+(hyperref)                removing `\kappa' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\to' on input line 190.
+(hyperref)                removing `\to' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\dimen@' on input line 190.
+(hyperref)                removing `\dimen@' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\wd' on input line 190.
+(hyperref)                removing `\wd' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 190.
+(hyperref)                removing `\z@' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \kern -0.6199pt
-(hyperref)                removed on input line 190.
+(hyperref)                removed on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\copy' on input line 190.
+(hyperref)                removing `\copy' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 190.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                \kern 24.88pt
-(hyperref)                replaced by space on input line 190.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                \kern 0.30995pt
-(hyperref)                removed on input line 190.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\raise' on input line 190.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\ex@' on input line 190.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\copy' on input line 190.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 190.
+(hyperref)                removing `\z@' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \kern 24.88pt
-(hyperref)                replaced by space on input line 190.
+(hyperref)                replaced by space on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                \kern 0.30995pt
-(hyperref)                removed on input line 190.
+(hyperref)                removed on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\box' on input line 190.
+(hyperref)                removing `\raise' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\z@' on input line 190.
+(hyperref)                removing `\ex@' on input line 191.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 190.
-
-[4] (./main.bbl) [5]
-
-LaTeX Warning: Reference `func:interp' on page 6 undefined on input line 257.
+(hyperref)                removing `\copy' on input line 191.
 
 
-LaTeX Warning: Reference `equ:pert' on page 6 undefined on input line 272.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\z@' on input line 191.
 
-[6] (./main.aux)
 
-LaTeX Warning: There were undefined references.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 24.88pt
+(hyperref)                replaced by space on input line 191.
 
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                \kern 0.30995pt
+(hyperref)                removed on input line 191.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\box' on input line 191.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\z@' on input line 191.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 191.
+
+[4] [5]
+<Images/Eigen.png, id=136, 1263.38667pt x 866.56458pt>
+File: Images/Eigen.png Graphic file (type png)
+<use Images/Eigen.png>
+Package luatex.def Info: Images/Eigen.png  used on input line 299.
+(luatex.def)             Requested size: 226.48395pt x 155.3402pt.
+ [6<./Images/Eigen.png>]
+<Images/Conditioning.png, id=155, 1502.27916pt x 641.64954pt>
+File: Images/Conditioning.png Graphic file (type png)
+<use Images/Conditioning.png>
+Package luatex.def Info: Images/Conditioning.png  used on input line 322.
+(luatex.def)             Requested size: 407.66833pt x 174.11906pt.
+ [7<./Images/Conditioning.png>]
+<Images/Toy_Conditioning.png, id=164, 1330.30333pt x 580.86168pt>
+File: Images/Toy_Conditioning.png Graphic file (type png)
+<use Images/Toy_Conditioning.png>
+Package luatex.def Info: Images/Toy_Conditioning.png  used on input line 360.
+(luatex.def)             Requested size: 407.66833pt x 178.00012pt.
+ [8<./Images/Toy_Conditioning.png>] (./main.bbl) [9] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 550CBAB543C31BE26694B76AA059A94A;714.
+(rerunfilecheck)             Checksum: 25807BCBD816C1AA9DDD957206B5971E;1199.
 )
 
 Here is how much of LuaTeX's memory you used:
- 33997 strings out of 477800
+ 34062 strings out of 477800
  125007,1373583 words of node,token memory allocated
- 649 words of node memory still in use:
-   7 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 33 attribute, 61 glue_spec
-, 33 attribute_list, 2 write nodes
-   avail lists: 1:1,2:839,3:221,4:87,5:654,6:49,7:11113,8:61,9:1069,10:12,11:669
-
- 53542 multiletter control sequences out of 65536+600000
- 90 fonts using 6212559 bytes
- 99i,16n,98p,735b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share
-/texmf-dist/fonts/opentype/public/lm/lmromancaps10-regular.otf></usr/share/texmf
+ 738 words of node memory still in use:
+   7 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 54 attribute, 62 glue_spec
+, 54 attribute_list, 2 write nodes
+   avail lists: 1:1,2:797,3:224,4:92,5:641,6:65,7:11130,8:116,9:1067,10:14,11:68
+3
+ 53574 multiletter control sequences out of 65536+600000
+ 88 fonts using 5949183 bytes
+ 99i,16n,98p,798b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/opentype/public/lm/lmromancaps10-regular.otf></usr/
+share/texmf-dist/fonts/opentype/public/lm/lmroman10-italic.otf></usr/share/texmf
 -dist/fonts/opentype/public/lm/lmroman12-bold.otf></usr/share/texmf-dist/fonts/o
 pentype/public/lm/lmroman10-regular.otf></usr/share/texmf-dist/fonts/opentype/pu
 blic/lm/lmroman10-bold.otf></usr/share/texmf-dist/fonts/opentype/public/lm/lmrom
@@ -1046,11 +1054,12 @@ e1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><
 /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (6 pages, 317705 bytes).
+1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
+s/symbols/msbm10.pfb>
+Output written on main.pdf (9 pages, 1501513 bytes).
 
-PDF statistics: 200 PDF objects out of 1000 (max. 8388607)
- 150 compressed objects within 2 object streams
- 25 named destinations out of 1000 (max. 131072)
- 40 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 272 PDF objects out of 1000 (max. 8388607)
+ 214 compressed objects within 3 object streams
+ 40 named destinations out of 1000 (max. 131072)
+ 56 words of extra memory for PDF output out of 10000 (max. 100000000)
 
